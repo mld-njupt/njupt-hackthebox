@@ -1,0 +1,53 @@
+$HEADER_COLOR: #263143;
+$BACKUP_COLOR: #141d2b;
+$LOGIN_BACK_COLOR: #1a2332;
+$MENU_COLOR: #111927;
+$MENU_FOCUS_COLOR: #263143;
+$SPECIAL_FONT_COLOR: #9fef00;
+$COMMON_FONT_COLOR: #a4b1cd;
+$LIGHT_FONT_COLOR: #fff;
+$WARNING_FONT_COLOR: #ff3e3e;
+html {
+  -ms-text-size-adjust: none;
+  -webkit-text-size-adjust: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+html * {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-overflow-scrolling: touch;
+}
+
+ul,
+ul li {
+  padding: 0;
+  margin-left: 0;
+  list-style-type: none;
+}
+
+p {
+  -webkit-margin-before: 0;
+  -webkit-margin-after: 0;
+  -webkit-margin-start: 0;
+  -webkit-margin-end: 0;
+}
+a:link {
+  color: $COMMON_FONT_COLOR;
+  text-decoration: none;
+}
+a:visited {
+  color: $COMMON_FONT_COLOR;
+  text-decoration: none;
+}
