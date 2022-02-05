@@ -3,6 +3,7 @@ import loadable from "@loadable/component";
 import { Spin } from "@arco-design/web-react";
 function load(fn: Function, options: Object): any {
   const Component = loadable(fn, options);
+  // console.log(Component);
   return Component;
 }
 function loadingComponent() {
@@ -12,7 +13,7 @@ function loadingComponent() {
     </div>
   );
 }
-export default (loader: Function) => {
+export default (loader: Function): any => {
   load(loader, {
     fallback: loadingComponent(),
   });
