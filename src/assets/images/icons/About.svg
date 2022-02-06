@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 59.1 (86144) - https://sketch.com -->
+    <title>ic-support</title>
+    <desc>Created with Sketch.</desc>
+    <g id="ic-support" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+        <g id="Group-2" stroke="#A4B1CD" stroke-width="1.2">
+            <path d="M9,10 C9.00029133,8.47442919 10.1454538,7.19201013 11.6612688,7.01975736 C13.1770839,6.8475046 14.5807925,7.84027747 14.9233788,9.32688466 C15.2659652,10.8134919 14.438322,12.3204764 13,12.829 C12.4004081,13.0409876 11.9996666,13.6080369 12,14.244 L12,14.5" id="Shape"></path>
+            <path d="M12,17.5 C11.7928932,17.5 11.625,17.6678932 11.625,17.875 C11.625,18.0821068 11.7928932,18.25 12,18.25 C12.2071068,18.25 12.375,18.0821068 12.375,17.875 C12.375,17.6678932 12.2071068,17.5 12,17.5 L12,17.5" id="Shape"></path>
+            <g id="information-circle">
+                <circle id="Oval" cx="12" cy="12" r="11.25"></circle>
+            </g>
+        </g>
+    </g>
+</svg>

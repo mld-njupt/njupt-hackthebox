@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 59.1 (86144) - https://sketch.com -->
+    <title>Interface-Essential / Tags/Bookmarks / tags</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Interface-Essential-/-Tags/Bookmarks-/-tags" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+        <g id="Group" stroke="#A4B1CD">
+            <g id="tags">
+                <path d="M23.5,15.223 L15.722,23 C15.5344317,23.187777 15.2799092,23.2932867 15.0145,23.2932867 C14.7490908,23.2932867 14.4945683,23.187777 14.307,23 L1.215,9.908 C0.791247456,9.43598963 0.541454641,8.8333821 0.507,8.2 L0.5,1.707 C0.5,1.15471525 0.94771525,0.707 1.5,0.707 L7.992,0.707 C8.62536603,0.740699347 9.22811153,0.99019646 9.7,1.414 L23.5,15.223 Z" id="Shape"></path>
+                <circle id="Oval" cx="5.5" cy="5.707" r="2"></circle>
+            </g>
+        </g>
+    </g>
+</svg>
