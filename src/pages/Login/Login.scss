@@ -13,7 +13,9 @@
     font-size: 32px;
     // color: $LIGHT_FONT_COLOR;
     color: $LIGHT_FONT_COLOR;
-    font-family: leslie;
+    font-family: Inter, -apple-system, BlinkMacSystemFont, PingFang SC,
+      Hiragino Sans GB, noto sans, Microsoft YaHei, Helvetica Neue, Helvetica,
+      Arial, sans-serif;
   }
   .login-wrap {
     display: flex;
@@ -55,6 +57,9 @@
         color: $LIGHT_FONT_COLOR;
         width: 100%;
       }
+      .input-focus {
+        color: $SPECIAL_FONT_COLOR;
+      }
     }
     .login-alive-forget {
       margin-top: 30px;
@@ -79,7 +84,7 @@
       color: $BACKUP_COLOR;
       cursor: pointer;
       text-align: center;
-      font-size: 12px;
+      font-size: 20px;
       height: 56px;
       line-height: 56px;
       border-radius: 4px;

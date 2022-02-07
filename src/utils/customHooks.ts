@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from "react";
-import { fetch } from "./interfaces";
-export const useFetch = ({ url, body, query, method }: fetch) => {
+import { fetchInterface } from "./interfaces";
+export const useFetch = ({ url, body, query, method }: fetchInterface) => {
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
