@@ -1,7 +1,7 @@
 const Obout = () => {
   return (
-    <div className="obout-warp">
-      <div>this is Obout</div>
+    <div className="about-warp">
+      <div>this is About</div>
     </div>
   );
 };

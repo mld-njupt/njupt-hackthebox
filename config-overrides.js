@@ -1,4 +1,4 @@
-const { override, overrideDevServer } = require("customize-cra");
+const { override, overrideDevServer, addLessLoader } = require("customize-cra");
 // compression-webpack-plugin 压缩js为gzip
 const CompressionWebpackPlugin = require("compression-webpack-plugin");
 //打包配置
@@ -9,7 +9,6 @@ const addCutomize = () => (config) => {
       test: /\.svg$/,
       use: ["@svgr/webpack"],
     },
-
     ...config.module.rules[oneOf_loc].oneOf,
   ];
   if (process.env.NODE_ENV === "production") {
@@ -40,6 +39,15 @@ const addProxy = () => (config) => {
   return config;
 };
 module.exports = {
-  webpack: override(addCutomize()),
+  webpack: override(
+    addCutomize(),
+    addLessLoader({
+      modifyVars: {
+        // 在less-loader@6 modifyVars 配置被移到 lessOptions 中
+        "arcoblue-6": "159,239,0",
+      },
+      javascriptEnabled: true,
+    })
+  ),
   devServer: overrideDevServer(addProxy()),
 };
