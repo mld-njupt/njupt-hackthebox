@@ -1,8 +1,8 @@
-const Onlie = () => {
+const Online = () => {
   return (
-    <div className="onlie-warp">
-      <div>this is Onlie</div>
+    <div className="online-warp">
+      <div>this is Online</div>
     </div>
   );
 };
-export default Onlie;
+export default Online;

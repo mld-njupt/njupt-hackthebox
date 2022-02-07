@@ -29,19 +29,11 @@ const Home = () => {
         }}
       >
         <Header style={{ height: "62px" }}>
-          <div className="logo" />
-          Header
+          <div className="logo">0xGame & X1cT34m.com</div>
         </Header>
         <Layout>
           <Sider breakpoint="xl">
-            <Menu
-              defaultOpenKeys={["1"]}
-              defaultSelectedKeys={["0_3"]}
-              onClickMenuItem={(key) =>
-                Message.info({ content: `You select ${key}`, showIcon: true })
-              }
-              style={{ width: "100%" }}
-            >
+            <Menu defaultSelectedKeys={["Dashboard"]} style={{ width: "100%" }}>
               <MenuItem
                 key="Dashboard"
                 style={{ display: "flex", alignItems: "center" }}

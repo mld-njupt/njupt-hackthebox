@@ -1,8 +1,6 @@
+@import "./assets/styles/index.scss";
 canvas {
   width: 100%;
   height: 100vh;
   display: block;
-}
-.App {
-  @import "./assets/styles/index.scss";
 }

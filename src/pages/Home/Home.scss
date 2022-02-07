@@ -4,6 +4,11 @@
     .arco-layout-header {
       background-color: $HEADER_COLOR;
       .logo {
+        line-height: 62px;
+        color: #fff;
+        font-size: 24px;
+        padding-left: 10px;
+        margin-left: 5px;
       }
     }
   }
