@@ -11,5 +11,21 @@
         margin-left: 5px;
       }
     }
+    .arco-layout-sider {
+      background-color: $MENU_COLOR;
+      .arco-menu {
+        background-color: $MENU_COLOR;
+        .arco-menu-item {
+          background-color: $MENU_COLOR;
+        }
+        .arco-menu-selected {
+          color: $SPECIAL_FONT_COLOR !important;
+          background-color: $MENU_FOCUS_COLOR;
+        }
+      }
+    }
+    .arco-layout-content {
+      background-color: $BACKUP_COLOR;
+    }
   }
 }
