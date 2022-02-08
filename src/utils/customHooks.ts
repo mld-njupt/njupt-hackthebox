@@ -6,7 +6,8 @@ export const useFetch = ({ url, body, query, method }: fetchInterface) => {
   const [loading, setLoading] = useState(false);
   const [prevent, setPrevent] = useState(true);
   const abortControllRef = useRef<any>();
-  const BASE_URL = "http://localhost:3000";
+  const BASE_URL =
+    process.env.NODE_ENV === "production" ? "/api" : "http://localhost:3000";
   const request = () => {
     if (prevent) return;
     const abortControll = new AbortController();
