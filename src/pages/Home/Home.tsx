@@ -20,7 +20,6 @@ const Home = () => {
   const navigate = useNavigate();
   const handleCilckMenuItem = (key) => {
     navigate(key);
-    console.log(key);
   };
   return (
     <div className="home-wrap">
@@ -37,7 +36,7 @@ const Home = () => {
         <Layout>
           <Sider breakpoint="xl">
             <Menu
-              defaultSelectedKeys={["Dashboard"]}
+              defaultSelectedKeys={["/dashboard"]}
               style={{ width: "100%" }}
               onClickMenuItem={handleCilckMenuItem}
             >

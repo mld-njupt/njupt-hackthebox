@@ -32,7 +32,7 @@ export const useFetch = ({ url, body, query, method }: fetchInterface) => {
     setData(null);
     setError(null);
     setPrevent(true);
-    fetch(`${BASE_URL}url${queryString}`)
+    fetch(`${BASE_URL}url${queryString}`, options)
       .then((res: any) => {
         res.json();
       })

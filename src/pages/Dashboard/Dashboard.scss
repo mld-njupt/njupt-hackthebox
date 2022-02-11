@@ -1,0 +1,52 @@
+@import "../../assets/styles/index.scss";
+.dashboard-wrap {
+  width: 100%;
+  .dashboard-header {
+    width: 94%;
+    height: 75px;
+    margin-left: 3%;
+    margin-right: 3%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .left {
+      width: 30%;
+      margin-top: 16px;
+      height: 59px;
+      .announcement {
+        padding-right: 10px;
+      }
+    }
+    .right {
+      width: 70%;
+      margin-top: 16px;
+      height: 59px;
+      display: flex;
+      justify-content: space-between;
+      .changelog {
+        padding-left: 24px;
+        border-left: 1px solid #1a2332;
+      }
+    }
+    .header-item {
+      display: flex;
+      flex-direction: column;
+      .title {
+        font-size: 14px;
+        letter-spacing: 1.2px;
+        font-weight: 500;
+        color: $COMMON_FONT_COLOR;
+      }
+      .link-box {
+        margin-top: 10px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        letter-spacing: 0.2px;
+        font-size: 15px;
+        font-weight: 400;
+        color: $LIGHT_FONT_COLOR;
+      }
+    }
+  }
+}
