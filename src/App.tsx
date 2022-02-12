@@ -10,6 +10,8 @@ import Dashboard from "./pages/Dashboard/Dashboard";
 import Online from "./pages/Online/Online";
 import About from "./pages/About/About";
 function App() {
+  document.body.setAttribute("arco-theme", "dark");
+
   // const Login = lazy(() => import("./pages/Login/Login"));
   // const Home = lazy(() => import("./pages/Home/Home"));
   // const Env = lazy(() => import("./pages/Env/Env"));

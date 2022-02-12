@@ -1,5 +1,7 @@
-import { Carousel } from "@arco-design/web-react";
+import { Carousel, Tabs } from "@arco-design/web-react";
 import "./Dashboard.scss";
+const { TabPane } = Tabs;
+
 const Dashboard = () => {
   const carouselImg = [
     "https://www.hackthebox.com/storage/banners/9bf31c7ff062936a96d3c8bd1f8f2ff3.jpg",
@@ -60,14 +62,34 @@ const Dashboard = () => {
             </Carousel>
           </div>
           <div className="userInfo-wrap">
-            <div></div>
+            <div>
+              <div className="icon-wrap">
+                <div className="icon-img">
+                  <div className="icon"></div>
+                </div>
+                <div className="icon-msg"></div>
+              </div>
+            </div>
             <div className="userInfo-item2"></div>
             <div></div>
             <div></div>
-            <div></div>
+            <div className="userInfo-item5"></div>
           </div>
         </div>
-        <div className="bottom-content"></div>
+        <div className="bottom-content">
+          <Tabs defaultActiveTab="1">
+            <TabPane key="1" title="Tab 1">
+              Content of Tab Panel 1
+            </TabPane>
+            <TabPane key="2" title="Tab 2">
+              Content of Tab Panel 2
+            </TabPane>
+            <TabPane key="3" title="Tab 3">
+              Content of Tab Panel 3
+            </TabPane>
+          </Tabs>
+          ,
+        </div>
       </div>
     </div>
   );
