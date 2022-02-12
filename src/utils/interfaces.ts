@@ -8,4 +8,9 @@ interface focusInterface {
   username: boolean;
   password: boolean;
 }
-export type { focusInterface, fetchInterface };
+interface dashboardCardInterface {
+  src: string;
+  title: string;
+  msg: string;
+}
+export type { focusInterface, fetchInterface, dashboardCardInterface };
