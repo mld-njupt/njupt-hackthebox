@@ -1,3 +1,4 @@
+import { Carousel } from "@arco-design/web-react";
 import "./Dashboard.scss";
 const Dashboard = () => {
   const carouselImg = [
@@ -30,6 +31,43 @@ const Dashboard = () => {
             <span className="link-box">586 Players Online</span>
           </div>
         </div>
+      </div>
+      <div className="dashboard-content">
+        <div className="top-content">
+          <div className="carousel-wrap">
+            <Carousel
+              autoPlay
+              animation="fade"
+              showArrow="never"
+              indicatorType="line"
+              style={{
+                width: "100%",
+                height: "100%",
+              }}
+            >
+              {carouselImg.map((src, index) => (
+                <div key={index} style={{ width: "100%" }}>
+                  <img
+                    src={src}
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      borderRadius: "12px",
+                    }}
+                  />
+                </div>
+              ))}
+            </Carousel>
+          </div>
+          <div className="userInfo-wrap">
+            <div></div>
+            <div className="userInfo-item2"></div>
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+        </div>
+        <div className="bottom-content"></div>
       </div>
     </div>
   );
