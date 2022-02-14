@@ -1,4 +1,5 @@
 import { Carousel, Tabs } from "@arco-design/web-react";
+import DashboardCard from "../../components/DashboardCard/DashboardCard";
 import "./Dashboard.scss";
 const { TabPane } = Tabs;
 
@@ -45,6 +46,7 @@ const Dashboard = () => {
               style={{
                 width: "100%",
                 height: "100%",
+                borderRadius: "12px",
               }}
             >
               {carouselImg.map((src, index) => (
@@ -56,6 +58,7 @@ const Dashboard = () => {
                       height: "100%",
                       borderRadius: "12px",
                     }}
+                    alt=""
                   />
                 </div>
               ))}
@@ -78,14 +81,24 @@ const Dashboard = () => {
         </div>
         <div className="bottom-content">
           <Tabs defaultActiveTab="1">
-            <TabPane key="1" title="Tab 1">
-              Content of Tab Panel 1
+            <TabPane key="1" title="概况">
+              <DashboardCard
+                src="https://app.hackthebox.com/files/homepage/startingpoint.svg"
+                title="Starting point"
+                msg="Are you a beginner in hacking? Start here!"
+              ></DashboardCard>
             </TabPane>
-            <TabPane key="2" title="Tab 2">
+            <TabPane key="2" title="推荐">
               Content of Tab Panel 2
             </TabPane>
-            <TabPane key="3" title="Tab 3">
+            <TabPane key="3" title="正在进行中">
               Content of Tab Panel 3
+            </TabPane>
+            <TabPane key="4" title="待办清单">
+              Content of Tab Panel 4
+            </TabPane>
+            <TabPane key="5" title="知识">
+              Content of Tab Panel 5
             </TabPane>
           </Tabs>
           ,

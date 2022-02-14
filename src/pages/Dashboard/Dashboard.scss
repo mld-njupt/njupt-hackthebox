@@ -65,6 +65,10 @@
       .carousel-wrap {
         width: 520px;
         height: 300px;
+        border-radius: 12px;
+        .arco-carousel-indicator-wrapper {
+          border-radius: 12px;
+        }
       }
       .userInfo-wrap {
         display: grid;
@@ -115,11 +119,19 @@
       width: 100%;
       margin-top: 15px;
       height: 400px;
-      .arco-tabs-header-title-active {
-        color: $SPECIAL_FONT_COLOR;
-      }
-      .arco-tabs-header-ink {
-        background-color: $SPECIAL_FONT_COLOR;
+      .arco-tabs-header-wrapper {
+        border-bottom: 1px solid #1a2332;
+        .arco-tabs-header-title {
+          letter-spacing: 2px;
+          padding: 10px 0;
+          color: $COMMON_FONT_COLOR;
+        }
+        .arco-tabs-header-title-active {
+          color: $LIGHT_FONT_COLOR;
+        }
+        .arco-tabs-header-ink {
+          background-color: $SPECIAL_FONT_COLOR;
+        }
       }
     }
   }

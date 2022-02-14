@@ -4,9 +4,9 @@ const DashboardCard = (props: dashboardCardInterface) => {
   const { title, src, msg } = props;
   return (
     <div className="dashboard-card-wrap">
-      <img src={src} className="card-img" />
-      <div className="card-title"></div>
-      <div className="card-msg"></div>
+      <img src={src} className="card-img" alt="" />
+      <div className="card-title">{title}</div>
+      <div className="card-msg">{msg}</div>
     </div>
   );
 };

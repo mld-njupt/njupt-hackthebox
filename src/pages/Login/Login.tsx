@@ -1,5 +1,5 @@
 import { useEffect, useCallback, useState } from "react";
-import { focusInterface } from "../../utils/interfaces";
+import { useFocus } from "../../utils/customHooks";
 import ParticleWave from "../../utils/canvasInit";
 import { isValidKey } from "../../utils/isValidKey";
 import "./Login.scss";
@@ -33,29 +33,8 @@ const Login = function () {
     keepalive: "保持登录",
     login: "登录",
   };
-  const [inputFocus, setInputFocus] = useState<focusInterface>({
-    username: false,
-    password: false,
-  });
-  const handleFocus = (e: any) => {
-    const targetName = e.target.name;
-    if (isValidKey(targetName, inputFocus)) {
-      e.type === "focus"
-        ? setInputFocus((prev: focusInterface) => {
-            return {
-              ...prev,
-              [targetName]: true,
-            };
-          })
-        : setInputFocus((prev: focusInterface) => {
-            return {
-              ...prev,
-              [targetName]: false,
-            };
-          });
-    }
-  };
-
+  const [usernameRef, usernameFocus] = useFocus<HTMLInputElement>();
+  const [passwordRef, passwordFocus] = useFocus<HTMLInputElement>();
   useEffect(() => {
     let pw = new ParticleWave();
     pw.run();
@@ -68,26 +47,16 @@ const Login = function () {
         <div className="login-login login-common">
           <div className="login-title">{words.title}</div>
           <div className="login-input">
-            <span className={inputFocus.username ? "input-focus" : ""}>
+            <span className={usernameFocus ? "input-focus" : ""}>
               {words.account}
             </span>
-            <input
-              type="text"
-              name="username"
-              onFocus={handleFocus}
-              onBlur={handleFocus}
-            />
+            <input type="text" ref={usernameRef} />
           </div>
           <div className="login-input">
-            <span className={inputFocus.password ? "input-focus" : ""}>
+            <span className={passwordFocus ? "input-focus" : ""}>
               {words.password}
             </span>
-            <input
-              type="password"
-              name="password"
-              onFocus={handleFocus}
-              onBlur={handleFocus}
-            />
+            <input type="password" ref={passwordRef} />
           </div>
           <div className="login-alive-forget">
             <div className="login-alive">{words.keepalive}</div>

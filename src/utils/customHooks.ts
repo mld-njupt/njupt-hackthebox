@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, MutableRefObject } from "react";
 import { fetchInterface } from "./interfaces";
 export const useFetch = ({ url, body, query, method }: fetchInterface) => {
   const [data, setData] = useState(null);
@@ -61,4 +61,25 @@ export const useFetch = ({ url, body, query, method }: fetchInterface) => {
       setPrevent(false);
     },
   ];
+};
+
+//
+export const useFocus = <T>(): [MutableRefObject<T>, boolean] => {
+  const [value, setValue] = useState<boolean>(false);
+  const ref: any = useRef<T | null>(null);
+  const handleFocus = (): void => setValue(true);
+
+  const handleBlur = (): void => setValue(false);
+  useEffect(() => {
+    const node: any = ref.current;
+    if (node) {
+      node.addEventListener("focus", handleFocus);
+      node.addEventListener("blur", handleBlur);
+    }
+    return () => {
+      node.removeEventListener("foucs", handleFocus);
+      node.removeEventListener("blur", handleBlur);
+    };
+  }, [ref.current]);
+  return [ref, value];
 };
