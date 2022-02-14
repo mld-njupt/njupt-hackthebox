@@ -68,7 +68,6 @@ export const useFocus = <T>(): [MutableRefObject<T>, boolean] => {
   const [value, setValue] = useState<boolean>(false);
   const ref: any = useRef<T | null>(null);
   const handleFocus = (): void => setValue(true);
-
   const handleBlur = (): void => setValue(false);
   useEffect(() => {
     const node: any = ref.current;

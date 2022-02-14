@@ -8,6 +8,7 @@
   justify-content: center;
   border-radius: 10px;
   transition: all 0.2s ease-in-out;
+  margin: 10px 0 10px 10px;
   background: $MENU_FOCUS_COLOR;
   .card-img {
     width: 158px;
@@ -33,7 +34,5 @@
   }
 }
 .dashboard-card-wrap:hover {
-  transform-origin: center;
-  width: 260px;
-  height: 290px;
+  transform: scale(1.07);
 }

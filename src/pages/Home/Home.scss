@@ -2,6 +2,11 @@
 .home-wrap {
   .layout-collapse {
     .arco-layout-header {
+      position: fixed;
+      width: 100%;
+      top: 0;
+      left: 0;
+      z-index: 100;
       background-color: $HEADER_COLOR;
       .logo {
         line-height: 62px;
@@ -12,6 +17,12 @@
       }
     }
     .arco-layout-sider {
+      width: 200px;
+      position: fixed;
+      height: 100%;
+      top: 62px;
+      left: 0;
+      z-index: 99;
       background-color: $MENU_COLOR;
       .arco-menu {
         background-color: $MENU_COLOR;
@@ -26,6 +37,7 @@
       }
     }
     .arco-layout-content {
+      margin: 62px 0 0 200px;
       background-color: $BACKUP_COLOR;
     }
   }
