@@ -1,0 +1,8 @@
+.scoll-view-wrap {
+  position: relative;
+  overflow: hidden;
+  .scoll-view-content {
+    width: 100%;
+    display: flex;
+  }
+}

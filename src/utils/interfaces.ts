@@ -8,5 +8,6 @@ interface dashboardCardInterface {
   src: string;
   title: string;
   msg: string;
+  style?: any;
 }
 export type { fetchInterface, dashboardCardInterface };

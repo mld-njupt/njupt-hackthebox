@@ -63,7 +63,7 @@ export const useFetch = ({ url, body, query, method }: fetchInterface) => {
   ];
 };
 
-//
+//用于获取元素是否触发焦点
 export const useFocus = <T>(): [MutableRefObject<T>, boolean] => {
   const [value, setValue] = useState<boolean>(false);
   const ref: any = useRef<T | null>(null);
@@ -79,6 +79,19 @@ export const useFocus = <T>(): [MutableRefObject<T>, boolean] => {
       node.removeEventListener("foucs", handleFocus);
       node.removeEventListener("blur", handleBlur);
     };
+  }, [ref.current]);
+  return [ref, value];
+};
+
+//用户获取用户宽度
+export const useWidth = <T>(): [MutableRefObject<T>, number] => {
+  const [value, setValue] = useState<number>(0);
+  const ref: any = useRef<T | null>(null);
+  useEffect(() => {
+    const node = ref.current;
+    if (node) {
+      setValue(node.offsetWidth);
+    }
   }, [ref.current]);
   return [ref, value];
 };

@@ -1,9 +1,12 @@
 import { Carousel, Tabs } from "@arco-design/web-react";
+import ScollView from "../../components/Scollview/ScollView";
 import DashboardCard from "../../components/DashboardCard/DashboardCard";
+import { useWidth } from "../../utils/customHooks";
 import "./Dashboard.scss";
 const { TabPane } = Tabs;
 
 const Dashboard = () => {
+  const [bottomContentRef, bottomContentWidth] = useWidth<HTMLDivElement>();
   const carouselImg = [
     "https://www.hackthebox.com/storage/banners/9bf31c7ff062936a96d3c8bd1f8f2ff3.jpg",
     "https://www.hackthebox.com/storage/banners/5f93f983524def3dca464469d2cf9f3e.jpg",
@@ -79,14 +82,61 @@ const Dashboard = () => {
             <div className="userInfo-item5"></div>
           </div>
         </div>
-        <div className="bottom-content">
+        <div className="bottom-content" ref={bottomContentRef}>
           <Tabs defaultActiveTab="1">
             <TabPane key="1" title="概况">
-              <DashboardCard
-                src="https://app.hackthebox.com/files/homepage/startingpoint.svg"
-                title="Starting point"
-                msg="Are you a beginner in hacking? Start here!"
-              ></DashboardCard>
+              <ScollView width={bottomContentWidth} itemWidth={260}>
+                <DashboardCard
+                  src="https://app.hackthebox.com/files/homepage/startingpoint.svg"
+                  title="Starting point"
+                  msg="Are you a beginner in hacking? Start here!"
+                ></DashboardCard>
+                <DashboardCard
+                  src="https://app.hackthebox.com/files/homepage/startingpoint.svg"
+                  title="Starting point"
+                  msg="Are you a beginner in hacking? Start here!"
+                ></DashboardCard>
+                <DashboardCard
+                  src="https://app.hackthebox.com/files/homepage/startingpoint.svg"
+                  title="Starting point"
+                  msg="Are you a beginner in hacking? Start here!"
+                ></DashboardCard>
+                <DashboardCard
+                  src="https://app.hackthebox.com/files/homepage/startingpoint.svg"
+                  title="Starting point"
+                  msg="Are you a beginner in hacking? Start here!"
+                ></DashboardCard>
+                <DashboardCard
+                  src="https://app.hackthebox.com/files/homepage/startingpoint.svg"
+                  title="Starting point"
+                  msg="Are you a beginner in hacking? Start here!"
+                ></DashboardCard>
+                <DashboardCard
+                  src="https://app.hackthebox.com/files/homepage/startingpoint.svg"
+                  title="Starting point"
+                  msg="Are you a beginner in hacking? Start here!"
+                ></DashboardCard>
+                <DashboardCard
+                  src="https://app.hackthebox.com/files/homepage/startingpoint.svg"
+                  title="Starting point"
+                  msg="Are you a beginner in hacking? Start here!"
+                ></DashboardCard>
+                <DashboardCard
+                  src="https://app.hackthebox.com/files/homepage/startingpoint.svg"
+                  title="Starting point"
+                  msg="Are you a beginner in hacking? Start here!"
+                ></DashboardCard>
+                <DashboardCard
+                  src="https://app.hackthebox.com/files/homepage/startingpoint.svg"
+                  title="Starting point"
+                  msg="Are you a beginner in hacking? Start here!"
+                ></DashboardCard>
+                <DashboardCard
+                  src="https://app.hackthebox.com/files/homepage/startingpoint.svg"
+                  title="Starting point"
+                  msg="Are you a beginner in hacking? Start here!"
+                ></DashboardCard>
+              </ScollView>
             </TabPane>
             <TabPane key="2" title="推荐">
               Content of Tab Panel 2

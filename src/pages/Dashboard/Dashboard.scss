@@ -68,6 +68,12 @@
         border-radius: 12px;
         .arco-carousel-indicator-wrapper {
           border-radius: 12px;
+          .arco-carousel-indicator-item {
+            background: $COMMON_FONT_COLOR;
+          }
+          .arco-carousel-indicator-item-active {
+            background: $LIGHT_FONT_COLOR;
+          }
         }
       }
       .userInfo-wrap {
