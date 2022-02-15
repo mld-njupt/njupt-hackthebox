@@ -10,4 +10,18 @@ interface dashboardCardInterface {
   msg: string;
   style?: any;
 }
-export type { fetchInterface, dashboardCardInterface };
+interface scollViewInterface {
+  width: number;
+  children: Array<JSX.Element> | JSX.Element;
+  itemWidth: number;
+}
+interface scollViewContextInterface {
+  scollViewIndex?: number;
+  setScollViewIndex?: any;
+}
+export type {
+  fetchInterface,
+  dashboardCardInterface,
+  scollViewInterface,
+  scollViewContextInterface,
+};

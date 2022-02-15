@@ -1,8 +1,32 @@
+@import "../../assets/styles/index.scss";
 .scoll-view-wrap {
-  position: relative;
   overflow: hidden;
   .scoll-view-content {
     width: 100%;
     display: flex;
+    transition: all 1s ease-in-out;
+  }
+  .indicator-content {
+    // margin-top: 10px;
+    width: 100%;
+    .indicator-wrap {
+      width: 100%;
+      display: flex;
+      justify-content: end;
+      .item-wrap {
+        cursor: pointer;
+        padding: 15px 0;
+        margin-right: 10px;
+        .indicator-item {
+          // box-sizing: content-box;
+          width: 20px;
+          height: 2px;
+          background: $COMMON_FONT_COLOR;
+        }
+        .indicator-item-selected {
+          background: $LIGHT_FONT_COLOR;
+        }
+      }
+    }
   }
 }
