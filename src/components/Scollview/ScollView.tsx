@@ -1,10 +1,4 @@
-import React, {
-  useState,
-  useEffect,
-  useContext,
-  useMemo,
-  Children,
-} from "react";
+import React, { useState, useEffect, useContext, useMemo } from "react";
 import {
   scollViewInterface,
   scollViewContextInterface,
@@ -40,20 +34,25 @@ const IndicatorItem = (props: any) => {
 
 const ScollView = (props: scollViewInterface) => {
   const { width, children, itemWidth } = props;
-  let items: JSX.Element[] = [];
+  const [indicatorItems, setIndicatorItems] = useState<Array<JSX.Element>>([]);
   const [translateX, setTranslateX] = useState(0);
   const [scollViewIndex, setScollViewIndex] = useState<number>(0);
   useEffect(() => {
-    const contentCapacity = width / itemWidth;
-    const itemCount = React.Children.count(children);
-    const indicatorCount =
-      itemCount / contentCapacity < 1
-        ? 0
-        : Math.ceil(itemCount / contentCapacity);
-    // for (let index = 0; index < indicatorCount; index++) {
-    //   items.push(<IndicatorItem></IndicatorItem>);
-    // }
-  }, []);
+    if (width !== 0) {
+      setIndicatorItems([]);
+      const contentCapacity = width / itemWidth;
+      const itemCount = React.Children.count(children);
+      const indicatorCount =
+        itemCount / contentCapacity < 1
+          ? 0
+          : Math.ceil(itemCount / contentCapacity);
+      for (let index = 0; index < indicatorCount; index++) {
+        setIndicatorItems((prev) => {
+          return [...prev, <IndicatorItem key={index}></IndicatorItem>];
+        });
+      }
+    }
+  }, [width, children]);
   useEffect(() => {
     setTranslateX(-1 * scollViewIndex * width);
   }, [scollViewIndex]);
@@ -77,13 +76,10 @@ const ScollView = (props: scollViewInterface) => {
         </div>
         <div className="indicator-content">
           <IndicatorWrap>
-            {/* {items.map((value) => {
-              console.log(value);
-              return value;
-            })} */}
-            <IndicatorItem></IndicatorItem>
-            <IndicatorItem></IndicatorItem>
-            <IndicatorItem></IndicatorItem>
+            {indicatorItems &&
+              indicatorItems.map((value) => {
+                return value;
+              })}
           </IndicatorWrap>
         </div>
       </div>

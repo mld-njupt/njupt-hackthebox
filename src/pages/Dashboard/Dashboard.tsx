@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Carousel, Tabs } from "@arco-design/web-react";
 import ScollView from "../../components/Scollview/ScollView";
 import DashboardCard from "../../components/DashboardCard/DashboardCard";
@@ -151,7 +152,6 @@ const Dashboard = () => {
               Content of Tab Panel 5
             </TabPane>
           </Tabs>
-          ,
         </div>
       </div>
     </div>
