@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { useFocus } from "../../utils/customHooks";
 import ParticleWave from "../../utils/canvasInit";
 import "./Login.scss";
@@ -34,6 +35,10 @@ const words = {
 const Login = function () {
   const [usernameRef, usernameFocus] = useFocus<HTMLInputElement>();
   const [passwordRef, passwordFocus] = useFocus<HTMLInputElement>();
+  const navigate = useNavigate();
+  const toRegister = () => {
+    navigate("/register");
+  };
   useEffect(() => {
     let pw = new ParticleWave();
     pw.run();
@@ -65,7 +70,7 @@ const Login = function () {
         </div>
         <div className="login-register login-common">
           <div className="login-noaccount">{words.noaccount}</div>
-          <div className="login-gotoregister">
+          <div className="login-gotoregister" onClick={toRegister}>
             <span>{words.register}</span>
           </div>
         </div>
