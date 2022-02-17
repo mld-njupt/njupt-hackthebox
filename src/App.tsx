@@ -4,6 +4,7 @@ import { Spin } from "@arco-design/web-react";
 import "@arco-design/web-react/dist/css/arco.css";
 import "./App.scss";
 import Login from "./pages/Login/Login";
+import Register from "./pages/Register/Register";
 import Home from "./pages/Home/Home";
 import Env from "./pages/Env/Env";
 import Dashboard from "./pages/Dashboard/Dashboard";
@@ -35,6 +36,7 @@ function App() {
             <Route path="/about" element={<About />} />
             <Route path="/online" element={<Online />} />
           </Route>
+          <Route path="/register" element={<Register />}></Route>
         </Routes>
       </Suspense>
     </BrowserRouter>

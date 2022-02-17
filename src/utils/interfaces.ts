@@ -19,9 +19,16 @@ interface scollViewContextInterface {
   scollViewIndex?: number;
   setScollViewIndex?: any;
 }
+interface registerConfigInterface {
+  username: string;
+  password: string;
+  email: string;
+  code: number;
+}
 export type {
   fetchInterface,
   dashboardCardInterface,
   scollViewInterface,
   scollViewContextInterface,
+  registerConfigInterface,
 };

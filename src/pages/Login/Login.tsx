@@ -1,38 +1,37 @@
-import { useEffect, useCallback, useState } from "react";
+import { useEffect } from "react";
 import { useFocus } from "../../utils/customHooks";
 import ParticleWave from "../../utils/canvasInit";
-import { isValidKey } from "../../utils/isValidKey";
 import "./Login.scss";
+const menus = [
+  {
+    text: "© CTF",
+    key: "Dashboard",
+  },
+  {
+    text: "Contact",
+    key: "Env",
+  },
+  {
+    text: "Service",
+    key: "Online",
+  },
+  {
+    text: "Police",
+    key: "About",
+  },
+];
+const words = {
+  logo: "0xGame & X1cT34m.com",
+  title: "登录",
+  account: "账号",
+  password: "密码",
+  register: "前往注册",
+  noaccount: "没有账号？",
+  forget: "忘记密码",
+  keepalive: "保持登录",
+  login: "登录",
+};
 const Login = function () {
-  const menus = [
-    {
-      text: "© CTF",
-      key: "Dashboard",
-    },
-    {
-      text: "Contact",
-      key: "Env",
-    },
-    {
-      text: "Service",
-      key: "Online",
-    },
-    {
-      text: "Police",
-      key: "About",
-    },
-  ];
-  const words = {
-    logo: "0xGame & X1cT34m.com",
-    title: "登录",
-    account: "账号",
-    password: "密码",
-    register: "前往注册",
-    noaccount: "没有账号？",
-    forget: "忘记密码",
-    keepalive: "保持登录",
-    login: "登录",
-  };
   const [usernameRef, usernameFocus] = useFocus<HTMLInputElement>();
   const [passwordRef, passwordFocus] = useFocus<HTMLInputElement>();
   useEffect(() => {
