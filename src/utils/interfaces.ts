@@ -22,6 +22,7 @@ interface scollViewContextInterface {
 interface registerConfigInterface {
   username: string;
   password: string;
+  confirm: string;
   email: string;
   code: number;
 }

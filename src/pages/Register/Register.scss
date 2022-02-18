@@ -83,3 +83,8 @@
     }
   }
 }
+.arco-notification {
+  background: $LOGIN_BACK_COLOR;
+  border: 1px $LOGIN_BACK_COLOR solid;
+  border-left: 3px $SPECIAL_FONT_COLOR solid;
+}

@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
+import { Notification } from "@arco-design/web-react";
 import { registerConfigInterface } from "../../utils/interfaces";
 import { useFocus } from "../../utils/customHooks";
+import checkValid from "../../utils/checkValid";
 import ParticleWave from "../../utils/canvasInit";
 import debounce from "../../utils/debounce";
 import "./Register.scss";
@@ -24,6 +26,7 @@ const Register = () => {
     {
       username: "",
       password: "",
+      confirm: "",
       email: "",
       code: 0,
     }
@@ -32,6 +35,21 @@ const Register = () => {
     return (e: any) => {
       setRegisterConfig({ ...registerConfig, [configType]: e.target.value });
     };
+  };
+  const handleSubmit = () => {
+    checkValid("email")(registerConfig.email)
+      .then(() => {
+        checkValid("confirm")(registerConfig.password, registerConfig.confirm)
+          .then((res) => {
+            console.log(res);
+          })
+          .catch((err) => {
+            Notification.error({ title: "Error", content: err });
+          });
+      })
+      .catch((err) => {
+        Notification.error({ title: "Error", content: err });
+      });
   };
   useEffect(() => {
     console.log(registerConfig);
@@ -81,7 +99,11 @@ const Register = () => {
             <span className={confirmFocus ? "input-focus" : ""}>
               {words.confirmPassword}
             </span>
-            <input ref={confirmRef} type="text" />
+            <input
+              ref={confirmRef}
+              onChange={debounce(handleInput("confirm"), 500)}
+              type="text"
+            />
           </div>
           <div className="register-input">
             <span
@@ -107,7 +129,9 @@ const Register = () => {
               }}
             />
           </div>
-          <div className="register-submit">{words.register}</div>
+          <div className="register-submit" onClick={handleSubmit}>
+            {words.register}
+          </div>
         </div>
       </div>
     </div>

@@ -74,7 +74,14 @@ const Dashboard = () => {
                 <div className="icon-img">
                   <div className="icon"></div>
                 </div>
-                <div className="icon-msg"></div>
+                <div className="icon-msg">
+                  <div className="title">Noob</div>
+                  <div className="divide"></div>
+                  <div className="rank">
+                    <span className="special">0%</span>
+                    <span> TOWARDS SCRIPT KIDDIE </span>
+                  </div>
+                </div>
               </div>
             </div>
             <div className="userInfo-item2"></div>

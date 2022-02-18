@@ -3,24 +3,24 @@ import { useNavigate } from "react-router-dom";
 import { useFocus } from "../../utils/customHooks";
 import ParticleWave from "../../utils/canvasInit";
 import "./Login.scss";
-const menus = [
-  {
-    text: "© CTF",
-    key: "Dashboard",
-  },
-  {
-    text: "Contact",
-    key: "Env",
-  },
-  {
-    text: "Service",
-    key: "Online",
-  },
-  {
-    text: "Police",
-    key: "About",
-  },
-];
+// const menus = [
+//   {
+//     text: "© CTF",
+//     key: "Dashboard",
+//   },
+//   {
+//     text: "Contact",
+//     key: "Env",
+//   },
+//   {
+//     text: "Service",
+//     key: "Online",
+//   },
+//   {
+//     text: "Police",
+//     key: "About",
+//   },
+// ];
 const words = {
   logo: "0xGame & X1cT34m.com",
   title: "登录",
