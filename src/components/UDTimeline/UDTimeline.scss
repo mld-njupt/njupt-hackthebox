@@ -1,0 +1,16 @@
+@import "../../assets/styles/index.scss";
+.timeline-wrap {
+  .arco-timeline-item-dot {
+    width: 8px;
+    height: 8px;
+    background: $SPECIAL_FONT_COLOR;
+    transition: all 0.1s ease-in-out;
+  }
+  .arco-timeline-item {
+    .arco-timeline-item-dot:hover {
+      cursor: pointer;
+      transform: scale(1.6);
+      // border: 5px solid $COMMON_FONT_COLOR;
+    }
+  }
+}

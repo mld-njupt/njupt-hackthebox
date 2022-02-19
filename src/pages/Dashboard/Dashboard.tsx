@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { Carousel, Tabs } from "@arco-design/web-react";
+import UDTimeline from "../../components/UDTimeline/UDTimeline";
 import ScollView from "../../components/Scollview/ScollView";
 import DashboardCard from "../../components/DashboardCard/DashboardCard";
 import { useWidth } from "../../utils/customHooks";
@@ -87,7 +88,15 @@ const Dashboard = () => {
             <div className="userInfo-item2"></div>
             <div></div>
             <div></div>
-            <div className="userInfo-item5"></div>
+            <div className="userInfo-item5">
+              <div className="user-state">
+                <div className="plan-wrap">
+                  <div className="plan">PLAN</div>
+                  <div className="state">Free</div>
+                </div>
+                <div className="vip">GO VIP</div>
+              </div>
+            </div>
           </div>
         </div>
         <div className="bottom-content" ref={bottomContentRef}>

@@ -1,7 +1,8 @@
+import UDTable from "../../components/UDTable/UDTable";
 const Online = () => {
   return (
     <div className="online-warp">
-      <div>this is Online</div>
+      <UDTable></UDTable>
     </div>
   );
 };

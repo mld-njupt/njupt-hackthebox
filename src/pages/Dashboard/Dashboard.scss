@@ -140,6 +140,41 @@
         }
         .userInfo-item5 {
           border-left: 1px solid $BACKUP_COLOR;
+          .user-state {
+            width: 100%;
+            height: 100%;
+            padding: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            .plan-wrap {
+              width: 40px;
+              height: 40px;
+              margin: 8px 0 0 16px;
+              .plan {
+                width: 40px;
+                height: 18px;
+                line-height: 18px;
+                color: $COMMON_FONT_COLOR;
+                letter-spacing: 1.5px;
+              }
+              .state {
+                width: 40px;
+                height: 22px;
+                line-height: 22px;
+                color: $LIGHT_FONT_COLOR;
+                font-weight: 500;
+              }
+            }
+            .vip {
+              cursor: pointer;
+              font-size: 12px;
+              width: 80px;
+              height: 26px;
+              line-height: 26px;
+              color: $SPECIAL_FONT_COLOR;
+            }
+          }
         }
       }
     }

@@ -1,8 +1,7 @@
 // @ts-nocheck
-import { useState, useCallback } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Layout, Menu } from "@arco-design/web-react";
-import { useNavigate, Link, Outlet } from "react-router-dom";
-import { lazy } from "react";
+import { useNavigate, Outlet } from "react-router-dom";
 import IconAbout from "../../assets/images/icons/About.svg";
 import IconDashboard from "../../assets/images/icons/Dashboard.svg";
 import IconEnv from "../../assets/images/icons/Env.svg";
@@ -13,14 +12,13 @@ const Sider = Layout.Sider;
 const Header = Layout.Header;
 const Content = Layout.Content;
 const Home = () => {
-  // const [collapsed, setCollapsed] = useState(false);
-  // const handleCollapsed = useCallback(() => {
-  //   setCollapsed(!collapsed);
-  // }, [collapsed]);
   const navigate = useNavigate();
   const handleCilckMenuItem = (key) => {
     navigate(key);
   };
+  useEffect(() => {
+    navigate("/dashboard");
+  }, []);
   return (
     <div className="home-wrap">
       <Layout

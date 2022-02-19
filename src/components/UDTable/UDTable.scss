@@ -1,0 +1,116 @@
+@import "../../assets/styles/index.scss";
+.table-wrap {
+  width: 100%;
+  //表格渲染内容样式
+  .rank-wrap {
+    display: flex;
+    align-items: center;
+    .rank {
+      width: 42px;
+      height: 42px;
+      margin-left: 12px;
+      text-align: center;
+      line-height: 42px;
+      background-color: rgb(17, 25, 39);
+      border-radius: 50%;
+    }
+  }
+  .player-wrap {
+    display: flex;
+    align-items: center;
+    .img-wrap {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background-repeat: no-repeat;
+      background-size: 100%, 100%;
+      background-position: center;
+    }
+    .msg-wrap {
+      width: 80px;
+      height: 40px;
+      display: flex;
+      flex-direction: column;
+      margin-left: 12px;
+      font-family: Inter, -apple-system, BlinkMacSystemFont, PingFang SC,
+        Hiragino Sans GB, noto sans, Microsoft YaHei, Helvetica Neue, Helvetica,
+        Arial, sans-serif;
+      //   align-items: center;
+      .name {
+        height: 20px;
+        line-height: 20px;
+        color: $LIGHT_FONT_COLOR;
+      }
+      .name:hover {
+        color: $SPECIAL_FONT_COLOR;
+      }
+      .status {
+        height: 20px;
+        line-height: 20px;
+        color: $COMMON_FONT_COLOR;
+      }
+    }
+  }
+  .users-wrap {
+    display: flex;
+    align-items: center;
+    height: 20px;
+    line-height: 20px;
+    .img {
+      width: 20px;
+      height: 20px;
+      background-repeat: no-repeat;
+      background-size: 100%, 100%;
+      margin-left: 5px;
+    }
+    .red-points {
+      margin-left: 5px;
+      color: red;
+    }
+  }
+  .systems-wrap {
+    display: flex;
+    align-items: center;
+    height: 20px;
+    line-height: 20px;
+    .img {
+      width: 20px;
+      height: 20px;
+      background-repeat: no-repeat;
+      background-size: 100%, 100%;
+      margin-left: 5px;
+    }
+    .red-points {
+      margin-left: 5px;
+      color: red;
+    }
+  }
+  //自定义表格样式
+  .arco-table-th {
+    background: #141d2b;
+  }
+  .arco-table-td {
+    background: #141d2b;
+    border-bottom: thin solid rgba(164, 177, 205, 0.05) !important;
+  }
+
+  .arco-table-border .arco-table-container .arco-table-td:first-child {
+    border-left: 1px solid #121212;
+  }
+  .arco-table-stripe .arco-table-tr:nth-child(even) .arco-table-td {
+    background: #131b29;
+  }
+  .arco-table-border .arco-table-container .arco-table-th:first-child {
+    border-left: 1px solid #121212;
+    border-bottom: thin solid rgba(164, 177, 205, 0.05) !important;
+  }
+  .arco-table thead > .arco-table-tr > .arco-table-th {
+    border-bottom: thin solid rgba(164, 177, 205, 0.05) !important;
+  }
+  .arco-table-border .arco-table-container {
+    border: none;
+  }
+  tr {
+    height: 78px;
+  }
+}
