@@ -83,15 +83,27 @@ export const useFocus = <T>(): [MutableRefObject<T>, boolean] => {
   return [ref, value];
 };
 
-//用户获取用户宽度
+//用户获取元素宽度
 export const useWidth = <T>(): [MutableRefObject<T>, number] => {
+  const [screenWidth,setSreenWidth]=useState(0)
   const [value, setValue] = useState<number>(0);
   const ref: any = useRef<T | null>(null);
+  useEffect(()=>{
+    window.addEventListener('resize', (e:any)=>{
+      setSreenWidth(e.target.innerWidth)
+    }) 
+    return ()=>{
+      window.removeEventListener("resize",()=>{
+        setSreenWidth(0)
+      })
+    }
+  })
   useEffect(() => {
     const node = ref.current;
     if (node) {
       setValue(node.offsetWidth);
     }
-  }, [ref.current]);
+  }, [ref.current,screenWidth]);
   return [ref, value];
 };
+ 
