@@ -1,0 +1,65 @@
+@import "../../assets/styles/index.scss";
+.card-toggle-wrap {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+  .top-wrap {
+    display: flex;
+    width: 100%;
+    padding: 28px 20px 0 20px;
+    .username {
+      color: $SPECIAL_FONT_COLOR;
+    }
+    span {
+      margin: 0px 3px;
+      color: $COMMON_FONT_COLOR;
+    }
+    .card-title {
+      color: $COMMON_FONT_COLOR;
+      font-size: 16px;
+      font-weight: 500;
+    }
+  }
+  .bottom-wrap {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: 28px;
+    padding: 0px 20px;
+    margin-bottom: 20px;
+    .indicator {
+      width: 48px;
+      display: flex;
+      justify-content: space-between;
+      .indicator-item {
+        cursor: pointer;
+        width: 21px;
+        height: 21px;
+        text-align: center;
+        line-height: 21px;
+        background: #2f3744;
+        border-radius: 5px;
+      }
+    }
+    .user-points {
+      display: flex;
+      align-items: center;
+      .icon {
+        width: 24px;
+        height: 24px;
+        background-repeat: no-repeat;
+        background-size: 100%, 100%;
+        margin-right: 12px;
+      }
+      .points {
+        height: 24px;
+        line-height: 24px;
+        font-size: 20px;
+        color: $COMMON_FONT_COLOR;
+        font-weight: 500;
+      }
+    }
+  }
+}

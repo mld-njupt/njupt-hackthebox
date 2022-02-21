@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { Carousel, Tabs } from "@arco-design/web-react";
+import CardToggle from "../../components/CardToggle/CardToggle";
 import UDTimeline from "../../components/UDTimeline/UDTimeline";
 import ScollView from "../../components/Scollview/ScollView";
 import DashboardCard from "../../components/DashboardCard/DashboardCard";
@@ -85,7 +86,9 @@ const Dashboard = () => {
                 </div>
               </div>
             </div>
-            <div className="userInfo-item2"></div>
+            <div className="userInfo-item2">
+              <CardToggle></CardToggle>
+            </div>
             <div></div>
             <div></div>
             <div className="userInfo-item5">
