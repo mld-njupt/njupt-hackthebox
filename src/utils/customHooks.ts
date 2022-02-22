@@ -1,16 +1,16 @@
 import { useEffect, useState, useRef, MutableRefObject } from "react";
 import { fetchInterface } from "./interfaces";
 export const useFetch = ({ url, body, query, method }: fetchInterface) => {
-  const [data, setData] = useState(null);
+  const [data, setData] = useState<any>(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const [prevent, setPrevent] = useState(true);
   const abortControllRef = useRef<any>();
-  // const BASE_URL =
-  //   process.env.NODE_ENV === 'development'
-  //     ? '/api'
-  //     : 'https://wechat.njupt.edu.cn'
-  const BASE_URL="http://159.75.82.124:18080/api"
+  const BASE_URL =
+    process.env.NODE_ENV === 'development'
+      ? '/api'
+      : 'https://wechat.njupt.edu.cn'
+  // const BASE_URL="http://159.75.82.124:18080/api"
   const request = () => {
     if (prevent) return;
     const abortControll = new AbortController();
@@ -25,22 +25,20 @@ export const useFetch = ({ url, body, query, method }: fetchInterface) => {
           .join("&")}`
       : "";
     const options = {
-      header: { "content-type": "application/json" },
+      headers: {  'Content-Type': 'application/json'},
       method,
       singal,
-      body: body&&JSON.stringify(body),
+      body: JSON.stringify(body),
     };
     setLoading(true);
     setData(null);
     setError(null);
     setPrevent(true);
     fetch(`${BASE_URL}${url}${queryString}`, options)
+      .then((res: any) => 
+         res.json()
+      )
       .then((res: any) => {
-        console.log(res)
-        res.json();
-      })
-      .then((res: any) => {
-        console.log(res)
         setData(res);
       })
       .catch((err: any) => {
@@ -87,7 +85,7 @@ export const useFocus = <T>(): [MutableRefObject<T>, boolean] => {
   return [ref, value];
 };
 
-//用户获取元素宽度
+//用于获取元素宽度
 export const useWidth = <T>(): [MutableRefObject<T>, number] => {
   const [screenWidth,setSreenWidth]=useState(0)
   const [value, setValue] = useState<number>(0);

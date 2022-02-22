@@ -24,7 +24,7 @@ interface registerConfigInterface {
   password: string;
   confirm: string;
   email: string;
-  code: number;
+  code: string;
 }
 export type {
   fetchInterface,

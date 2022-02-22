@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Notification } from "@arco-design/web-react";
 import { useFetch } from "../../utils/customHooks";
 import { registerConfigInterface } from "../../utils/interfaces";
@@ -6,7 +7,7 @@ import { useFocus } from "../../utils/customHooks";
 import checkValid from "../../utils/checkValid";
 import ParticleWave from "../../utils/canvasInit";
 import debounce from "../../utils/debounce";
-import { getCaptcha } from "../../api/user";
+import { getCaptcha,registerApi } from "../../api/user";
 import "./Register.scss";
 const words = {
   logo: "0xGame & X1cT34m.com",
@@ -19,6 +20,7 @@ const words = {
   register: "注册",
 };
 const Register = () => {
+  const navgate=useNavigate()
   const [usernameRef, usernameFocus] = useFocus<HTMLInputElement>();
   const [passwordRef, passwordFocus] = useFocus<HTMLInputElement>();
   const [emailRef, emailFocus] = useFocus<HTMLInputElement>();
@@ -30,14 +32,11 @@ const Register = () => {
       password: "",
       confirm: "",
       email: "",
-      code: 0,
+      code: "",
     }
   );
-  // const [code,setCode]=useState<{
-  //   id:string,
-  //   b64:string
-  // }>({id:"",b64:""})
   const [[codeData],getCodeData]=useFetch(getCaptcha())
+  const [[registerData],register]=useFetch(registerApi(registerConfig.username,registerConfig.password,registerConfig.email,codeData&&codeData.data.id,registerConfig.code))
   const handleInput = (configType: string) => {
     return (e: any) => {
       setRegisterConfig({ ...registerConfig, [configType]: e.target.value });
@@ -47,10 +46,22 @@ const Register = () => {
     try {
       await checkValid("email")(registerConfig.email)
       await checkValid("confirm")(registerConfig.password, registerConfig.confirm)
+      
     } catch (error:any) {
       Notification.error({ title: "Error", content: error });
     }
+    register()
+    console.log(registerData)
+    if(registerData.code===200){
+      Notification.success({title:"Success",content:"注册成功"})
+      // navgate("/login")
+    }else{
+      Notification.error({ title: "Error", content: registerData.msg });
+    }
   };
+  const changeCode=()=>{
+    getCodeData()
+  }
   useEffect(() => {
     getCodeData()
   }, []);
@@ -119,10 +130,13 @@ const Register = () => {
               type="text"
             />
             <img
+              onClick={changeCode}
               className="verification-code-img"
-              src="https://www.baidu.com/img/flexible/logo/pc/result.png"
-              alt="xxx"
+              src={codeData?`data:image/gif;base64,${codeData.data.b64}`:""}
+              alt=""
               style={{
+                background: "white",
+                cursor:"pointer",
                 width: "100px",
                 height: "33px",
                 float: "right",
