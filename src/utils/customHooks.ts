@@ -6,37 +6,41 @@ export const useFetch = ({ url, body, query, method }: fetchInterface) => {
   const [loading, setLoading] = useState(false);
   const [prevent, setPrevent] = useState(true);
   const abortControllRef = useRef<any>();
-  const BASE_URL =
-    process.env.NODE_ENV === "production" ? "/api" : "http://localhost:3000";
+  // const BASE_URL =
+  //   process.env.NODE_ENV === 'development'
+  //     ? '/api'
+  //     : 'https://wechat.njupt.edu.cn'
+  const BASE_URL="http://159.75.82.124:18080/api"
   const request = () => {
     if (prevent) return;
     const abortControll = new AbortController();
     abortControllRef.current = abortControll;
     const singal = abortControll.signal;
-    const queryString = query
+    const queryString =query&&query
       ? `${Object.keys(query)
           .map(
             (key) =>
               encodeURIComponent(key) + "=" + encodeURIComponent(query[key])
           )
-
           .join("&")}`
       : "";
     const options = {
       header: { "content-type": "application/json" },
       method,
       singal,
-      body: JSON.stringify(body),
+      body: body&&JSON.stringify(body),
     };
     setLoading(true);
     setData(null);
     setError(null);
     setPrevent(true);
-    fetch(`${BASE_URL}url${queryString}`, options)
+    fetch(`${BASE_URL}${url}${queryString}`, options)
       .then((res: any) => {
+        console.log(res)
         res.json();
       })
       .then((res: any) => {
+        console.log(res)
         setData(res);
       })
       .catch((err: any) => {
@@ -50,7 +54,7 @@ export const useFetch = ({ url, body, query, method }: fetchInterface) => {
   useEffect(request, [query, body, url, method, prevent]);
   useEffect(() => {
     return () => {
-      if (abortControllRef) {
+      if (abortControllRef.current) {
         abortControllRef.current.abort();
       }
     };
@@ -60,7 +64,7 @@ export const useFetch = ({ url, body, query, method }: fetchInterface) => {
     () => {
       setPrevent(false);
     },
-  ];
+  ]as const;
 };
 
 //用于获取元素是否触发焦点

@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import { Notification } from "@arco-design/web-react";
+import { useFetch } from "../../utils/customHooks";
 import { registerConfigInterface } from "../../utils/interfaces";
 import { useFocus } from "../../utils/customHooks";
 import checkValid from "../../utils/checkValid";
 import ParticleWave from "../../utils/canvasInit";
 import debounce from "../../utils/debounce";
+import { getCaptcha } from "../../api/user";
 import "./Register.scss";
 const words = {
   logo: "0xGame & X1cT34m.com",
@@ -31,29 +33,27 @@ const Register = () => {
       code: 0,
     }
   );
+  // const [code,setCode]=useState<{
+  //   id:string,
+  //   b64:string
+  // }>({id:"",b64:""})
+  const [[codeData],getCodeData]=useFetch(getCaptcha())
   const handleInput = (configType: string) => {
     return (e: any) => {
       setRegisterConfig({ ...registerConfig, [configType]: e.target.value });
     };
   };
-  const handleSubmit = () => {
-    checkValid("email")(registerConfig.email)
-      .then(() => {
-        checkValid("confirm")(registerConfig.password, registerConfig.confirm)
-          .then((res) => {
-            console.log(res);
-          })
-          .catch((err) => {
-            Notification.error({ title: "Error", content: err });
-          });
-      })
-      .catch((err) => {
-        Notification.error({ title: "Error", content: err });
-      });
+  const handleSubmit = async() => {
+    try {
+      await checkValid("email")(registerConfig.email)
+      await checkValid("confirm")(registerConfig.password, registerConfig.confirm)
+    } catch (error:any) {
+      Notification.error({ title: "Error", content: error });
+    }
   };
   useEffect(() => {
-    console.log(registerConfig);
-  }, [registerConfig]);
+    getCodeData()
+  }, []);
   useEffect(() => {
     let pw = new ParticleWave();
     pw.run();

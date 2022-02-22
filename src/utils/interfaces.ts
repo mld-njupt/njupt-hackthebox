@@ -1,7 +1,7 @@
 interface fetchInterface {
   url: string;
-  query: Object | any;
-  body: Object;
+  query?: Object | any;
+  body?: Object;
   method: string;
 }
 interface dashboardCardInterface {
