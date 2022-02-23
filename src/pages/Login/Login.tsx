@@ -1,7 +1,11 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useFocus } from "../../utils/customHooks";
+import { Notification } from "@arco-design/web-react";
+import { useFocus, useFetch } from "../../utils/customHooks";
 import ParticleWave from "../../utils/canvasInit";
+import debounce from "../../utils/debounce";
+import checkValid from "../../utils/checkValid";
+import { loginApi } from "../../api/user";
 import "./Login.scss";
 // const menus = [
 //   {
@@ -35,14 +39,48 @@ const words = {
 const Login = function () {
   const [usernameRef, usernameFocus] = useFocus<HTMLInputElement>();
   const [passwordRef, passwordFocus] = useFocus<HTMLInputElement>();
+  const [loginConfig, setLoginConfig] = useState<{
+    username: string;
+    password: string;
+  }>({
+    username: "",
+    password: "",
+  });
+  const [[loginData, loginLoading], login] = useFetch(
+    loginApi(loginConfig, false)
+  );
   const navigate = useNavigate();
   const toRegister = () => {
     navigate("/register");
+  };
+  const handleInput = (configType: string) => {
+    return (e: any) => {
+      setLoginConfig({ ...loginConfig, [configType]: e.target.value });
+    };
+  };
+  const handleSubmit = async () => {
+    try {
+      await checkValid("isNull")(loginConfig.username, "username");
+      await checkValid("isNull")(loginConfig.password, "password");
+    } catch (error: any) {
+      Notification.error({ title: "Error", content: error });
+      return;
+    }
+    login();
   };
   useEffect(() => {
     let pw = new ParticleWave();
     pw.run();
   }, []);
+  useEffect(() => {
+    if (loginData && loginData.code === 200) {
+      Notification.success({ title: "Success", content: "登录成功" });
+      navigate("/dashboard");
+    } else {
+      loginData &&
+        Notification.error({ title: "Error", content: loginData.msg });
+    }
+  }, [loginData]);
   return (
     <div className="login">
       <canvas></canvas>
@@ -54,19 +92,29 @@ const Login = function () {
             <span className={usernameFocus ? "input-focus" : ""}>
               {words.account}
             </span>
-            <input type="text" ref={usernameRef} />
+            <input
+              type="text"
+              ref={usernameRef}
+              onChange={debounce(handleInput("username"), 500)}
+            />
           </div>
           <div className="login-input">
             <span className={passwordFocus ? "input-focus" : ""}>
               {words.password}
             </span>
-            <input type="password" ref={passwordRef} />
+            <input
+              type="password"
+              ref={passwordRef}
+              onChange={debounce(handleInput("password"), 500)}
+            />
           </div>
           <div className="login-alive-forget">
             <div className="login-alive">{words.keepalive}</div>
             <div className="login-forget">{words.forget}</div>
           </div>
-          <div className="login-submit">{words.login}</div>
+          <div className="login-submit" onClick={handleSubmit}>
+            {words.login}
+          </div>
         </div>
         <div className="login-register login-common">
           <div className="login-noaccount">{words.noaccount}</div>

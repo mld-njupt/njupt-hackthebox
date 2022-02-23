@@ -7,7 +7,7 @@ import { useFocus } from "../../utils/customHooks";
 import checkValid from "../../utils/checkValid";
 import ParticleWave from "../../utils/canvasInit";
 import debounce from "../../utils/debounce";
-import { getCaptcha,registerApi } from "../../api/user";
+import { getCaptcha, registerApi } from "../../api/user";
 import "./Register.scss";
 const words = {
   logo: "0xGame & X1cT34m.com",
@@ -20,7 +20,7 @@ const words = {
   register: "注册",
 };
 const Register = () => {
-  const navgate=useNavigate()
+  const navigate = useNavigate();
   const [usernameRef, usernameFocus] = useFocus<HTMLInputElement>();
   const [passwordRef, passwordFocus] = useFocus<HTMLInputElement>();
   const [emailRef, emailFocus] = useFocus<HTMLInputElement>();
@@ -35,40 +35,57 @@ const Register = () => {
       code: "",
     }
   );
-  const [[codeData],getCodeData]=useFetch(getCaptcha())
-  const [[registerData],register]=useFetch(registerApi(registerConfig.username,registerConfig.password,registerConfig.email,codeData&&codeData.data.id,registerConfig.code))
+  const [[codeData], getCodeData] = useFetch(getCaptcha());
+  const [[registerData], register] = useFetch(
+    registerApi(
+      registerConfig.username,
+      registerConfig.password,
+      registerConfig.email,
+      codeData && codeData.data.id,
+      registerConfig.code
+    )
+  );
   const handleInput = (configType: string) => {
     return (e: any) => {
       setRegisterConfig({ ...registerConfig, [configType]: e.target.value });
     };
   };
-  const handleSubmit = async() => {
+  const handleSubmit = async () => {
     try {
-      await checkValid("email")(registerConfig.email)
-      await checkValid("confirm")(registerConfig.password, registerConfig.confirm)
-      
-    } catch (error:any) {
+      await checkValid("isNull")(registerConfig.username, "username");
+      await checkValid("isNull")(registerConfig.password, "password");
+      await checkValid("isNull")(registerConfig.email, "email");
+      await checkValid("isNull")(registerConfig.code, "code");
+      await checkValid("email")(registerConfig.email);
+      await checkValid("confirm")(
+        registerConfig.password,
+        registerConfig.confirm
+      );
+    } catch (error: any) {
       Notification.error({ title: "Error", content: error });
+      return;
     }
-    register()
-    console.log(registerData)
-    if(registerData.code===200){
-      Notification.success({title:"Success",content:"注册成功"})
-      // navgate("/login")
-    }else{
-      Notification.error({ title: "Error", content: registerData.msg });
-    }
+    register();
   };
-  const changeCode=()=>{
-    getCodeData()
-  }
+  const changeCode = () => {
+    getCodeData();
+  };
   useEffect(() => {
-    getCodeData()
+    getCodeData();
   }, []);
   useEffect(() => {
     let pw = new ParticleWave();
     pw.run();
   }, []);
+  useEffect(() => {
+    if (registerData && registerData.code === 200) {
+      Notification.success({ title: "Success", content: "注册成功" });
+      navigate("/login");
+    } else {
+      registerData &&
+        Notification.error({ title: "Error", content: registerData.msg });
+    }
+  }, [registerData]);
   return (
     <div className="register-wrap">
       <canvas></canvas>
@@ -132,11 +149,11 @@ const Register = () => {
             <img
               onClick={changeCode}
               className="verification-code-img"
-              src={codeData?`data:image/gif;base64,${codeData.data.b64}`:""}
+              src={codeData ? `data:image/gif;base64,${codeData.data.b64}` : ""}
               alt=""
               style={{
                 background: "white",
-                cursor:"pointer",
+                cursor: "pointer",
                 width: "100px",
                 height: "33px",
                 float: "right",
