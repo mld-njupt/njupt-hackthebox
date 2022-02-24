@@ -89,7 +89,9 @@ const Dashboard = () => {
             <div className="userInfo-item2">
               <CardToggle></CardToggle>
             </div>
-            <div></div>
+            <div>
+              <UDTimeline nodeArray={[1, 2, 3, 4, 5, 6, 7, 8, 9]}></UDTimeline>
+            </div>
             <div></div>
             <div className="userInfo-item5">
               <div className="user-state">

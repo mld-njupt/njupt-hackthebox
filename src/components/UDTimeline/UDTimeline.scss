@@ -1,16 +1,63 @@
 @import "../../assets/styles/index.scss";
 .timeline-wrap {
-  .arco-timeline-item-dot {
-    width: 8px;
-    height: 8px;
-    background: $SPECIAL_FONT_COLOR;
-    transition: all 0.1s ease-in-out;
-  }
-  .arco-timeline-item {
-    .arco-timeline-item-dot:hover {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  width: 100%;
+  height: 100%;
+  .timeline-point {
+    width: 100%;
+    height: 15px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    .point-wrap {
+      width: 15px;
+      height: 15px;
       cursor: pointer;
-      transform: scale(1.6);
-      // border: 5px solid $COMMON_FONT_COLOR;
+      .point {
+        box-sizing: content-box;
+        width: 8px;
+        height: 8px;
+        background: $SPECIAL_FONT_COLOR;
+        border-radius: 50%;
+      }
+      .point:hover {
+        transform: scale(1.2);
+        background: $SPECIAL_FONT_COLOR;
+        border-radius: 50%;
+        border: 2px solid rgba($color: gray, $alpha: 0.5);
+      }
+    }
+  }
+  .timeline-card-wrap {
+    transition: all 0.5s ease-in-out;
+    width: 200px;
+    height: 46px;
+    margin-bottom: 6px;
+    font-size: 10px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0px 0px 2px black;
+    background: $MENU_FOCUS_COLOR;
+    color: $COMMON_FONT_COLOR;
+    .date-wrap {
+      margin-left: 2px;
+      margin: 3px 0;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+    }
+    .points-wrap {
+      margin-left: 2px;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      .circle {
+        margin-right: 2px;
+        font-size: 14px;
+        color: $SPECIAL_FONT_COLOR;
+      }
     }
   }
 }
