@@ -37,4 +37,6 @@ const loginApi = (loginConfig: object, remember: boolean): fetchInterface => {
     method: "post",
   };
 };
+//登录后获取用户session
+
 export { registerApi, getCaptcha, loginApi };

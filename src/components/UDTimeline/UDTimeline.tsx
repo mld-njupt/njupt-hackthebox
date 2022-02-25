@@ -1,4 +1,4 @@
-import React, { MouseEventHandler, useEffect, useRef, useState } from "react";
+import React, { MouseEventHandler, useState } from "react";
 import { useWidth } from "../../utils/customHooks";
 import "./UDTimeline.scss";
 const UDTimeline = (props: { nodeArray: Array<any> }) => {
@@ -53,7 +53,7 @@ const TimelineCard = (props: { left: number; visibility: VisibilityState }) => {
       className="timeline-card-wrap"
       style={{
         visibility: props.visibility,
-        transform: `translateX(${props.left}px)`,
+        transform: `translateX(${props.left > 0 && props.left}px)`,
       }}
     >
       <div className="date-wrap">
