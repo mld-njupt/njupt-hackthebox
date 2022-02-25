@@ -1,8 +1,9 @@
 // @ts-nocheck
 import { useEffect } from "react";
-import { Layout, Menu } from "@arco-design/web-react";
+import { Layout, Menu, Notification } from "@arco-design/web-react";
 import { useNavigate, Outlet } from "react-router-dom";
 import { useFetch } from "../../utils/customHooks";
+import { getSessionApi } from "../../api/user";
 import IconAbout from "../../assets/images/icons/About.svg";
 import IconDashboard from "../../assets/images/icons/Dashboard.svg";
 import IconEnv from "../../assets/images/icons/Env.svg";
@@ -17,7 +18,16 @@ const Home = () => {
   const handleCilckMenuItem = (key) => {
     navigate(key);
   };
+  const [session, getSession] = useFetch(getSessionApi());
   useEffect(() => {
+    if (session.code === 200) {
+    } else if (session != null && session.code === 6000) {
+      session && Notification.error({ title: "Error", content: "请先登录" });
+      navigate("/login");
+    }
+  }, [session]);
+  useEffect(() => {
+    getSession();
     navigate("/dashboard");
   }, []);
   return (
