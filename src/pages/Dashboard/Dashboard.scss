@@ -79,7 +79,7 @@
       .userInfo-wrap {
         display: grid;
         grid-template-columns: repeat(2, 50%);
-        grid-template-rows: 140px 60px 100px;
+        grid-template-rows: 3fr 1fr 2fr;
         flex: 1 0;
         margin-left: 25px;
         height: 300px;
@@ -145,6 +145,7 @@
           align-items: center;
           color: $COMMON_FONT_COLOR;
           .rank-up{
+            font-weight: 500;
             color: $SPECIAL_FONT_COLOR;
           }
           .rank-up-icons{
