@@ -44,4 +44,11 @@ const getSessionApi = (): fetchInterface => {
     method: "get",
   };
 };
-export { registerApi, getCaptcha, loginApi, getSessionApi };
+//用户注销
+const logoutApi=():fetchInterface=>{
+  return {
+    url:"/v1/user/logout",
+    method:"get"
+  }
+}
+export { registerApi, getCaptcha, loginApi, getSessionApi ,logoutApi};
