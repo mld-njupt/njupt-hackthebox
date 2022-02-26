@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { Carousel, Tabs } from "@arco-design/web-react";
+import { IconCaretUp } from "@arco-design/web-react/icon";
 import CardToggle from "../../components/CardToggle/CardToggle";
 import UDTimeline from "../../components/UDTimeline/UDTimeline";
 import ScollView from "../../components/Scollview/ScollView";
@@ -94,7 +95,20 @@ const Dashboard = () => {
                 nodeArray={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]}
               ></UDTimeline>
             </div>
-            <div></div>
+            <div style={{
+              width:"100%",
+              height:"100%",
+              display:"flex",
+              justifyContent:"center",
+              alignItems:"center",
+              padding:"20px"
+            }}>
+              <div className="rank-up-wrap">
+                  <div className="rank-up">Rank Up -</div>
+                  <div className="rank-up-points">0</div>
+                  <div className="rank-up-icons"><IconCaretUp style={{color:"#9fef00"}}></IconCaretUp></div>
+              </div>
+            </div>
             <div className="userInfo-item5">
               <div className="user-state">
                 <div className="plan-wrap">

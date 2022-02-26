@@ -138,6 +138,26 @@
           border-left: 1px solid $BACKUP_COLOR;
           border-bottom: 1px solid $BACKUP_COLOR;
         }
+        .rank-up-wrap{
+          width: 100%;
+          height: 50%;
+          display: flex;
+          align-items: center;
+          color: $COMMON_FONT_COLOR;
+          .rank-up{
+            color: $SPECIAL_FONT_COLOR;
+          }
+          .rank-up-icons{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-left: 8px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: rgba($color: $SPECIAL_FONT_COLOR, $alpha: 0.5) ;
+          }
+        }
         .userInfo-item5 {
           border-left: 1px solid $BACKUP_COLOR;
           .user-state {
