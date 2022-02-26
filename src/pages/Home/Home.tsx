@@ -18,18 +18,19 @@ const Home = () => {
   const handleCilckMenuItem = (key) => {
     navigate(key);
   };
-  const [session, getSession] = useFetch(getSessionApi());
-  useEffect(() => {
-    if (session.code === 200) {
-    } else if (session != null && session.code === 6000) {
-      session && Notification.error({ title: "Error", content: "请先登录" });
-      navigate("/login");
-    }
-  }, [session]);
+  const [[session], getSession] = useFetch(getSessionApi());
   useEffect(() => {
     getSession();
     navigate("/dashboard");
   }, []);
+  useEffect(() => {
+    console.log(session)
+    if (session&&session.code === 200) {
+    } else if (session&&session.code === 6000) {
+      session && Notification.error({ title: "Error", content: "请先登录" });
+      navigate("/login");
+    }
+  }, [session]);
   return (
     <div className="home-wrap">
       <Layout
