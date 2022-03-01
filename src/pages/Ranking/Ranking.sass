@@ -1,0 +1,43 @@
+@import "../../assets/styles/index.scss"
+
+.header
+  .header-title
+    display: flex
+    flex-direction: column
+    row-gap: 4px
+    padding: 25px 0 25px 20px
+    margin: 1px
+    background-color: #111927
+    .secondary
+      color: #a4b1cd
+  .global-rank
+    height: 105px
+    display: flex
+    flex-direction: row
+    align-items: center
+    padding: 25px 0 25px 20px
+    margin: 1px
+    background-color: #111927
+    .rank-detail
+      display: flex
+      flex-direction: column
+      margin-left: 20px
+      .rank
+        font-weight: bold
+      .secondary
+        color: #a4b1cd
+
+.bottom-content
+    width: 100%
+    margin-top: 15px
+    height: 430px
+    .arco-tabs-header-wrapper
+      border-bottom: 1px solid #1a2332
+      .arco-tabs-header-title
+        letter-spacing: 2px
+        padding: 10px 0
+        color: $COMMON_FONT_COLOR
+    &-active
+      color: $LIGHT_FONT_COLOR
+      .arco-tabs-header-ink
+        background-color: $SPECIAL_FONT_COLOR
