@@ -84,6 +84,7 @@ const Register = () => {
     } else {
       registerData &&
         Notification.error({ title: "Error", content: registerData.msg });
+        getCodeData()
     }
   }, [registerData]);
   return (
