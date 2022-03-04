@@ -121,7 +121,7 @@ const Register = () => {
             <input
               ref={passwordRef}
               onChange={debounce(handleInput("password"), 500)}
-              type="text"
+              type="password"
             />
           </div>
           <div className="register-input">
@@ -131,7 +131,7 @@ const Register = () => {
             <input
               ref={confirmRef}
               onChange={debounce(handleInput("confirm"), 500)}
-              type="text"
+              type="password"
             />
           </div>
           <div className="register-input">
