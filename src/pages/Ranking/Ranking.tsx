@@ -1,12 +1,18 @@
-import { Layout, Grid, Avatar, Tabs } from "@arco-design/web-react";
-import ScollView from "../../components/Scollview/ScollView";
+import { Layout, Grid, Avatar } from "@arco-design/web-react";
+import { useFetch } from "../../utils/customHooks";
+import UDTable from "../../components/UDTable/UDTable";
+import { getRanking } from "../../api/rank";
 import "./Ranking.sass";
+import { useEffect } from "react";
 
-const { Header, Content } = Layout;
+const { Content } = Layout;
 const { Row, Col } = Grid;
-const { TabPane } = Tabs;
 
 export default function Ranking() {
+  const [[rankingData], getRankingData] = useFetch(getRanking());
+  useEffect(() => {
+    getRankingData();
+  }, []);
   return (
     <Layout style={{ color: "white" }}>
       <Row align="center" className="header">
@@ -24,27 +30,10 @@ export default function Ranking() {
           </div>
         </Col>
       </Row>
-      <Content>
+
       <div className="bottom-content">
-          <Tabs defaultActiveTab="1">
-            <TabPane key="1" title="概况">
-              Tab1
-            </TabPane>
-            <TabPane key="2" title="推荐">
-              Content of Tab Panel 2
-            </TabPane>
-            <TabPane key="3" title="正在进行中">
-              Content of Tab Panel 3
-            </TabPane>
-            <TabPane key="4" title="待办清单">
-              Content of Tab Panel 4
-            </TabPane>
-            <TabPane key="5" title="知识">
-              Content of Tab Panel 5
-            </TabPane>
-          </Tabs>
-        </div>
-      </Content>
+        {rankingData && <UDTable data={rankingData}></UDTable>}
+      </div>
     </Layout>
   );
 }

@@ -1,10 +1,12 @@
 import { Table } from "@arco-design/web-react";
-import "./UDTable.scss";
+import handleTableData from "../../utils/handleTableData";
 import {
   IconCaretUp,
   IconCaretDown,
   IconMinus,
 } from "@arco-design/web-react/icon";
+import "./UDTable.scss";
+import { useEffect } from "react";
 
 const IconUp = <IconCaretUp style={{ color: "#9fef00" }}></IconCaretUp>;
 const IconDown = <IconCaretDown style={{ color: "red" }}></IconCaretDown>;
@@ -93,89 +95,93 @@ const columns = [
   },
 ];
 
-const data = [
-  {
-    rank: {
-      rank: 1,
-      state: "up",
-    },
-    player: {
-      name: "xct",
-      imgUrl:
-        "https://www.hackthebox.com/storage/avatars/e02601e7f4cb3dce6f3744254dcc4f7d.png",
-      status: "GURU",
-    },
-    points: 2098,
-    users: {
-      points: 201,
-      redPoints: 9,
-    },
-    systems: {
-      points: 201,
-      redPoints: 10,
-    },
-    challenges: 218,
-    portresses: 40,
-    endgames: 14,
-  },
-  {
-    rank: {
-      rank: 2,
-      state: "down",
-    },
-    player: {
-      name: "mld",
-      imgUrl:
-        "https://www.hackthebox.com/storage/avatars/564e4e21837a37a1024833573960c973.png",
-      status: "GURU",
-    },
-    points: 2074,
-    users: {
-      points: 201,
-      redPoints: 9,
-    },
-    systems: {
-      points: 201,
-      redPoints: 10,
-    },
-    challenges: 218,
-    portresses: 40,
-    endgames: 14,
-  },
-  {
-    rank: {
-      rank: 3,
-      state: "keep",
-    },
-    player: {
-      name: "rax",
-      imgUrl:
-        "https://www.hackthebox.com/storage/avatars/45237a657d91efd7e6ee103f8bb3142a.png",
-      status: "GURU",
-    },
-    points: 2034,
-    users: {
-      points: 190,
-      redPoints: 9,
-    },
-    systems: {
-      points: 201,
-      redPoints: 10,
-    },
-    challenges: 180,
-    portresses: 30,
-    endgames: 12,
-  },
-];
+// const data = [
+// {
+//   rank: {
+//     rank: 1,
+//     state: "up",
+//   },
+//   player: {
+//     name: "xct",
+//     imgUrl:
+//       "https://www.hackthebox.com/storage/avatars/e02601e7f4cb3dce6f3744254dcc4f7d.png",
+//     status: "GURU",
+//   },
+//   points: 2098,
+//   users: {
+//     points: 201,
+//     redPoints: 9,
+//   },
+//   systems: {
+//     points: 201,
+//     redPoints: 10,
+//   },
+//   challenges: 218,
+//   portresses: 40,
+//   endgames: 14,
+// },
+//   {
+//     rank: {
+//       rank: 2,
+//       state: "down",
+//     },
+//     player: {
+//       name: "mld",
+//       imgUrl:
+//         "https://www.hackthebox.com/storage/avatars/564e4e21837a37a1024833573960c973.png",
+//       status: "GURU",
+//     },
+//     points: 2074,
+//     users: {
+//       points: 201,
+//       redPoints: 9,
+//     },
+//     systems: {
+//       points: 201,
+//       redPoints: 10,
+//     },
+//     challenges: 218,
+//     portresses: 40,
+//     endgames: 14,
+//   },
+//   {
+//     rank: {
+//       rank: 3,
+//       state: "keep",
+//     },
+//     player: {
+//       name: "rax",
+//       imgUrl:
+//         "https://www.hackthebox.com/storage/avatars/45237a657d91efd7e6ee103f8bb3142a.png",
+//       status: "GURU",
+//     },
+//     points: 2034,
+//     users: {
+//       points: 190,
+//       redPoints: 9,
+//     },
+//     systems: {
+//       points: 201,
+//       redPoints: 10,
+//     },
+//     challenges: 180,
+//     portresses: 30,
+//     endgames: 12,
+//   },
+// ];
 
-const UDTable = () => {
+const UDTable = (props: any) => {
+  const { data } = props;
+
+  const newData = handleTableData(data.data);
+  console.log(newData);
   return (
     <div className="table-wrap">
       <Table
         border={false}
         stripe
         columns={columns}
-        data={data}
+        data={newData}
         pagination={false}
       ></Table>
     </div>

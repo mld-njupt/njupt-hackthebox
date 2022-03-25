@@ -10,6 +10,7 @@ import Env from "./pages/Env/Env";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import Online from "./pages/Online/Online";
 import About from "./pages/About/About";
+import Ranking from "./pages/Ranking/Ranking";
 function App() {
   document.body.setAttribute("arco-theme", "dark");
 
@@ -34,7 +35,7 @@ function App() {
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/env" element={<Env />} />
             <Route path="/about" element={<About />} />
-            <Route path="/online" element={<Online />} />
+            <Route path="/ranking" element={<Ranking />} />
           </Route>
           <Route path="/register" element={<Register />}></Route>
         </Routes>
