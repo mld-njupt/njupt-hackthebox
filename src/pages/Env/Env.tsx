@@ -14,16 +14,24 @@ import {
 import "./Env.scss";
 import { useWidth } from "../../utils/customHooks";
 import { IconSearch } from "@arco-design/web-react/icon";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { getCategories, getAllChallenges, getChallengesByCategory, submitFlag, getSolved } from "../../api/competition";
 
 const { TabPane } = Tabs;
 const Option = Select.Option;
 const { Text } = Typography;
 
 export default function Env() {
-  const [bottomContentRef, bottomContentWidth] = useWidth<HTMLDivElement>();
   const [popVisible, setPopVisible] = useState(false);
   const [questionStatus, setQuestionStatus] = useState<string>("全部");
+  const [categoryList, setCategoryList] = useState<Array<10>>([]);
+
+  useEffect(() => {
+    getCategories().then((res) => {
+      console.log(res);
+      setCategoryList(res.data);
+    })
+  }, [])
 
   function StatusPopup() {
     return (
@@ -59,11 +67,12 @@ export default function Env() {
     );
   }
 
-  const options = ["Beijing", "Shanghai", "Guangzhou", "Disabled"];
+  const options = categoryList;
+  const difficultyOptions = ['简单', '中等', '困难'];
 
   return (
     <div className="env-wrap">
-      <div className="env-tabs" ref={bottomContentRef}>
+      <div className="env-tabs">
         <Tabs defaultActiveTab="1">
           <TabPane key="1" title="题目列表">
             <div className="match-table-wrap">
@@ -75,7 +84,7 @@ export default function Env() {
                 />
                 <Trigger
                   popupVisible={popVisible}
-                  popup={() => <StatusPopup/>}
+                  popup={() => <StatusPopup />}
                   trigger="click"
                   classNames="zoomInTop"
                   onVisibleChange={(visible) => {
@@ -96,9 +105,9 @@ export default function Env() {
                     })
                   }
                 >
-                  {options.map((option, index) => (
-                    <Option key={option} disabled={index === 3} value={option}>
-                      {option}
+                  {options.map((item, index) => (
+                    <Option key={item} disabled={index === 3} value={item}>
+                      {item}
                     </Option>
                   ))}
                 </Select>
@@ -112,19 +121,19 @@ export default function Env() {
                     })
                   }
                 >
-                  {options.map((option, index) => (
-                    <Option key={option} disabled={index === 3} value={option}>
-                      {option}
+                  {difficultyOptions.map((item, index) => (
+                    <Option key={item} disabled={index === 3} value={item}>
+                      {item}
                     </Option>
                   ))}
                 </Select>
               </Card>
-              <Collapse bordered={false}>
-                <Collapse.Item header="Web" name="1"></Collapse.Item>
-                <Collapse.Item header="Pwn" name="2"></Collapse.Item>
-                <Collapse.Item header="Reverse" name="3"></Collapse.Item>
-                <Collapse.Item header="Crypto" name="4"></Collapse.Item>
-                <Collapse.Item header="Misc" name="5"></Collapse.Item>
+              <Collapse accordion bordered={false}>
+                {categoryList.map((item: any, index: any) => {
+                  return <Collapse.Item header={item} name={index}>
+
+                  </Collapse.Item>;
+                })}
               </Collapse>
             </div>
           </TabPane>
