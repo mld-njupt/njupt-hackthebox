@@ -1,0 +1,39 @@
+@import "../../assets/styles/index.scss";
+.article-card-wrap {
+  width: 778px;
+  height: 120px;
+  padding: 30px;
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+  background-color: $BACKUP_COLOR;
+  .img {
+    width: 30%;
+    height: 80px;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    overflow: hidden;
+    box-shadow: rgb(0 0 0/ 24%) 0px 12px 15px 0px,
+      rgb(0 0 0 / 19%) 0px 17px 50px 0px !important;
+  }
+  .article-msg {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: white;
+    margin-left: 30px;
+    font-family: Inter, -apple-system, BlinkMacSystemFont, PingFang SC,
+      Hiragino Sans GB, noto sans, Microsoft YaHei, Helvetica Neue, Helvetica,
+      Arial, sans-serif;
+    .article-title {
+      font-size: 20px;
+    }
+    .author {
+      color: rgba($color: #fff, $alpha: 0.85);
+    }
+    .date {
+      color: rgba($color: #fff, $alpha: 0.85);
+    }
+  }
+}

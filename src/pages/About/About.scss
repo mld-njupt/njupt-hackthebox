@@ -1,0 +1,15 @@
+@import "../../assets/styles/index.scss";
+.about-warp {
+  width: 100%;
+  height: 100%;
+  .articles-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 868px;
+    height: 100%;
+    margin: 0 auto;
+    margin-top: 20px;
+    background-color: $MENU_FOCUS_COLOR;
+  }
+}
