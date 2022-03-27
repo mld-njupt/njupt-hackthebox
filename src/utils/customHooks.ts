@@ -1,4 +1,11 @@
-import { useEffect, useState, useRef, MutableRefObject } from "react";
+import {
+  useEffect,
+  useState,
+  useRef,
+  useCallback,
+  MutableRefObject,
+  DependencyList,
+} from "react";
 import { fetchInterface } from "./interfaces";
 export const useFetch = ({ url, body, query, method }: fetchInterface) => {
   const [data, setData] = useState<any>(null);
@@ -106,4 +113,28 @@ export const useWidth = <T>(): [MutableRefObject<T>, number] => {
     }
   }, [ref.current, screenWidth]);
   return [ref, value];
+};
+
+//节流hook
+export const useDebounce = <T extends (...args: any[]) => any>(
+  Fn: T,
+  delay: number,
+  deps: DependencyList = []
+) => {
+  const timer = useRef<number>();
+  const cancle = useCallback(() => {
+    if (timer.current) {
+      clearTimeout(timer.current);
+    }
+  }, []);
+  const run = useCallback(
+    (...args) => {
+      cancle();
+      timer.current = window.setTimeout(() => {
+        Fn(...args);
+      }, delay);
+    },
+    [deps]
+  );
+  return [run as T, cancle];
 };
