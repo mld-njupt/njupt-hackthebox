@@ -1,7 +1,7 @@
 @import "../../assets/styles/index.scss";
 .article-card-wrap {
   width: 778px;
-  height: 120px;
+  height: 175px;
   padding: 30px;
   display: flex;
   align-items: center;
@@ -9,7 +9,7 @@
   background-color: $BACKUP_COLOR;
   .img {
     width: 30%;
-    height: 80px;
+    height: 120px;
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
