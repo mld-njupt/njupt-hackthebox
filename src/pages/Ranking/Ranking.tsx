@@ -1,6 +1,7 @@
 import { Layout, Grid, Avatar } from "@arco-design/web-react";
 import { useFetch } from "../../utils/customHooks";
 import UDTable from "../../components/UDTable/UDTable";
+import Loading from "../../components/Loading/Loading";
 import { getRanking } from "../../api/rank";
 import "./Ranking.sass";
 import { useEffect } from "react";
@@ -32,7 +33,11 @@ export default function Ranking() {
       </Row>
 
       <div className="bottom-content">
-        {rankingData && <UDTable data={rankingData}></UDTable>}
+        {rankingData ? (
+          <UDTable data={rankingData}></UDTable>
+        ) : (
+          <Loading></Loading>
+        )}
       </div>
     </Layout>
   );
