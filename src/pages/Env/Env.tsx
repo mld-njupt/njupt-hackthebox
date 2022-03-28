@@ -3,10 +3,13 @@ import {
   Card,
   Collapse,
   Divider,
+  Drawer,
   Input,
   Message,
   Radio,
   Select,
+  Spin,
+  Table,
   Tabs,
   Trigger,
   Typography,
@@ -25,11 +28,16 @@ export default function Env() {
   const [popVisible, setPopVisible] = useState(false);
   const [questionStatus, setQuestionStatus] = useState<string>("全部");
   const [categoryList, setCategoryList] = useState<Array<10>>([]);
+  const [challengeForCategoryList, setChallengeForCategoryList] = useState<Array<10>>([]);
+  const [challengeForCategoryListLoading, setChallengeForCategoryListLoading] = useState(false);
+  const [visible, setVisible] = useState(false);
+  const [visible2, setVisible2] = useState(false);
+  const [whichChallenge, setWhichChallenge] = useState(0);
 
   useEffect(() => {
     getCategories().then((res) => {
       console.log(res);
-      setCategoryList(res.data);
+      setCategoryList(res.data.data);
     })
   }, [])
 
@@ -69,6 +77,56 @@ export default function Env() {
 
   const options = categoryList;
   const difficultyOptions = ['简单', '中等', '困难'];
+  const challengeColumns = [
+    {
+      title: "题目编号",
+      dataIndex: "id",
+    },
+    {
+      title: "题目名称",
+      dataIndex: "name",
+    },
+    {
+      title: "方向",
+      dataIndex: "category",
+    },
+    {
+      title: "Tags",
+      dataIndex: "tags",
+    },
+    {
+      title: "分数",
+      dataIndex: "score",
+    },
+    {
+      title: "已解题人数",
+      dataIndex: "solver_count",
+    },
+    {
+      title: "状态",
+      dataIndex: "is_solved",
+      render: (text: boolean, record: any) => {
+        // console.log(record);
+        return text ? "已完成" : "未完成";
+      }
+    },
+    {
+      title: "操作",
+      dataIndex: "action",
+      render: (text: any, record: any) => {
+        return (
+          <Button
+            onClick={() => {
+              console.log(record);
+              setVisible(true);
+            }}
+          >
+            提交
+          </Button>
+        );
+      }
+    }
+  ]
 
   return (
     <div className="env-wrap">
@@ -106,7 +164,7 @@ export default function Env() {
                   }
                 >
                   {options.map((item, index) => (
-                    <Option key={item} disabled={index === 3} value={item}>
+                    <Option key={item} value={item}>
                       {item}
                     </Option>
                   ))}
@@ -128,10 +186,33 @@ export default function Env() {
                   ))}
                 </Select>
               </Card>
-              <Collapse accordion bordered={false}>
+              <Collapse accordion bordered={false} onChange={(e: any) => {
+                setChallengeForCategoryList([]);
+                setChallengeForCategoryListLoading(true);
+                console.log(e);
+                getChallengesByCategory(categoryList[e].toString()).then((res) => {
+                  console.log(res);
+                  res?.data?.data && setChallengeForCategoryList(res.data.data);
+                  setChallengeForCategoryListLoading(false);
+                })
+              }}>
                 {categoryList.map((item: any, index: any) => {
-                  return <Collapse.Item header={item} name={index}>
 
+                  return <Collapse.Item key={index} header={item} name={index}>
+                    <Table loading={challengeForCategoryListLoading} columns={challengeColumns} data={challengeForCategoryList} pagination={false} />
+                    {/* <Spin loading={false}>
+                      <div>
+                        <Divider />
+                        {challengeForCategoryList?.map((item: any, index: any) => {
+                          console.log(item);
+                          return <div key={index} style={{ width: "100%" }}>
+                            <div>{item.name}</div>
+                            <div>{item.description}</div>
+                            <Divider />
+                          </div>
+                        })}
+                      </div>
+                    </Spin> */}
                   </Collapse.Item>;
                 })}
               </Collapse>
@@ -145,6 +226,50 @@ export default function Env() {
           </TabPane>
         </Tabs>
       </div>
+      <Drawer
+        width={500}
+        title={<span>First Drawer </span>}
+        visible={visible}
+        footer={null}
+        onOk={() => {
+          console.log("OK")
+          setVisible(false);
+        }}
+        onCancel={() => {
+          console.log("Cancel")
+          setVisible(false);
+        }}
+      >
+        <Text>{ }</Text>
+        <Button
+          onClick={() => {
+            setVisible2(true);
+          }}
+          type='primary'
+          style={{ marginTop: 20 }}
+        >
+          Open Drawer
+        </Button>
+      </Drawer>
+      <Drawer
+        width={332}
+        title={<span>Second Drawer </span>}
+        footer={null}
+        visible={visible2}
+        onOk={() => {
+          console.log("OK");
+          setVisible2(false);
+        }}
+        onCancel={() => {
+          console.log("Cancel");
+          setVisible2(false);
+        }}
+      >
+        <div>Here is an example text.</div>
+
+        <div>Here is an example text.</div>
+      </Drawer>
     </div>
   );
 }
+

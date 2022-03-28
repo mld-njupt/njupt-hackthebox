@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseurl = "/v1/user";
+const baseurl = "/api/v1/user";
 
 // 获取所有题目分类
 export const getCategories = () => {
