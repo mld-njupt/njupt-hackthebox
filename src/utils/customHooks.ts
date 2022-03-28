@@ -42,6 +42,7 @@ export const useFetch = ({ url, body, query, method }: fetchInterface) => {
     setData(null);
     setError(null);
     setPrevent(true);
+        //后端要求直接拼接的方式姑且命名为params吧
     fetch(`${BASE_URL}${url}${queryString}`, options)
       .then((res: any) => res.json())
       .then((res: any) => {

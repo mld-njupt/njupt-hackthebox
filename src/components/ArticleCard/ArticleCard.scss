@@ -23,6 +23,7 @@
   }
 
   .article-msg {
+    width: 300px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -40,5 +41,12 @@
     .date {
       color: rgba($color: #fff, $alpha: 0.85);
     }
+  }
+  .operate{
+    margin-left: 80px;
+    height: 120px;
+    font-size: 16px;
+    line-height: 180px;
+    color: $SPECIAL_FONT_COLOR;
   }
 }

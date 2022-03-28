@@ -8,11 +8,9 @@ export const getAllArticles = (): fetchInterface => {
 };
 //获取指定文章详细信息
 export const getSingleArticle = (id: any): fetchInterface => {
+
   return {
-    url: "/v1/article",
+    url: `/v1/article/${id}`,
     method: "get",
-    query: {
-      id,
-    },
   };
 };
