@@ -23,7 +23,7 @@ const Home = () => {
   const [[logoutData], logout] = useFetch(logoutApi());
   useEffect(() => {
     getSession();
-    navigate("/dashboard");
+    // navigate("/dashboard");
   }, []);
   useEffect(() => {
     if (session && session.code === 200) {

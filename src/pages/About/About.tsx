@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import React,{ useEffect } from "react";
 import ArticleCard from "../../components/ArticleCard/ArticleCard";
 import { useFetch } from "../../utils/customHooks";
 import formDate from "../../utils/formatDate";
@@ -18,4 +18,4 @@ const About = () => {
     </div>
   );
 };
-export default About;
+export default React.memo(About);
