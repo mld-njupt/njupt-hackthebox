@@ -26,10 +26,19 @@ interface registerConfigInterface {
   email: string;
   code: string;
 }
+interface articlrCard{
+  id:number,
+  title:string,
+  author:string,
+  image:string,
+  time:string
+  key:number
+}
 export type {
   fetchInterface,
   dashboardCardInterface,
   scollViewInterface,
   scollViewContextInterface,
   registerConfigInterface,
+  articlrCard
 };
