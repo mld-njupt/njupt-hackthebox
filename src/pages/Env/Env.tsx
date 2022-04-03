@@ -8,38 +8,52 @@ import {
   Message,
   Radio,
   Select,
-  Spin,
   Table,
   Tabs,
   Trigger,
   Typography,
+  Form,
+  Descriptions,
+  Notification,
 } from "@arco-design/web-react";
 import "./Env.scss";
-import { useWidth } from "../../utils/customHooks";
 import { IconSearch } from "@arco-design/web-react/icon";
 import { useEffect, useState } from "react";
-import { getCategories, getAllChallenges, getChallengesByCategory, submitFlag, getSolved } from "../../api/competition";
+import {
+  getCategories,
+  getAllChallenges,
+  getChallengesByCategory,
+  submitFlag,
+  getSolved,
+} from "../../api/competition";
 
 const { TabPane } = Tabs;
 const Option = Select.Option;
 const { Text } = Typography;
+const FormItem = Form.Item;
 
 export default function Env() {
   const [popVisible, setPopVisible] = useState(false);
   const [questionStatus, setQuestionStatus] = useState<string>("全部");
   const [categoryList, setCategoryList] = useState<Array<10>>([]);
-  const [challengeForCategoryList, setChallengeForCategoryList] = useState<Array<10>>([]);
-  const [challengeForCategoryListLoading, setChallengeForCategoryListLoading] = useState(false);
+  const [challengeForCategoryList, setChallengeForCategoryList] = useState<
+    Array<10>
+  >([]);
+  const [challengeForCategoryListLoading, setChallengeForCategoryListLoading] =
+    useState(false);
   const [visible, setVisible] = useState(false);
-  const [visible2, setVisible2] = useState(false);
-  const [whichChallenge, setWhichChallenge] = useState(0);
+  // const [whichChallenge, setWhichChallenge] = useState(0);
+  // 右侧 drawer 所显示的选定查看比赛的详细信息
+  const [questionDetail, setQuestionDetail] = useState<any>({});
+  // 需要提交的flag
+  const [flag, setFlag] = useState("");
 
   useEffect(() => {
     getCategories().then((res) => {
       console.log(res);
       setCategoryList(res.data.data);
-    })
-  }, [])
+    });
+  }, []);
 
   function StatusPopup() {
     return (
@@ -76,7 +90,7 @@ export default function Env() {
   }
 
   const options = categoryList;
-  const difficultyOptions = ['简单', '中等', '困难'];
+  const difficultyOptions = ["简单", "中等", "困难"];
   const challengeColumns = [
     {
       title: "题目编号",
@@ -108,7 +122,7 @@ export default function Env() {
       render: (text: boolean, record: any) => {
         // console.log(record);
         return text ? "已完成" : "未完成";
-      }
+      },
     },
     {
       title: "操作",
@@ -118,15 +132,16 @@ export default function Env() {
           <Button
             onClick={() => {
               console.log(record);
+              setQuestionDetail(record);
               setVisible(true);
             }}
           >
             提交
           </Button>
         );
-      }
-    }
-  ]
+      },
+    },
+  ];
 
   return (
     <div className="env-wrap">
@@ -186,21 +201,33 @@ export default function Env() {
                   ))}
                 </Select>
               </Card>
-              <Collapse accordion bordered={false} onChange={(e: any) => {
-                setChallengeForCategoryList([]);
-                setChallengeForCategoryListLoading(true);
-                console.log(e);
-                getChallengesByCategory(categoryList[e].toString()).then((res) => {
-                  console.log(res);
-                  res?.data?.data && setChallengeForCategoryList(res.data.data);
-                  setChallengeForCategoryListLoading(false);
-                })
-              }}>
+              <Collapse
+                accordion
+                bordered={false}
+                onChange={(e: any) => {
+                  setChallengeForCategoryList([]);
+                  setChallengeForCategoryListLoading(true);
+                  console.log(e);
+                  getChallengesByCategory(categoryList[e].toString()).then(
+                    (res) => {
+                      console.log(res);
+                      res?.data?.data &&
+                        setChallengeForCategoryList(res.data.data);
+                      setChallengeForCategoryListLoading(false);
+                    }
+                  );
+                }}
+              >
                 {categoryList.map((item: any, index: any) => {
-
-                  return <Collapse.Item key={index} header={item} name={index}>
-                    <Table loading={challengeForCategoryListLoading} columns={challengeColumns} data={challengeForCategoryList} pagination={false} />
-                    {/* <Spin loading={false}>
+                  return (
+                    <Collapse.Item key={index} header={item} name={index}>
+                      <Table
+                        loading={challengeForCategoryListLoading}
+                        columns={challengeColumns}
+                        data={challengeForCategoryList}
+                        pagination={false}
+                      />
+                      {/* <Spin loading={false}>
                       <div>
                         <Divider />
                         {challengeForCategoryList?.map((item: any, index: any) => {
@@ -213,7 +240,8 @@ export default function Env() {
                         })}
                       </div>
                     </Spin> */}
-                  </Collapse.Item>;
+                    </Collapse.Item>
+                  );
                 })}
               </Collapse>
             </div>
@@ -227,49 +255,134 @@ export default function Env() {
         </Tabs>
       </div>
       <Drawer
-        width={500}
+        width={700}
         title={<span>First Drawer </span>}
         visible={visible}
         footer={null}
         onOk={() => {
-          console.log("OK")
-          setVisible(false);
-        }}
-        onCancel={() => {
-          console.log("Cancel")
-          setVisible(false);
-        }}
-      >
-        <Text>{ }</Text>
-        <Button
-          onClick={() => {
-            setVisible2(true);
-          }}
-          type='primary'
-          style={{ marginTop: 20 }}
-        >
-          Open Drawer
-        </Button>
-      </Drawer>
-      <Drawer
-        width={332}
-        title={<span>Second Drawer </span>}
-        footer={null}
-        visible={visible2}
-        onOk={() => {
           console.log("OK");
-          setVisible2(false);
+          setVisible(false);
         }}
         onCancel={() => {
           console.log("Cancel");
-          setVisible2(false);
+          setVisible(false);
         }}
       >
-        <div>Here is an example text.</div>
-
-        <div>Here is an example text.</div>
+        <Tabs defaultActiveTab="1">
+          <TabPane key="1" title="详情">
+            <Descriptions
+              column={1}
+              title="题目信息"
+              data={
+                questionDetail && [
+                  {
+                    key: 1,
+                    label: "题目ID",
+                    value: questionDetail?.id,
+                  },
+                  {
+                    key: 2,
+                    label: "题目名称",
+                    value: questionDetail?.name,
+                  },
+                  {
+                    key: 3,
+                    label: "分数",
+                    value: questionDetail?.score,
+                  },
+                  {
+                    key: 4,
+                    label: "简介",
+                    value: questionDetail?.description,
+                  },
+                  {
+                    key: 5,
+                    label: "附件",
+                    value: questionDetail?.attachment,
+                  },
+                  {
+                    key: 6,
+                    label: "分类",
+                    value: questionDetail?.category,
+                  },
+                  {
+                    key: 7,
+                    label: "标签",
+                    value: questionDetail?.tags,
+                  },
+                  {
+                    key: 8,
+                    label: "hints",
+                    value: questionDetail?.hints,
+                  },
+                  {
+                    key: 9,
+                    label: "已解决人数",
+                    value: questionDetail?.solver_count,
+                  },
+                  {
+                    key: 10,
+                    label: "状态",
+                    value: questionDetail?.is_solved ? "已解决" : "未解决",
+                  },
+                ]
+              }
+              style={{ margin: 20 }}
+              labelStyle={{ paddingRight: 20 }}
+            />
+          </TabPane>
+          <TabPane key="2" title="提交flag">
+            <Descriptions
+              column={1}
+              title="提交flag"
+              data={[]}
+              style={{ margin: "20px 20px 5px 20px" }}
+              labelStyle={{ paddingRight: 20 }}
+            />
+            <Input
+              style={{ margin: "0px 20px 0px 20px", width: 350 }}
+              allowClear
+              placeholder="Please enter your flag here"
+              onChange={(e) => {
+                // console.log(e);
+                setFlag(e);
+              }}
+            />
+            <Button
+              style={{ marginLeft: 12 }}
+              onClick={() => {
+                if (flag !== "") {
+                  console.log(flag);
+                  submitFlag(questionDetail.id, flag).then((res) => {
+                    console.log(res);
+                    if (res?.data?.code === 4010) {
+                      Notification.warning({
+                        title: res?.data?.msg,
+                        content: res?.data?.data ? res?.data?.data : "",
+                      });
+                    } else if (res?.data?.code === 4000) {
+                      Notification.error({
+                        title: res?.data?.msg,
+                        content: res?.data?.data ? res?.data?.data : "",
+                      });
+                    } else if (res?.data?.code === 200) {
+                      Notification.success({
+                        title: res?.data?.msg,
+                        content: res?.data?.data ? res?.data?.data : "",
+                      });
+                    }
+                  });
+                }
+              }}
+            >
+              Submit
+            </Button>
+          </TabPane>
+          <TabPane key="3" title="提交记录">
+            <Typography.Paragraph>Content of Tab Panel 2</Typography.Paragraph>
+          </TabPane>
+        </Tabs>
       </Drawer>
     </div>
   );
 }
-
