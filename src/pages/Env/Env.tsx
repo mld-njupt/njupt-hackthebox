@@ -25,6 +25,7 @@ import {
   getChallengesByCategory,
   submitFlag,
   getSolved,
+  getSolvedByCid,
 } from "../../api/competition";
 
 const { TabPane } = Tabs;
@@ -33,64 +34,132 @@ const { Text } = Typography;
 const FormItem = Form.Item;
 
 export default function Env() {
+  const [questionStatus, setQuestionStatus] = useState<string | undefined>(
+    "按类型查看"
+  );
+  const [challengeList, setChallengeList] = useState([]);
+  const [challengeListLoading, setChallengeListLoading] = useState(true);
+
   const [popVisible, setPopVisible] = useState(false);
-  const [questionStatus, setQuestionStatus] = useState<string>("全部");
   const [categoryList, setCategoryList] = useState<Array<10>>([]);
   const [challengeForCategoryList, setChallengeForCategoryList] = useState<
-    Array<10>
+    Array<100>
   >([]);
   const [challengeForCategoryListLoading, setChallengeForCategoryListLoading] =
     useState(false);
+
   const [visible, setVisible] = useState(false);
   // const [whichChallenge, setWhichChallenge] = useState(0);
   // 右侧 drawer 所显示的选定查看比赛的详细信息
   const [questionDetail, setQuestionDetail] = useState<any>({});
   // 需要提交的flag
   const [flag, setFlag] = useState("");
+  const [solvedCidList, setSolvedCidList] = useState<Array<100>>([]);
 
   useEffect(() => {
+    getAllChallenges().then((res) => {
+      console.log(res);
+      setChallengeList(res?.data?.data);
+      setChallengeListLoading(false);
+    });
     getCategories().then((res) => {
       console.log(res);
-      setCategoryList(res.data.data);
+      setCategoryList(res?.data?.data);
     });
   }, []);
 
   function StatusPopup() {
     return (
       <Card>
-        <Text>状态</Text>
+        <Text>查看</Text>
         <Divider></Divider>
         <Radio.Group
           direction="vertical"
-          defaultValue="c"
+          defaultValue={() => {
+            return questionStatus === "全部" ? "all" : "category";
+          }}
           onChange={(e) => {
-            let text = "全部";
             // e === "a" && (text = "未处理");
             // e === "b" && (text = "已处理");
+            let text: string | undefined;
             switch (e) {
-              case "a":
-                text = "已完成";
-                break;
-              case "b":
-                text = "未完成";
-                break;
-              case "c":
+              case "all":
                 text = "全部";
+                break;
+              case "category":
+                text = "按类型查看";
                 break;
             }
             setQuestionStatus(text);
           }}
         >
-          <Radio value="a">已完成</Radio>
-          <Radio value="b">未完成</Radio>
-          <Radio value="c">全部</Radio>
+          <Radio value="all">全部</Radio>
+          <Radio value="category">按类型查看</Radio>
         </Radio.Group>
       </Card>
     );
   }
 
-  const options = categoryList;
-  const difficultyOptions = ["简单", "中等", "困难"];
+  function MainTableList() {
+    return questionStatus === "全部" ? (
+      <Table
+        columns={challengeColumns}
+        data={challengeList}
+        loading={challengeListLoading}
+        pagination={false}
+      />
+    ) : (
+      <>
+        <Collapse
+          accordion
+          defaultActiveKey={["1"]}
+          expandIconPosition="right"
+          bordered={false}
+          onChange={(e: any) => {
+            setChallengeForCategoryList([]);
+            setChallengeForCategoryListLoading(true);
+            console.log(e);
+            getChallengesByCategory(categoryList[e].toString()).then((res) => {
+              console.log(res);
+              res?.data?.data && setChallengeForCategoryList(res.data.data);
+              setChallengeForCategoryListLoading(false);
+            });
+          }}
+        >
+          {categoryList.map((item: any, index: any) => {
+            return (
+              <Collapse.Item key={index} header={item} name={index}>
+                <Table
+                  loading={challengeForCategoryListLoading}
+                  columns={challengeColumns}
+                  data={challengeForCategoryList}
+                  pagination={false}
+                />
+                {/* <Spin loading={false}>
+                  <div>
+                    <Divider />
+                    {challengeForCategoryList?.map((item: any, index: any) => {
+                      console.log(item);
+                      return (
+                        <div key={index} style={{ width: "100%" }}>
+                          <div>{item.name}</div>
+                          <div>{item.description}</div>
+                          <Divider />
+                        </div>
+                      );
+                    })}
+                  </div>
+                </Spin> */}
+              </Collapse.Item>
+            );
+          })}
+        </Collapse>
+      </>
+    );
+  }
+
+  // const options = categoryList;
+  // const difficultyOptions = ["简单", "中等", "困难"];
   const challengeColumns = [
     {
       title: "题目编号",
@@ -134,6 +203,9 @@ export default function Env() {
               console.log(record);
               setQuestionDetail(record);
               setVisible(true);
+              getSolvedByCid(record.id).then((res) => {
+                console.log(res);
+              });
             }}
           >
             提交
@@ -150,11 +222,11 @@ export default function Env() {
           <TabPane key="1" title="题目列表">
             <div className="match-table-wrap">
               <Card bordered={false}>
-                <Input
+                {/* <Input
                   style={{ width: 350 }}
                   prefix={<IconSearch />}
                   placeholder="Please enter"
-                />
+                /> */}
                 <Trigger
                   popupVisible={popVisible}
                   popup={() => <StatusPopup />}
@@ -164,11 +236,11 @@ export default function Env() {
                     setPopVisible(visible);
                   }}
                 >
-                  <Button style={{ marginRight: 40 }}>
-                    状态·{questionStatus}
+                  <Button style={{ width: 140 }}>
+                    查看 · {questionStatus}
                   </Button>
                 </Trigger>
-                <Select
+                {/* <Select
                   placeholder="排序"
                   style={{ width: 154 }}
                   onChange={(value) =>
@@ -199,51 +271,9 @@ export default function Env() {
                       {item}
                     </Option>
                   ))}
-                </Select>
+                </Select> */}
               </Card>
-              <Collapse
-                accordion
-                bordered={false}
-                onChange={(e: any) => {
-                  setChallengeForCategoryList([]);
-                  setChallengeForCategoryListLoading(true);
-                  console.log(e);
-                  getChallengesByCategory(categoryList[e].toString()).then(
-                    (res) => {
-                      console.log(res);
-                      res?.data?.data &&
-                        setChallengeForCategoryList(res.data.data);
-                      setChallengeForCategoryListLoading(false);
-                    }
-                  );
-                }}
-              >
-                {categoryList.map((item: any, index: any) => {
-                  return (
-                    <Collapse.Item key={index} header={item} name={index}>
-                      <Table
-                        loading={challengeForCategoryListLoading}
-                        columns={challengeColumns}
-                        data={challengeForCategoryList}
-                        pagination={false}
-                      />
-                      {/* <Spin loading={false}>
-                      <div>
-                        <Divider />
-                        {challengeForCategoryList?.map((item: any, index: any) => {
-                          console.log(item);
-                          return <div key={index} style={{ width: "100%" }}>
-                            <div>{item.name}</div>
-                            <div>{item.description}</div>
-                            <Divider />
-                          </div>
-                        })}
-                      </div>
-                    </Spin> */}
-                    </Collapse.Item>
-                  );
-                })}
-              </Collapse>
+              <MainTableList />
             </div>
           </TabPane>
           <TabPane key="2" title="已完成题目">
@@ -256,7 +286,7 @@ export default function Env() {
       </div>
       <Drawer
         width={700}
-        title={<span>First Drawer </span>}
+        title={<span>Happy Hacking!</span>}
         visible={visible}
         footer={null}
         onOk={() => {
@@ -379,7 +409,48 @@ export default function Env() {
             </Button>
           </TabPane>
           <TabPane key="3" title="提交记录">
-            <Typography.Paragraph>Content of Tab Panel 2</Typography.Paragraph>
+            <Typography.Paragraph>
+              <Table
+                columns={[{ title: "提交时间", dataIndex: "time" }]}
+                data={[
+                  {
+                    key: "1",
+                    name: "Jane Doe",
+                    salary: 23000,
+                    address: "32 Park Road, London",
+                    email: "jane.doe@example.com",
+                  },
+                  {
+                    key: "2",
+                    name: "Alisa Ross",
+                    salary: 25000,
+                    address: "35 Park Road, London",
+                    email: "alisa.ross@example.com",
+                  },
+                  {
+                    key: "3",
+                    name: "Kevin Sandra",
+                    salary: 22000,
+                    address: "31 Park Road, London",
+                    email: "kevin.sandra@example.com",
+                  },
+                  {
+                    key: "4",
+                    name: "Ed Hellen",
+                    salary: 17000,
+                    address: "42 Park Road, London",
+                    email: "ed.hellen@example.com",
+                  },
+                  {
+                    key: "5",
+                    name: "William Smith",
+                    salary: 27000,
+                    address: "62 Park Road, London",
+                    email: "william.smith@example.com",
+                  },
+                ]}
+              />
+            </Typography.Paragraph>
           </TabPane>
         </Tabs>
       </Drawer>
