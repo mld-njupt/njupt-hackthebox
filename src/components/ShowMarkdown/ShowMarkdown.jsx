@@ -3,7 +3,7 @@ import hljs from "highlight.js"; // 引入highlight.js库
 import "highlight.js/styles/github.css"; // 引入github风格的代码高亮样式
 import "github-markdown-css/github-markdown.css";
 import MarkdownIt from "markdown-it";
-
+import "./ShowMarkdown.scss";
 const mdParser = new MarkdownIt({
   // 设置代码高亮的配置
   highlight: function (code, language) {
