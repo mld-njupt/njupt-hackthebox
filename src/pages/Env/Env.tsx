@@ -37,8 +37,16 @@ export default function Env() {
   const [categories, setCategories] = useState<any[]>([]);
   const [challenges, setChallenges] = useState<any[]>([]);
   const [challengesLoading, setChallengesLoading] = useState<boolean>(false);
+  const [popFilterVisible, setPopFilterVisible] = useState<boolean>(false);
+  const [filter, setFilter] = useState<any>({
+    category: -1,
+  });
+  const [filterCategoryText, setFilterCategoryText] = useState<
+    string | undefined
+  >("全部");
 
   useEffect(() => {
+    setChallengesLoading(true);
     getAllChallenges().then((res) => {
       console.log(res);
       setChallenges(res?.data?.data);
@@ -51,7 +59,106 @@ export default function Env() {
   }, []);
 
   function ChallengeList() {
-    return <></>;
+    if (filter.category === -1) {
+      return (
+        <>
+          <Table
+            columns={[
+              {
+                title: "题目编号",
+                dataIndex: "id",
+              },
+              {
+                title: "题目名称",
+                dataIndex: "name",
+              },
+              {
+                title: "方向",
+                dataIndex: "category",
+              },
+              {
+                title: "Tags",
+                dataIndex: "tags",
+              },
+              {
+                title: "分数",
+                dataIndex: "score",
+              },
+              {
+                title: "已解题人数",
+                dataIndex: "solver_count",
+              },
+              {
+                title: "状态",
+                dataIndex: "is_solved",
+                render: (text: boolean, record: any) => {
+                  // console.log(record);
+                  return text ? "已完成" : "未完成";
+                },
+              },
+              {
+                title: "操作",
+                dataIndex: "action",
+                render: (text: any, record: any) => {
+                  return (
+                    <Button
+                      onClick={() => {
+                        console.log(record);
+                        setQuestionDetail(record);
+                        setSiderVisible(true);
+                        getSolvedByCid(record.id).then((res) => {
+                          console.log(res);
+                        });
+                      }}
+                    >
+                      提交
+                    </Button>
+                  );
+                },
+              },
+            ]}
+            data={challenges}
+            loading={challengesLoading}
+            pagination={false}
+          />
+        </>
+      );
+    } else return <></>;
+  }
+
+  function StatusPopup() {
+    return (
+      <Card>
+        <Typography.Text>查看</Typography.Text>
+        <Divider />
+        <Radio.Group
+          direction="vertical"
+          defaultValue={() => {
+            return filter.category;
+          }}
+          onChange={(e) => {
+            // e === "a" && (text = "未处理");
+            // e === "b" && (text = "已处理");
+            let text: string | undefined;
+            switch (e) {
+              case "all":
+                text = "全部";
+                break;
+              case "category":
+                text = "按类型查看";
+                break;
+            }
+            setFilterCategoryText(text);
+          }}
+        >
+          <Radio value="-1">全部</Radio>
+          <Radio value="category">按类型查看</Radio>
+          {categories?.map((index: number, item: any) => {
+            return <Radio value={index}></Radio>;
+          })}
+        </Radio.Group>
+      </Card>
+    );
   }
 
   return (
@@ -60,6 +167,21 @@ export default function Env() {
         <div className="env-tabs">
           <Tabs defaultActiveTab="1">
             <Tabs.TabPane title="挑战列表" key="1">
+              <Card bordered={false}>
+                <Trigger
+                  popupVisible={popFilterVisible}
+                  popup={() => <StatusPopup />}
+                  trigger="click"
+                  classNames="zoomInTop"
+                  onVisibleChange={(visible) => {
+                    setPopFilterVisible(visible);
+                  }}
+                >
+                  <Button style={{ width: 140 }}>
+                    查看 · {filterCategoryText}
+                  </Button>
+                </Trigger>
+              </Card>
               <ChallengeList />
             </Tabs.TabPane>
           </Tabs>
