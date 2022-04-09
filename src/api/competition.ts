@@ -28,8 +28,12 @@ export const getSolved = () => {
 };
 
 // 获取指定用户正确的flag提交记录
-export const getSolvedByCategory = (uid: string) => {
+export const getSolvedByUid = (uid: string) => {
   return axios.get(`${baseurl}/solves/uid/${uid}`);
+};
+
+export const getSolvedByCid = (cid: number) => {
+  return axios.get(`${baseurl}/solves/cid/${cid}`);
 };
 
 // 获取当前用户正确flag提交记录，按时间从早到晚排序

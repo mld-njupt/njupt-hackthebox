@@ -5,10 +5,10 @@ import "@arco-design/web-react/dist/css/arco.css";
 import "./App.scss";
 import Login from "./pages/Login/Login";
 import Register from "./pages/Register/Register";
+import Passage from "./pages/Passage/Passage";
 import Home from "./pages/Home/Home";
 import Env from "./pages/Env/Env";
 import Dashboard from "./pages/Dashboard/Dashboard";
-import Online from "./pages/Online/Online";
 import About from "./pages/About/About";
 import Ranking from "./pages/Ranking/Ranking";
 function App() {
@@ -38,6 +38,7 @@ function App() {
             <Route path="/ranking" element={<Ranking />} />
           </Route>
           <Route path="/register" element={<Register />}></Route>
+          <Route path="/passage" element={<Passage/>}></Route>
         </Routes>
       </Suspense>
     </BrowserRouter>

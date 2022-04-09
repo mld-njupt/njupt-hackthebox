@@ -211,6 +211,18 @@
         }
       }
     }
+    @media screen and (min-width: 2400px) {
+      .top-content {
+        height: 525px;
+        .carousel-wrap {
+          width: 990px;
+          height: 525px;
+        }
+        .userInfo-wrap {
+          height: 525px;
+        }
+      }
+    }
     .bottom-content {
       width: 100%;
       margin-top: 15px;

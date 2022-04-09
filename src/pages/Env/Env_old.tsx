@@ -18,7 +18,7 @@ import {
 } from "@arco-design/web-react";
 import "./Env.scss";
 import { IconSearch } from "@arco-design/web-react/icon";
-import { Fragment, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   getCategories,
   getAllChallenges,
@@ -28,113 +28,55 @@ import {
   getSolvedByCid,
 } from "../../api/competition";
 
-export default function Env() {
-  // 右侧弹出侧栏数据
-  const [siderVisible, setSiderVisible] = useState<boolean>(false);
-  const [questionDetail, setQuestionDetail] = useState<any>({});
-  const [flag, setFlag] = useState<string>("");
+const { TabPane } = Tabs;
+const Option = Select.Option;
+const { Text } = Typography;
+const FormItem = Form.Item;
 
-  const [categories, setCategories] = useState<any[]>([]);
-  const [challenges, setChallenges] = useState<any[]>([]);
-  const [challengesLoading, setChallengesLoading] = useState<boolean>(false);
-  const [popFilterVisible, setPopFilterVisible] = useState<boolean>(false);
-  const [filter, setFilter] = useState<any>({
-    category: -1,
-  });
-  const [filterCategoryText, setFilterCategoryText] = useState<
-    string | undefined
-  >("全部");
+export default function Env() {
+  const [questionStatus, setQuestionStatus] = useState<string | undefined>(
+    "按类型查看"
+  );
+  const [challengeList, setChallengeList] = useState([]);
+  const [challengeListLoading, setChallengeListLoading] = useState(true);
+
+  const [popVisible, setPopVisible] = useState(false);
+  const [categoryList, setCategoryList] = useState<Array<10>>([]);
+  const [challengeForCategoryList, setChallengeForCategoryList] = useState<
+    Array<100>
+  >([]);
+  const [challengeForCategoryListLoading, setChallengeForCategoryListLoading] =
+    useState(false);
+
+  const [visible, setVisible] = useState(false);
+  // const [whichChallenge, setWhichChallenge] = useState(0);
+  // 右侧 drawer 所显示的选定查看比赛的详细信息
+  const [questionDetail, setQuestionDetail] = useState<any>({});
+  // 需要提交的flag
+  const [flag, setFlag] = useState("");
+  const [solvedCidList, setSolvedCidList] = useState<Array<100>>([]);
 
   useEffect(() => {
-    setChallengesLoading(true);
     getAllChallenges().then((res) => {
       console.log(res);
-      setChallenges(res?.data?.data);
-      setChallengesLoading(false);
+      setChallengeList(res?.data?.data);
+      setChallengeListLoading(false);
     });
     getCategories().then((res) => {
       console.log(res);
-      setCategories(res?.data?.data);
+      setCategoryList(res?.data?.data);
     });
   }, []);
-
-  function ChallengeList() {
-    if (filter.category === -1) {
-      return (
-        <>
-          <Table
-            columns={[
-              {
-                title: "题目编号",
-                dataIndex: "id",
-              },
-              {
-                title: "题目名称",
-                dataIndex: "name",
-              },
-              {
-                title: "方向",
-                dataIndex: "category",
-              },
-              {
-                title: "Tags",
-                dataIndex: "tags",
-              },
-              {
-                title: "分数",
-                dataIndex: "score",
-              },
-              {
-                title: "已解题人数",
-                dataIndex: "solver_count",
-              },
-              {
-                title: "状态",
-                dataIndex: "is_solved",
-                render: (text: boolean, record: any) => {
-                  // console.log(record);
-                  return text ? "已完成" : "未完成";
-                },
-              },
-              {
-                title: "操作",
-                dataIndex: "action",
-                render: (text: any, record: any) => {
-                  return (
-                    <Button
-                      onClick={() => {
-                        console.log(record);
-                        setQuestionDetail(record);
-                        setSiderVisible(true);
-                        getSolvedByCid(record.id).then((res) => {
-                          console.log(res);
-                        });
-                      }}
-                    >
-                      提交
-                    </Button>
-                  );
-                },
-              },
-            ]}
-            data={challenges}
-            loading={challengesLoading}
-            pagination={false}
-          />
-        </>
-      );
-    } else return <></>;
-  }
 
   function StatusPopup() {
     return (
       <Card>
-        <Typography.Text>查看</Typography.Text>
-        <Divider />
+        <Text>查看</Text>
+        <Divider></Divider>
         <Radio.Group
           direction="vertical"
           defaultValue={() => {
-            return filter.category;
+            return questionStatus === "全部" ? "all" : "category";
           }}
           onChange={(e) => {
             // e === "a" && (text = "未处理");
@@ -148,61 +90,216 @@ export default function Env() {
                 text = "按类型查看";
                 break;
             }
-            setFilterCategoryText(text);
+            setQuestionStatus(text);
           }}
         >
-          <Radio value="-1">全部</Radio>
+          <Radio value="all">全部</Radio>
           <Radio value="category">按类型查看</Radio>
-          {categories?.map((index: number, item: any) => {
-            return <Radio value={index}></Radio>;
-          })}
         </Radio.Group>
       </Card>
     );
   }
 
+  function MainTableList() {
+    return questionStatus === "全部" ? (
+      <Table
+        columns={challengeColumns}
+        data={challengeList}
+        loading={challengeListLoading}
+        pagination={false}
+      />
+    ) : (
+      <>
+        <Collapse
+          accordion
+          defaultActiveKey={["1"]}
+          expandIconPosition="right"
+          bordered={false}
+          onChange={(e: any) => {
+            setChallengeForCategoryList([]);
+            setChallengeForCategoryListLoading(true);
+            console.log(e);
+            getChallengesByCategory(categoryList[e].toString()).then((res) => {
+              console.log(res);
+              res?.data?.data && setChallengeForCategoryList(res.data.data);
+              setChallengeForCategoryListLoading(false);
+            });
+          }}
+        >
+          {categoryList.map((item: any, index: any) => {
+            return (
+              <Collapse.Item key={index} header={item} name={index}>
+                <Table
+                  loading={challengeForCategoryListLoading}
+                  columns={challengeColumns}
+                  data={challengeForCategoryList}
+                  pagination={false}
+                />
+                {/* <Spin loading={false}>
+                  <div>
+                    <Divider />
+                    {challengeForCategoryList?.map((item: any, index: any) => {
+                      console.log(item);
+                      return (
+                        <div key={index} style={{ width: "100%" }}>
+                          <div>{item.name}</div>
+                          <div>{item.description}</div>
+                          <Divider />
+                        </div>
+                      );
+                    })}
+                  </div>
+                </Spin> */}
+              </Collapse.Item>
+            );
+          })}
+        </Collapse>
+      </>
+    );
+  }
+
+  // const options = categoryList;
+  // const difficultyOptions = ["简单", "中等", "困难"];
+  const challengeColumns = [
+    {
+      title: "题目编号",
+      dataIndex: "id",
+    },
+    {
+      title: "题目名称",
+      dataIndex: "name",
+    },
+    {
+      title: "方向",
+      dataIndex: "category",
+    },
+    {
+      title: "Tags",
+      dataIndex: "tags",
+    },
+    {
+      title: "分数",
+      dataIndex: "score",
+    },
+    {
+      title: "已解题人数",
+      dataIndex: "solver_count",
+    },
+    {
+      title: "状态",
+      dataIndex: "is_solved",
+      render: (text: boolean, record: any) => {
+        // console.log(record);
+        return text ? "已完成" : "未完成";
+      },
+    },
+    {
+      title: "操作",
+      dataIndex: "action",
+      render: (text: any, record: any) => {
+        return (
+          <Button
+            onClick={() => {
+              console.log(record);
+              setQuestionDetail(record);
+              setVisible(true);
+              getSolvedByCid(record.id).then((res) => {
+                console.log(res);
+              });
+            }}
+          >
+            提交
+          </Button>
+        );
+      },
+    },
+  ];
+
   return (
-    <Fragment>
-      <div className="env-wrap">
-        <div className="env-tabs">
-          <Tabs defaultActiveTab="1">
-            <Tabs.TabPane title="挑战列表" key="1">
+    <div className="env-wrap">
+      <div className="env-tabs">
+        <Tabs defaultActiveTab="1">
+          <TabPane key="1" title="题目列表">
+            <div className="match-table-wrap">
               <Card bordered={false}>
+                {/* <Input
+                  style={{ width: 350 }}
+                  prefix={<IconSearch />}
+                  placeholder="Please enter"
+                /> */}
                 <Trigger
-                  popupVisible={popFilterVisible}
+                  popupVisible={popVisible}
                   popup={() => <StatusPopup />}
                   trigger="click"
                   classNames="zoomInTop"
                   onVisibleChange={(visible) => {
-                    setPopFilterVisible(visible);
+                    setPopVisible(visible);
                   }}
                 >
                   <Button style={{ width: 140 }}>
-                    查看 · {filterCategoryText}
+                    查看 · {questionStatus}
                   </Button>
                 </Trigger>
+                {/* <Select
+                  placeholder="排序"
+                  style={{ width: 154 }}
+                  onChange={(value) =>
+                    Message.info({
+                      content: `You select ${value}.`,
+                      showIcon: true,
+                    })
+                  }
+                >
+                  {options.map((item, index) => (
+                    <Option key={item} value={item}>
+                      {item}
+                    </Option>
+                  ))}
+                </Select>
+                <Select
+                  placeholder="难度"
+                  style={{ width: 154 }}
+                  onChange={(value) =>
+                    Message.info({
+                      content: `You select ${value}.`,
+                      showIcon: true,
+                    })
+                  }
+                >
+                  {difficultyOptions.map((item, index) => (
+                    <Option key={item} disabled={index === 3} value={item}>
+                      {item}
+                    </Option>
+                  ))}
+                </Select> */}
               </Card>
-              <ChallengeList />
-            </Tabs.TabPane>
-          </Tabs>
-        </div>
+              <MainTableList />
+            </div>
+          </TabPane>
+          <TabPane key="2" title="已完成题目">
+            Content of Tab Panel 2
+          </TabPane>
+          <TabPane key="3" title="待完成题目">
+            Content of Tab Panel 3
+          </TabPane>
+        </Tabs>
       </div>
       <Drawer
         width={700}
-        title={<span>{questionDetail?.name}</span>}
-        visible={siderVisible}
+        title={<span>Happy Hacking!</span>}
+        visible={visible}
         footer={null}
         onOk={() => {
           console.log("OK");
-          setSiderVisible(false);
+          setVisible(false);
         }}
         onCancel={() => {
           console.log("Cancel");
-          setSiderVisible(false);
+          setVisible(false);
         }}
       >
         <Tabs defaultActiveTab="1">
-          <Tabs.TabPane key="1" title="详情">
+          <TabPane key="1" title="详情">
             <Descriptions
               column={1}
               title="题目信息"
@@ -263,8 +360,8 @@ export default function Env() {
               style={{ margin: 20 }}
               labelStyle={{ paddingRight: 20 }}
             />
-          </Tabs.TabPane>
-          <Tabs.TabPane key="2" title="提交flag">
+          </TabPane>
+          <TabPane key="2" title="提交flag">
             <Descriptions
               column={1}
               title="提交flag"
@@ -310,8 +407,8 @@ export default function Env() {
             >
               Submit
             </Button>
-          </Tabs.TabPane>
-          <Tabs.TabPane key="3" title="提交记录">
+          </TabPane>
+          <TabPane key="3" title="提交记录">
             <Typography.Paragraph>
               <Table
                 columns={[{ title: "提交时间", dataIndex: "time" }]}
@@ -354,9 +451,9 @@ export default function Env() {
                 ]}
               />
             </Typography.Paragraph>
-          </Tabs.TabPane>
+          </TabPane>
         </Tabs>
       </Drawer>
-    </Fragment>
+    </div>
   );
 }
