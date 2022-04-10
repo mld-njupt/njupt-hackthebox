@@ -71,6 +71,12 @@
         text-align: left;
         color: $COMMON_FONT_COLOR;
         cursor: pointer;
+        .arco-checkbox-mask {
+          background-color: none;
+        }
+        .arco-checkbox-checked .arco-checkbox-mask {
+          background-color: $SPECIAL_FONT_COLOR !important;
+        }
       }
       .login-forget {
         flex: 1;

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Notification } from "@arco-design/web-react";
+import { Checkbox, Notification } from "@arco-design/web-react";
 import { useFocus, useFetch } from "../../utils/customHooks";
 import ParticleWave from "../../utils/canvasInit";
 import debounce from "../../utils/debounce";
@@ -42,13 +42,13 @@ const Login = function () {
   const [loginConfig, setLoginConfig] = useState<{
     username: string;
     password: string;
+    remember: boolean;
   }>({
     username: "",
     password: "",
+    remember: false,
   });
-  const [[loginData, loginLoading], login] = useFetch(
-    loginApi(loginConfig, false)
-  );
+  const [[loginData, loginLoading], login] = useFetch(loginApi(loginConfig));
   const navigate = useNavigate();
   const toRegister = () => {
     navigate("/register");
@@ -109,7 +109,16 @@ const Login = function () {
             />
           </div>
           <div className="login-alive-forget">
-            <div className="login-alive">{words.keepalive}</div>
+            <div className="login-alive">
+              <Checkbox
+                onChange={(checked) => {
+                  setLoginConfig((prev) => {
+                    return { ...prev, remember: checked };
+                  });
+                }}
+              ></Checkbox>{" "}
+              {words.keepalive}
+            </div>
             <div className="login-forget">{words.forget}</div>
           </div>
           <div className="login-submit" onClick={handleSubmit}>

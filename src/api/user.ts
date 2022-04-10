@@ -30,15 +30,11 @@ export const getCaptcha = (): fetchInterface => {
 };
 
 // 登录
-export const loginApi = (
-  loginConfig: object,
-  remember: boolean
-): fetchInterface => {
+export const loginApi = (loginConfig: object): fetchInterface => {
   return {
     url: "/v1/login",
     body: {
       ...loginConfig,
-      remember,
     },
     method: "post",
   };
