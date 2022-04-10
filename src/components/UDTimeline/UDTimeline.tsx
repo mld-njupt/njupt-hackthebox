@@ -47,7 +47,7 @@ const TimelinePoint = (props: {
     </div>
   );
 };
-const TimelineCard = (props: { left: number; visibility: VisibilityState }) => {
+const TimelineCard = (props: { left: number; visibility: any }) => {
   return (
     <div
       className="timeline-card-wrap"
