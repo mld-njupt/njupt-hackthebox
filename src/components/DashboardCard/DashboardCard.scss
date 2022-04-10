@@ -10,6 +10,7 @@
   transition: all 0.2s ease-in-out;
   margin: 10px;
   background: $MENU_FOCUS_COLOR;
+  cursor: pointer;
   .card-img {
     width: 158px;
     height: 132px;
@@ -37,7 +38,7 @@
   transform: scale(1.07);
 }
 @media screen and (min-width: 1800px) {
-  .dashboard-card-wrap{
+  .dashboard-card-wrap {
     width: 280px;
     height: 330px;
   }

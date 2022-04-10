@@ -76,7 +76,7 @@ const Home = () => {
               droplist={dropList}
               icon={<IconDown />}
             >
-              mld-njupt
+              {session && session.data.username}
             </Dropdown.Button>
           </div>
         </Header>
