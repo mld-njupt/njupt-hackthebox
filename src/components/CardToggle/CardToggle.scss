@@ -7,6 +7,7 @@
   height: 100%;
   .top-wrap {
     display: flex;
+    min-width: 250px;
     width: 100%;
     padding: 28px 20px 0 20px;
     .username {

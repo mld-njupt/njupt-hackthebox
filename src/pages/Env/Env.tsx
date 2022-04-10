@@ -1,23 +1,19 @@
 import {
   Button,
   Card,
-  Collapse,
   Divider,
   Drawer,
   Input,
-  Message,
   Radio,
-  Select,
   Table,
   Tabs,
   Trigger,
   Typography,
-  Form,
   Descriptions,
   Notification,
 } from "@arco-design/web-react";
 import "./Env.scss";
-import { IconSearch } from "@arco-design/web-react/icon";
+import Loading from "../../components/Loading/Loading";
 import { Fragment, useEffect, useState } from "react";
 import {
   getCategories,
@@ -33,6 +29,9 @@ export default function Env() {
   const [siderVisible, setSiderVisible] = useState<boolean>(false);
   const [questionDetail, setQuestionDetail] = useState<any>({});
   const [flag, setFlag] = useState<string>("");
+  const [singleCchallengeSolvedInfo, setSingleChallengeSolvedInfo] = useState<
+    any[]
+  >([]);
 
   const [categories, setCategories] = useState<any[]>([]);
   const [challenges, setChallenges] = useState<any[]>([]);
@@ -49,81 +48,103 @@ export default function Env() {
     setChallengesLoading(true);
     getAllChallenges().then((res) => {
       console.log(res);
-      setChallenges(res?.data?.data);
+      setChallenges(res?.data?.data === null ? [] : res?.data?.data);
       setChallengesLoading(false);
     });
     getCategories().then((res) => {
       console.log(res);
-      setCategories(res?.data?.data);
+      setCategories(res?.data?.data === null ? [] : res?.data?.data);
     });
   }, []);
 
+  function timeConvert(timestamp: number) {
+    //num:0 YYYY-MM-DD  num:1  YYYY-MM-DD hh:mm:ss // timestamp:时间戳
+    //将时间戳转换成正常时间格式
+    //时间戳为10位需*1000，时间戳为13位的话不需乘1000
+    var date = new Date(timestamp * 1000);
+    var YY = date.getFullYear() + "-";
+    var MM =
+      (date.getMonth() + 1 < 10
+        ? "0" + (date.getMonth() + 1)
+        : date.getMonth() + 1) + "-";
+    var DD = date.getDate() + "   ";
+    var hh = date.getHours() + ":";
+    var mm =
+      (date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes()) +
+      ":";
+    var ss =
+      date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
+    return YY + MM + DD + hh + mm + ss;
+  }
+
   function ChallengeList() {
-    if (filter.category === -1) {
-      return (
-        <>
-          <Table
-            columns={[
-              {
-                title: "题目编号",
-                dataIndex: "id",
+    return (
+      <>
+        <Table
+          border={false}
+          columns={[
+            {
+              title: "题目编号",
+              dataIndex: "id",
+            },
+            {
+              title: "题目名称",
+              dataIndex: "name",
+            },
+            {
+              title: "方向",
+              dataIndex: "category",
+            },
+            {
+              title: "Tags",
+              dataIndex: "tags",
+            },
+            {
+              title: "分数",
+              dataIndex: "score",
+            },
+            {
+              title: "已解题人数",
+              dataIndex: "solver_count",
+            },
+            {
+              title: "状态",
+              dataIndex: "is_solved",
+              render: (text: boolean, record: any) => {
+                // console.log(record);
+                return text ? "已完成" : "未完成";
               },
-              {
-                title: "题目名称",
-                dataIndex: "name",
+            },
+            {
+              title: "操作",
+              dataIndex: "action",
+              render: (text: any, record: any) => {
+                return (
+                  <Button
+                    onClick={() => {
+                      console.log(record);
+                      setQuestionDetail(record);
+                      setSiderVisible(true);
+                      getSolvedByCid(record.id).then((res) => {
+                        console.log(res?.data?.data);
+                        setSingleChallengeSolvedInfo(
+                          res?.data?.data === null ? [] : res?.data?.data
+                        );
+                      });
+                    }}
+                  >
+                    提交
+                  </Button>
+                );
               },
-              {
-                title: "方向",
-                dataIndex: "category",
-              },
-              {
-                title: "Tags",
-                dataIndex: "tags",
-              },
-              {
-                title: "分数",
-                dataIndex: "score",
-              },
-              {
-                title: "已解题人数",
-                dataIndex: "solver_count",
-              },
-              {
-                title: "状态",
-                dataIndex: "is_solved",
-                render: (text: boolean, record: any) => {
-                  // console.log(record);
-                  return text ? "已完成" : "未完成";
-                },
-              },
-              {
-                title: "操作",
-                dataIndex: "action",
-                render: (text: any, record: any) => {
-                  return (
-                    <Button
-                      onClick={() => {
-                        console.log(record);
-                        setQuestionDetail(record);
-                        setSiderVisible(true);
-                        getSolvedByCid(record.id).then((res) => {
-                          console.log(res);
-                        });
-                      }}
-                    >
-                      提交
-                    </Button>
-                  );
-                },
-              },
-            ]}
-            data={challenges}
-            loading={challengesLoading}
-            pagination={false}
-          />
-        </>
-      );
-    } else return <>What's wrong?</>;
+            },
+          ]}
+          data={challenges}
+          loading={challengesLoading}
+          pagination={false}
+        />
+      </>
+    );
   }
 
   function StatusPopup() {
@@ -134,18 +155,34 @@ export default function Env() {
         <Radio.Group
           direction="vertical"
           defaultValue={() => {
+            console.log(filter.category);
             return filter.category;
           }}
           onChange={(e) => {
-            // console.log(e);
+            // console.log(Number(e));
+            setChallengesLoading(true);
             setFilter((prev: any) => {
               return { ...prev, category: Number(e) };
             });
-            if (Number(e) === -1) setFilterCategoryText("全部");
-            else setFilterCategoryText(categories[Number(e)]);
+            if (Number(e) === -1) {
+              setFilterCategoryText("全部");
+              getAllChallenges().then((res) => {
+                console.log(res);
+                setChallenges(res?.data?.data === null ? [] : res?.data?.data);
+                setChallengesLoading(false);
+              });
+            } else {
+              setFilterCategoryText(categories[Number(e)]);
+              getChallengesByCategory(categories[Number(e)]).then((res) => {
+                console.log(res);
+                setChallenges(res?.data?.data === null ? [] : res?.data?.data);
+                setChallengesLoading(false);
+              });
+            }
+            setPopFilterVisible(false);
           }}
         >
-          <Radio value="-1">全部</Radio>
+          <Radio value={-1}>全部</Radio>
           {categories?.map((value: string, index: number) => {
             // console.log(value, index);
             return <Radio value={index}>{value}</Radio>;
@@ -182,6 +219,7 @@ export default function Env() {
         </div>
       </div>
       <Drawer
+        className="drawer"
         width={700}
         title={<span>{questionDetail?.name}</span>}
         visible={siderVisible}
@@ -308,44 +346,172 @@ export default function Env() {
           <Tabs.TabPane key="3" title="提交记录">
             <Typography.Paragraph>
               <Table
-                columns={[{ title: "提交时间", dataIndex: "time" }]}
+                border={false}
+                className="tabs"
+                columns={[
+                  {
+                    title: "ID",
+                    dataIndex: "id",
+                  },
+                  { title: "用户名", dataIndex: "username" },
+                  {
+                    title: "提交时间",
+                    dataIndex: "submitted_at",
+                    render: (record) => {
+                      console.log(record);
+                      return timeConvert(parseInt(record));
+                    },
+                  },
+                  { title: "分数", dataIndex: "score" },
+                ]}
+                // data={singleCchallengeSolvedInfo}
                 data={[
                   {
-                    key: "1",
-                    name: "Jane Doe",
-                    salary: 23000,
-                    address: "32 Park Road, London",
-                    email: "jane.doe@example.com",
+                    id: 1,
+                    uid: 2,
+                    cid: 3,
+                    username: "test1",
+                    challenge_name: "Hard Web",
+                    submitted_at: 1647085328,
+                    score: 883,
                   },
                   {
-                    key: "2",
-                    name: "Alisa Ross",
-                    salary: 25000,
-                    address: "35 Park Road, London",
-                    email: "alisa.ross@example.com",
+                    id: 2,
+                    uid: 3,
+                    cid: 3,
+                    username: "test2",
+                    challenge_name: "Hard Web",
+                    submitted_at: 1647085501,
+                    score: 883,
                   },
                   {
-                    key: "3",
-                    name: "Kevin Sandra",
-                    salary: 22000,
-                    address: "31 Park Road, London",
-                    email: "kevin.sandra@example.com",
+                    id: 5,
+                    uid: 4,
+                    cid: 3,
+                    username: "test3",
+                    challenge_name: "Hard Web",
+                    submitted_at: 1647085677,
+                    score: 883,
                   },
                   {
-                    key: "4",
-                    name: "Ed Hellen",
-                    salary: 17000,
-                    address: "42 Park Road, London",
-                    email: "ed.hellen@example.com",
+                    id: 5,
+                    uid: 4,
+                    cid: 3,
+                    username: "test3",
+                    challenge_name: "Hard Web",
+                    submitted_at: 1647085677,
+                    score: 883,
                   },
                   {
-                    key: "5",
-                    name: "William Smith",
-                    salary: 27000,
-                    address: "62 Park Road, London",
-                    email: "william.smith@example.com",
+                    id: 5,
+                    uid: 4,
+                    cid: 3,
+                    username: "test3",
+                    challenge_name: "Hard Web",
+                    submitted_at: 1647085677,
+                    score: 883,
+                  },
+                  {
+                    id: 5,
+                    uid: 4,
+                    cid: 3,
+                    username: "test3",
+                    challenge_name: "Hard Web",
+                    submitted_at: 1647085677,
+                    score: 883,
+                  },
+                  {
+                    id: 5,
+                    uid: 4,
+                    cid: 3,
+                    username: "test3",
+                    challenge_name: "Hard Web",
+                    submitted_at: 1647085677,
+                    score: 883,
+                  },
+                  {
+                    id: 5,
+                    uid: 4,
+                    cid: 3,
+                    username: "test3",
+                    challenge_name: "Hard Web",
+                    submitted_at: 1647085677,
+                    score: 883,
+                  },
+                  {
+                    id: 5,
+                    uid: 4,
+                    cid: 3,
+                    username: "test3",
+                    challenge_name: "Hard Web",
+                    submitted_at: 1647085677,
+                    score: 883,
+                  },
+                  {
+                    id: 5,
+                    uid: 4,
+                    cid: 3,
+                    username: "test3",
+                    challenge_name: "Hard Web",
+                    submitted_at: 1647085677,
+                    score: 883,
+                  },
+                  {
+                    id: 5,
+                    uid: 4,
+                    cid: 3,
+                    username: "test3",
+                    challenge_name: "Hard Web",
+                    submitted_at: 1647085677,
+                    score: 883,
+                  },
+                  {
+                    id: 5,
+                    uid: 4,
+                    cid: 3,
+                    username: "test3",
+                    challenge_name: "Hard Web",
+                    submitted_at: 1647085677,
+                    score: 883,
+                  },
+                  {
+                    id: 5,
+                    uid: 4,
+                    cid: 3,
+                    username: "test3",
+                    challenge_name: "Hard Web",
+                    submitted_at: 1647085677,
+                    score: 883,
+                  },
+                  {
+                    id: 5,
+                    uid: 4,
+                    cid: 3,
+                    username: "test3",
+                    challenge_name: "Hard Web",
+                    submitted_at: 1647085677,
+                    score: 883,
+                  },
+                  {
+                    id: 5,
+                    uid: 4,
+                    cid: 3,
+                    username: "test3",
+                    challenge_name: "Hard Web",
+                    submitted_at: 1647085677,
+                    score: 883,
+                  },
+                  {
+                    id: 5,
+                    uid: 4,
+                    cid: 3,
+                    username: "test3",
+                    challenge_name: "Hard Web",
+                    submitted_at: 1647085677,
+                    score: 883,
                   },
                 ]}
+                pagination={false}
               />
             </Typography.Paragraph>
           </Tabs.TabPane>
