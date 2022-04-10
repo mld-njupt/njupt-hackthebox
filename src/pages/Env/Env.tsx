@@ -137,6 +137,7 @@ export default function Env() {
             return filter.category;
           }}
           onChange={(e) => {
+            console.log(e);
             // e === "a" && (text = "未处理");
             // e === "b" && (text = "已处理");
             let text: string | undefined;
@@ -154,7 +155,7 @@ export default function Env() {
           <Radio value="-1">全部</Radio>
           <Radio value="category">按类型查看</Radio>
           {categories?.map((index: number, item: any) => {
-            return <Radio value={index}></Radio>;
+            return <Radio value={index}>{item}</Radio>;
           })}
         </Radio.Group>
       </Card>
