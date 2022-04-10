@@ -123,7 +123,7 @@ export default function Env() {
           />
         </>
       );
-    } else return <></>;
+    } else return <>What's wrong?</>;
   }
 
   function StatusPopup() {
@@ -137,24 +137,18 @@ export default function Env() {
             return filter.category;
           }}
           onChange={(e) => {
-            // e === "a" && (text = "未处理");
-            // e === "b" && (text = "已处理");
-            let text: string | undefined;
-            switch (e) {
-              case "all":
-                text = "全部";
-                break;
-              case "category":
-                text = "按类型查看";
-                break;
-            }
-            setFilterCategoryText(text);
+            // console.log(e);
+            setFilter((prev: any) => {
+              return { ...prev, category: Number(e) };
+            });
+            if (Number(e) === -1) setFilterCategoryText("全部");
+            else setFilterCategoryText(categories[Number(e)]);
           }}
         >
           <Radio value="-1">全部</Radio>
-          <Radio value="category">按类型查看</Radio>
-          {categories?.map((index: number, item: any) => {
-            return <Radio value={index}></Radio>;
+          {categories?.map((value: string, index: number) => {
+            // console.log(value, index);
+            return <Radio value={index}>{value}</Radio>;
           })}
         </Radio.Group>
       </Card>
