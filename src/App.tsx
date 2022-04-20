@@ -32,10 +32,10 @@ function App() {
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/" element={<Home />}>
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/env" element={<Env />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/ranking" element={<Ranking />} />
+            <Route path="dashboard" element={<Dashboard />} />
+            <Route path="env" element={<Env />} />
+            <Route path="about" element={<About />} />
+            <Route path="ranking" element={<Ranking />} />
           </Route>
           <Route path="/register" element={<Register />}></Route>
           <Route path="/passage" element={<Passage/>}></Route>
