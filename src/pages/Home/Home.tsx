@@ -19,7 +19,7 @@ const Content = Layout.Content;
 const Home = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const [navigation, setNavigation] = useState("");
+  const [navigation, setNavigation] = useState("dashboard");
   const handleCilckMenuItem = (key) => {
     navigate(key);
     setNavigation(key);
@@ -29,7 +29,7 @@ const Home = () => {
 
   useEffect(() => {
     getSession();
-    // navigate("/dashboard");
+    navigate("/dashboard");
   }, []);
   useEffect(() => {
     if (session && session.code === 200) {
@@ -67,9 +67,6 @@ const Home = () => {
   );
 
   useEffect(() => {
-    console.log(
-      (location?.pathname as any).match(/\/([^/]*)$/g)[0].match(/[a-z][^\s]*/g)
-    );
     let match = (location?.pathname as any)
       .match(/\/([^/]*)$/g)[0]
       .match(/[a-z][^\s]*/g);
@@ -94,7 +91,7 @@ const Home = () => {
               droplist={dropList}
               icon={<IconDown />}
             >
-              {session && session.data.username}
+              {session && session.data?.username}
             </Dropdown.Button>
           </div>
         </Header>
@@ -102,6 +99,7 @@ const Home = () => {
           <Sider breakpoint="xl">
             <Menu
               defaultSelectedKeys={navigation}
+              selectedKeys={navigation}
               style={{ width: "100%" }}
               onClickMenuItem={handleCilckMenuItem}
             >
