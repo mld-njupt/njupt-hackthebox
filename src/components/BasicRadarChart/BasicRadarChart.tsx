@@ -83,6 +83,7 @@ const BasicRadarChart = (props: chartProp) => {
       {
         //@ts-ignore
         type: "radar",
+        color: "#9fef00",
         data: [
           {
             value: [90, 80, 46, 72, 58],
