@@ -1,8 +1,8 @@
 // @ts-nocheck
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Layout, Menu, Notification, Dropdown } from "@arco-design/web-react";
 import { IconDown } from "@arco-design/web-react/icon";
-import { useNavigate, Outlet } from "react-router-dom";
+import { useNavigate, useLocation, Outlet } from "react-router-dom";
 import { useFetch } from "../../utils/customHooks";
 import { getSessionApi, logoutApi } from "../../api/user";
 import IconAbout from "../../assets/images/icons/About.svg";
@@ -10,20 +10,26 @@ import IconDashboard from "../../assets/images/icons/Dashboard.svg";
 import IconEnv from "../../assets/images/icons/Env.svg";
 import IconOnline from "../../assets/images/icons/Online.svg";
 import "./Home.scss";
+
 const MenuItem = Menu.Item;
 const Sider = Layout.Sider;
 const Header = Layout.Header;
 const Content = Layout.Content;
+
 const Home = () => {
+  const location = useLocation();
   const navigate = useNavigate();
+  const [navigation, setNavigation] = useState("dashboard");
   const handleCilckMenuItem = (key) => {
     navigate(key);
+    setNavigation(key);
   };
   const [[session], getSession] = useFetch(getSessionApi());
   const [[logoutData], logout] = useFetch(logoutApi());
+
   useEffect(() => {
     getSession();
-    // navigate("/dashboard");
+    navigate("/dashboard");
   }, []);
   useEffect(() => {
     if (session && session.code === 200) {
@@ -41,6 +47,7 @@ const Home = () => {
       navigate("/login");
     }
   }, [logoutData]);
+
   const dropList = (
     <Menu
       style={{
@@ -58,6 +65,14 @@ const Home = () => {
       </MenuItem>
     </Menu>
   );
+
+  useEffect(() => {
+    let match = (location?.pathname as any)
+      .match(/\/([^/]*)$/g)[0]
+      .match(/[a-z][^\s]*/g);
+    match ? setNavigation(match[0]) : setNavigation("");
+  }, [location]);
+
   return (
     <div className="home-wrap">
       <Layout
@@ -76,19 +91,20 @@ const Home = () => {
               droplist={dropList}
               icon={<IconDown />}
             >
-              {session && session.data.username}
+              {session && session.data?.username}
             </Dropdown.Button>
           </div>
         </Header>
         <Layout>
           <Sider breakpoint="xl">
             <Menu
-              defaultSelectedKeys={["/dashboard"]}
+              defaultSelectedKeys={navigation}
+              selectedKeys={navigation}
               style={{ width: "100%" }}
               onClickMenuItem={handleCilckMenuItem}
             >
               <MenuItem
-                key="/dashboard"
+                key="dashboard"
                 style={{ display: "flex", alignItems: "center" }}
               >
                 <IconDashboard
@@ -98,14 +114,14 @@ const Home = () => {
                 首页/Dashboard
               </MenuItem>
               <MenuItem
-                key="/env"
+                key="env"
                 style={{ display: "flex", alignItems: "center" }}
               >
                 <IconEnv className="arco-icon" style={{ fontSize: "24px" }} />
                 实操环境/Env
               </MenuItem>
               <MenuItem
-                key="/ranking"
+                key="ranking"
                 style={{ display: "flex", alignItems: "center" }}
               >
                 <IconOnline
@@ -115,7 +131,7 @@ const Home = () => {
                 实时排名/Ranking
               </MenuItem>
               <MenuItem
-                key="/about"
+                key="about"
                 style={{ display: "flex", alignItems: "center" }}
               >
                 <IconAbout className="arco-icon" style={{ fontSize: "24px" }} />

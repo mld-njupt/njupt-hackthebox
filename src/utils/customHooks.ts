@@ -42,7 +42,7 @@ export const useFetch = ({ url, body, query, method }: fetchInterface) => {
     setData(null);
     setError(null);
     setPrevent(true);
-        //后端要求直接拼接的方式姑且命名为params吧
+    //后端要求直接拼接的方式姑且命名为params吧
     fetch(`${BASE_URL}${url}${queryString}`, options)
       .then((res: any) => res.json())
       .then((res: any) => {
@@ -141,41 +141,28 @@ export const useDebounce = <T extends (...args: any[]) => any>(
 };
 
 //判断当前元素是否在视口内 基于intersection observer api
-interface intersectionObserver<T>{
-  target:MutableRefObject<T|null>
-  callback:Function,
-  rootMargin:string,
-  threshold:number
+interface intersectionObserver<T> {
+  target: MutableRefObject<T | null>;
+  callback: Function;
+  rootMargin: string;
+  threshold: number;
 }
-export const useIntersectionObserver=<T>(
-  params:intersectionObserver<T>
-)=>{
-  const {target,callback,rootMargin,threshold}=params
-  // useEffect(()=>{
-  //  observer.current=new IntersectionObserver(callback as IntersectionObserverCallback,{
-  //     rootMargin,
-  //     threshold
-  //   })
-  //   return ()=>{
-  //     //@ts-ignore
-  //     current&&observer.current?.unobserve(current)
-  //   }
-  // },[target.current])
-  // console.log(observer.current)
-  // //@ts-ignore
-  // current&& observer.current?.observe(current)
- useEffect(() => {
-    const observer = new IntersectionObserver(callback as IntersectionObserverCallback, {
-      rootMargin,
-      threshold
-    });
+export const useIntersectionObserver = <T>(params: intersectionObserver<T>) => {
+  const { target, callback, rootMargin, threshold } = params;
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      callback as IntersectionObserverCallback,
+      {
+        rootMargin,
+        threshold,
+      }
+    );
     const current = target.current;
     //@ts-ignore
     observer.observe(current);
     return () => {
-    //@ts-ignore
+      //@ts-ignore
       observer.unobserve(current);
     };
   });
-
-}
+};
