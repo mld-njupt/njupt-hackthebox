@@ -7,6 +7,7 @@ $SPECIAL_FONT_COLOR: #9fef00;
 $COMMON_FONT_COLOR: #a4b1cd;
 $LIGHT_FONT_COLOR: #fff;
 $WARNING_FONT_COLOR: #ff3e3e;
+
 html {
   -ms-text-size-adjust: none;
   -webkit-text-size-adjust: none;
@@ -28,6 +29,10 @@ html * {
   box-sizing: border-box;
   -webkit-tap-highlight-color: transparent;
   -webkit-overflow-scrolling: touch;
+  font-family: Inter, -apple-system, BlinkMacSystemFont, PingFang SC,
+    Hiragino Sans GB, noto sans, Microsoft YaHei, Helvetica Neue, Helvetica,
+    Arial, sans-serif;
+  // font-family: zeitung-mono, sans-serif;
 }
 
 ul,

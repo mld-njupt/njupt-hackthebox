@@ -9,6 +9,7 @@ import IconAbout from "../../assets/images/icons/About.svg";
 import IconDashboard from "../../assets/images/icons/Dashboard.svg";
 import IconEnv from "../../assets/images/icons/Env.svg";
 import IconOnline from "../../assets/images/icons/Online.svg";
+import IconProfile from "../../assets/images/icons/UserProfile.svg";
 import "./Home.scss";
 
 const MenuItem = Menu.Item;
@@ -111,14 +112,24 @@ const Home = () => {
                   className="arco-icon"
                   style={{ fontSize: "24px", color: "#9fef00" }}
                 />
-                首页/Dashboard
+                首页
+              </MenuItem>
+              <MenuItem
+                key="userprofile"
+                style={{ display: "flex", alignItems: "center" }}
+              >
+                <IconProfile
+                  className="arco-icon"
+                  style={{ fontSize: "24px", color: "#9fef00" }}
+                />
+                个人中心
               </MenuItem>
               <MenuItem
                 key="env"
                 style={{ display: "flex", alignItems: "center" }}
               >
                 <IconEnv className="arco-icon" style={{ fontSize: "24px" }} />
-                实操环境/Env
+                实操环境
               </MenuItem>
               <MenuItem
                 key="ranking"
@@ -128,14 +139,14 @@ const Home = () => {
                   className="arco-icon"
                   style={{ fontSize: "24px" }}
                 />
-                实时排名/Ranking
+                实时排名
               </MenuItem>
               <MenuItem
                 key="about"
                 style={{ display: "flex", alignItems: "center" }}
               >
                 <IconAbout className="arco-icon" style={{ fontSize: "24px" }} />
-                运营/About
+                运营
               </MenuItem>
             </Menu>
           </Sider>

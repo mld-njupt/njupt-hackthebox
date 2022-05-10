@@ -7,7 +7,7 @@
   align-items: center;
   margin-top: 20px;
   background-color: $BACKUP_COLOR;
-  .img-wrap{
+  .img-wrap {
     width: 30%;
     height: 120px;
     .img {
@@ -29,9 +29,6 @@
     justify-content: center;
     color: white;
     margin-left: 30px;
-    font-family: Inter, -apple-system, BlinkMacSystemFont, PingFang SC,
-      Hiragino Sans GB, noto sans, Microsoft YaHei, Helvetica Neue, Helvetica,
-      Arial, sans-serif;
     .article-title {
       font-size: 20px;
     }
@@ -42,7 +39,7 @@
       color: rgba($color: #fff, $alpha: 0.85);
     }
   }
-  .operate{
+  .operate {
     margin-left: 80px;
     height: 120px;
     font-size: 16px;

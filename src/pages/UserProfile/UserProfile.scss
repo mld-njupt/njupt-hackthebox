@@ -1,0 +1,90 @@
+@import "../../assets/styles/index.scss";
+.profile-wrap {
+  width: 100%;
+  .profile-header {
+    width: 99%;
+    height: 115px;
+    background-color: $MENU_COLOR;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .header-left {
+      width: 500px;
+      height: 115px;
+      display: flex;
+      align-items: center;
+      margin-left: 32px;
+      .user-image {
+        width: 64px;
+        height: 64px;
+        border-radius: 50%;
+        background-image: url(https://www.hackthebox.com/storage/avatars/564e4e21837a37a1024833573960c973.png);
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+      }
+      .username {
+        font-size: 26px;
+        color: white;
+        margin-left: 10px;
+      }
+    }
+    .header-right {
+      width: 210px;
+      height: 72px;
+      display: flex;
+      .right-item {
+        display: flex;
+        flex-direction: column;
+        margin-right: 48px;
+        height: 72px;
+        .item-title {
+          color: $COMMON_FONT_COLOR;
+        }
+        .item-state {
+          color: white;
+          font-weight: bold;
+          padding: 8px 0;
+          letter-spacing: 1.8px;
+        }
+        .go {
+          color: $SPECIAL_FONT_COLOR;
+          letter-spacing: 1.8px;
+        }
+      }
+    }
+  }
+  .global-ranking {
+    display: flex;
+    align-items: center;
+    width: 210px;
+    height: 150px;
+    padding: 28px 24px 24px 24px;
+    border-radius: 5px;
+    background-color: $MENU_FOCUS_COLOR;
+    margin: 10px;
+    .ranking-image {
+      width: 71px;
+      height: 86px;
+      background-image: url(https://app.hackthebox.com/images/icons/ic-icons-kickass/ic-ranks-big2.svg);
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: 100% 100%;
+    }
+    .ranking-msg {
+      margin-left: 10px;
+      .msg-title {
+        color: $COMMON_FONT_COLOR;
+      }
+      .mgs-ranking {
+        font-size: 28px;
+        color: white;
+      }
+    }
+  }
+  //   #radar-chart {
+  //     width: 800px;
+  //     height: 600px;
+  //   }
+}
