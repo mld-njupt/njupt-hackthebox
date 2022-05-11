@@ -1,0 +1,156 @@
+.full-register {
+  @import "../../assets/styles/index.scss";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  .full-register-logo {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 0px;
+    font-size: 32px;
+    // color: $LIGHT_FONT_COLOR;
+    color: $LIGHT_FONT_COLOR;
+  }
+  .full-register-wrap {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    left: 0;
+    top: 0;
+    padding-top: 40px 20px;
+    width: 100%;
+    height: 100%;
+  }
+  .full-register-full-register {
+    height: 600px;
+    padding: 0px 48px;
+    display: flex;
+    flex-direction: column;
+    .full-register-title {
+      color: $LIGHT_FONT_COLOR;
+      font-size: 20px;
+      text-align: left;
+      margin-top: 10px;
+    }
+    .full-register-input {
+      height: 64px;
+      background: $MENU_COLOR;
+      margin-top: 40px;
+      border-radius: 4px;
+      padding: 10px 24px;
+      span {
+        color: $COMMON_FONT_COLOR;
+        font-size: 10px;
+      }
+      input {
+        background: transparent;
+        border: 0;
+        outline: 0;
+        color: $LIGHT_FONT_COLOR;
+        width: 100%;
+      }
+      .input-focus {
+        color: $SPECIAL_FONT_COLOR;
+      }
+    }
+    .full-register-alive-forget {
+      margin-top: 30px;
+      display: flex;
+      flex-direction: row;
+      font-size: 12px;
+      .full-register-alive {
+        flex: 1;
+        text-align: left;
+        color: $COMMON_FONT_COLOR;
+        cursor: pointer;
+        .arco-checkbox-mask {
+          background-color: none;
+        }
+        .arco-checkbox-checked .arco-checkbox-mask {
+          background-color: $SPECIAL_FONT_COLOR !important;
+        }
+      }
+      .full-register-forget {
+        flex: 1;
+        text-align: right;
+        color: $SPECIAL_FONT_COLOR;
+        cursor: pointer;
+      }
+    }
+    .full-register-submit {
+      margin-top: 20px;
+      color: $BACKUP_COLOR;
+      cursor: pointer;
+      text-align: center;
+      font-size: 20px;
+      height: 56px;
+      line-height: 56px;
+      border-radius: 4px;
+      background: $SPECIAL_FONT_COLOR;
+    }
+    // left: 50%;
+    // transform: translateX(-50%);
+  }
+  .full-register-register {
+    margin-top: 20px;
+    height: 100px;
+    display: flex;
+    padding: 0 24px;
+    .full-register-noaccount {
+      flex: 1;
+      text-align: left;
+      color: $COMMON_FONT_COLOR;
+      font-size: 16px;
+      padding-left: 24px;
+      line-height: 100px;
+    }
+    .full-register-gotoregister {
+      position: relative;
+      text-align: right;
+      flex: 1;
+      span {
+        padding: 10px 24px;
+        line-height: 100px;
+        margin-right: 10px;
+        text-align: center;
+        border: 1px solid $COMMON_FONT_COLOR;
+        color: $COMMON_FONT_COLOR;
+        font-size: 16px;
+        cursor: pointer;
+        border-radius: 4px;
+      }
+    }
+  }
+  .full-register-common {
+    // position: absolute;
+    box-sizing: border-box;
+    width: 500px;
+    border-radius: 4px;
+    // background: $full-register_BACK_COLOR;
+    background: rgba(26, 35, 50, 0.9);
+  }
+  .full-register-polices {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    width: 500px;
+    .full-register-police {
+      flex: 1;
+      color: $LIGHT_FONT_COLOR;
+      font-size: 16px;
+      padding: 20px 0;
+      cursor: pointer;
+      text-align: center;
+    }
+    .full-register-police:hover {
+      color: $SPECIAL_FONT_COLOR;
+    }
+  }
+}

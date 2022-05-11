@@ -5,6 +5,7 @@ import "@arco-design/web-react/dist/css/arco.css";
 import "./App.scss";
 import Login from "./pages/Login/Login";
 import Register from "./pages/Register/Register";
+import FullRegister from "./pages/FullRegister/FullRegister";
 import Passage from "./pages/Passage/Passage";
 import Home from "./pages/Home/Home";
 import Env from "./pages/Env/Env";
@@ -40,6 +41,7 @@ function App() {
           </Route>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />}></Route>
+          <Route path="/fullRegister" element={<FullRegister />}></Route>
           <Route path="/passage" element={<Passage />}></Route>
         </Routes>
       </Suspense>
