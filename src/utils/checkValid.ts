@@ -30,6 +30,10 @@ const keyWords = {
   password: "密码",
   code: "验证码",
   email: "邮箱",
+  location: "地区",
+  school: "学校",
+  age: "年龄",
+  sex: "性别",
 };
 const checkValid = (type: "mobilePhone" | "email" | "confirm" | "isNull") => {
   return (str: string, ...args: any) => {

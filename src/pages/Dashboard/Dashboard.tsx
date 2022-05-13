@@ -95,18 +95,22 @@ const Dashboard = () => {
                 nodeArray={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]}
               ></UDTimeline>
             </div>
-            <div style={{
-              width:"100%",
-              height:"100%",
-              display:"flex",
-              justifyContent:"center",
-              alignItems:"center",
-              padding:"20px"
-            }}>
+            <div
+              style={{
+                width: "100%",
+                height: "100%",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                padding: "20px",
+              }}
+            >
               <div className="rank-up-wrap">
-                  <div className="rank-up">Rank Up -</div>
-                  <div className="rank-up-points">0</div>
-                  <div className="rank-up-icons"><IconCaretUp style={{color:"#9fef00"}}></IconCaretUp></div>
+                <div className="rank-up">Rank Up -</div>
+                <div className="rank-up-points">0</div>
+                <div className="rank-up-icons">
+                  <IconCaretUp style={{ color: "#9fef00" }}></IconCaretUp>
+                </div>
               </div>
             </div>
             <div className="userInfo-item5">
@@ -126,53 +130,8 @@ const Dashboard = () => {
               <ScollView width={bottomContentWidth} itemWidth={260}>
                 <DashboardCard
                   src="https://app.hackthebox.com/files/homepage/startingpoint.svg"
-                  title="Starting point"
-                  msg="Are you a beginner in hacking? Start here!"
-                ></DashboardCard>
-                <DashboardCard
-                  src="https://app.hackthebox.com/files/homepage/startingpoint.svg"
-                  title="Starting point"
-                  msg="Are you a beginner in hacking? Start here!"
-                ></DashboardCard>
-                <DashboardCard
-                  src="https://app.hackthebox.com/files/homepage/startingpoint.svg"
-                  title="Starting point"
-                  msg="Are you a beginner in hacking? Start here!"
-                ></DashboardCard>
-                <DashboardCard
-                  src="https://app.hackthebox.com/files/homepage/startingpoint.svg"
-                  title="Starting point"
-                  msg="Are you a beginner in hacking? Start here!"
-                ></DashboardCard>
-                <DashboardCard
-                  src="https://app.hackthebox.com/files/homepage/startingpoint.svg"
-                  title="Starting point"
-                  msg="Are you a beginner in hacking? Start here!"
-                ></DashboardCard>
-                <DashboardCard
-                  src="https://app.hackthebox.com/files/homepage/startingpoint.svg"
-                  title="Starting point"
-                  msg="Are you a beginner in hacking? Start here!"
-                ></DashboardCard>
-                <DashboardCard
-                  src="https://app.hackthebox.com/files/homepage/startingpoint.svg"
-                  title="Starting point"
-                  msg="Are you a beginner in hacking? Start here!"
-                ></DashboardCard>
-                <DashboardCard
-                  src="https://app.hackthebox.com/files/homepage/startingpoint.svg"
-                  title="Starting point"
-                  msg="Are you a beginner in hacking? Start here!"
-                ></DashboardCard>
-                <DashboardCard
-                  src="https://app.hackthebox.com/files/homepage/startingpoint.svg"
-                  title="Starting point"
-                  msg="Are you a beginner in hacking? Start here!"
-                ></DashboardCard>
-                <DashboardCard
-                  src="https://app.hackthebox.com/files/homepage/startingpoint.svg"
-                  title="Starting point"
-                  msg="Are you a beginner in hacking? Start here!"
+                  title="萌新入门"
+                  msg="快速入门"
                 ></DashboardCard>
               </ScollView>
             </TabPane>
@@ -180,7 +139,11 @@ const Dashboard = () => {
               Content of Tab Panel 2
             </TabPane>
             <TabPane key="3" title="正在进行中">
-              Content of Tab Panel 3
+              <DashboardCard
+                src="https://www.hackthebox.com/images/icons/ic-challenge-categ/ic-web.svg"
+                title="easypwn"
+                msg="pwn"
+              ></DashboardCard>
             </TabPane>
             <TabPane key="4" title="待办清单">
               Content of Tab Panel 4

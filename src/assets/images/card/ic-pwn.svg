@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 58 (84663) - https://sketch.com -->
+    <title>Group</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+        <g id="User-Careers---User-Profile_-Dashboard_Lab-Progress" transform="translate(-292.000000, -1555.000000)" stroke="#A4B1CD" stroke-width="1.2">
+            <g id="Group-18-Copy-3" transform="translate(278.000000, 1536.000000)">
+                <g id="Group" transform="translate(15.000000, 19.000000)">
+                    <g id="programming-user-head">
+                        <circle id="Oval" cx="11" cy="13.125" r="3.375"></circle>
+                        <path d="M17,23.25 C16.5959743,20.245323 14.0317191,18.0027937 11,18.0027937 C7.96828095,18.0027937 5.40402572,20.245323 5,23.25 L17,23.25 Z" id="Shape"></path>
+                        <path d="M0.5,0.75 L1.25,0.75 C1.66421356,0.75 2,1.08578644 2,1.5 L2,6.75" id="Shape"></path>
+                        <path d="M0.5,6.75 L3.5,6.75" id="Shape"></path>
+                        <path d="M0.5,18.75 L1.25,18.75 C1.66421356,18.75 2,19.0857864 2,19.5 L2,23.25" id="Shape"></path>
+                        <path d="M18.5,18.75 L19.25,18.75 C19.6642136,18.75 20,19.0857864 20,19.5 L20,23.25" id="Shape"></path>
+                        <path d="M9.5,5.25 C9.5,6.07842712 8.82842712,6.75 8,6.75 C7.17157288,6.75 6.5,6.07842712 6.5,5.25 L6.5,2.25 C6.5,1.42157288 7.17157288,0.75 8,0.75 C8.82842712,0.75 9.5,1.42157288 9.5,2.25 L9.5,5.25 Z" id="Shape"></path>
+                        <path d="M3.5,14.25 C3.5,15.0784271 2.82842712,15.75 2,15.75 C1.17157288,15.75 0.5,15.0784271 0.5,14.25 L0.5,11.25 C0.5,10.4215729 1.17157288,9.75 2,9.75 C2.82842712,9.75 3.5,10.4215729 3.5,11.25 L3.5,14.25 Z" id="Shape"></path>
+                        <path d="M18.5,0.75 L19.25,0.75 C19.6642136,0.75 20,1.08578644 20,1.5 L20,6.75" id="Shape"></path>
+                        <path d="M18.5,6.75 L21.5,6.75" id="Shape"></path>
+                        <path d="M15.5,5.25 C15.5,6.07842712 14.8284271,6.75 14,6.75 C13.1715729,6.75 12.5,6.07842712 12.5,5.25 L12.5,2.25 C12.5,1.42157288 13.1715729,0.75 14,0.75 C14.8284271,0.75 15.5,1.42157288 15.5,2.25 L15.5,5.25 Z" id="Shape"></path>
+                        <path d="M21.5,14.25 C21.5,15.0784271 20.8284271,15.75 20,15.75 C19.1715729,15.75 18.5,15.0784271 18.5,14.25 L18.5,11.25 C18.5,10.4215729 19.1715729,9.75 20,9.75 C20.8284271,9.75 21.5,10.4215729 21.5,11.25 L21.5,14.25 Z" id="Shape"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

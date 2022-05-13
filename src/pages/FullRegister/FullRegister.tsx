@@ -20,16 +20,20 @@ const words = {
   go: "开启进阶之旅",
 };
 function FullRegister() {
-  const [usernameRef, usernameFocus] = useFocus<HTMLInputElement>();
-  const [passwordRef, passwordFocus] = useFocus<HTMLInputElement>();
+  const [locationRef, locationFocus] = useFocus<HTMLInputElement>();
+  const [schoolRef, schoolFocus] = useFocus<HTMLInputElement>();
+  const [sexRef, sexFocus] = useFocus<HTMLInputElement>();
+  const [ageRef, ageFocus] = useFocus<HTMLInputElement>();
   const [loginConfig, setLoginConfig] = useState<{
-    username: string;
-    password: string;
-    remember: boolean;
+    location: string;
+    school: string;
+    age: string;
+    sex: string;
   }>({
-    username: "",
-    password: "",
-    remember: false,
+    location: "",
+    school: "",
+    age: "",
+    sex: "",
   });
   const navigate = useNavigate();
   const toRegister = () => {
@@ -42,8 +46,10 @@ function FullRegister() {
   };
   const handleSubmit = async () => {
     try {
-      await checkValid("isNull")(loginConfig.username, "username");
-      await checkValid("isNull")(loginConfig.password, "password");
+      await checkValid("isNull")(loginConfig.location, "location");
+      await checkValid("isNull")(loginConfig.school, "school");
+      await checkValid("isNull")(loginConfig.sex, "sex");
+      await checkValid("isNull")(loginConfig.age, "age");
     } catch (error: any) {
       Notification.error({ title: "Error", content: error });
       return;
@@ -71,43 +77,39 @@ function FullRegister() {
         <div className="full-register-full-register full-register-common">
           <div className="full-register-title">{words.title}</div>
           <div className="full-register-input">
-            <span className={usernameFocus ? "input-focus" : ""}>
+            <span className={locationFocus ? "input-focus" : ""}>
               {words.location}
             </span>
             <input
               type="text"
-              ref={usernameRef}
-              onChange={debounce(handleInput("username"), 500)}
+              ref={locationRef}
+              onChange={debounce(handleInput("location"), 500)}
             />
           </div>
           <div className="full-register-input">
-            <span className={passwordFocus ? "input-focus" : ""}>
+            <span className={schoolFocus ? "input-focus" : ""}>
               {words.school}
             </span>
             <input
-              type="password"
-              ref={passwordRef}
-              onChange={debounce(handleInput("password"), 500)}
+              type="school"
+              ref={schoolRef}
+              onChange={debounce(handleInput("school"), 500)}
             />
           </div>
           <div className="full-register-input">
-            <span className={passwordFocus ? "input-focus" : ""}>
-              {words.sex}
-            </span>
+            <span className={sexFocus ? "input-focus" : ""}>{words.sex}</span>
             <input
-              type="password"
-              ref={passwordRef}
-              onChange={debounce(handleInput("password"), 500)}
+              type="school"
+              ref={sexRef}
+              onChange={debounce(handleInput("sex"), 500)}
             />
           </div>
           <div className="full-register-input">
-            <span className={passwordFocus ? "input-focus" : ""}>
-              {words.age}
-            </span>
+            <span className={ageFocus ? "input-focus" : ""}>{words.age}</span>
             <input
-              type="password"
-              ref={passwordRef}
-              onChange={debounce(handleInput("password"), 500)}
+              type="school"
+              ref={ageRef}
+              onChange={debounce(handleInput("age"), 500)}
             />
           </div>
           <div className="full-register-submit" onClick={handleSubmit}>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 -1 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 58 (84663) - https://sketch.com -->
+    <title>Group</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+        <g id="User-Careers---User-Profile_-Dashboard_Lab-Progress" transform="translate(-292.000000, -1645.000000)" stroke="#A4B1CD" stroke-width="1.2">
+            <g id="Group-18-Copy-4" transform="translate(278.000000, 1625.000000)">
+                <g id="Group" transform="translate(15.000000, 21.000000)">
+                    <g id="browser-page-account">
+                        <rect id="Rectangle-path" x="0.499" y="0.25" width="21" height="19.5" rx="1.5"></rect>
+                        <path d="M0.499,4.75 L21.499,4.75" id="Shape"></path>
+                        <path d="M4.249,7.75 L8.749,7.75 C9.16321356,7.75 9.499,8.08578644 9.499,8.5 L9.499,13 C9.499,13.4142136 9.16321356,13.75 8.749,13.75 L4.249,13.75 C3.83478644,13.75 3.499,13.4142136 3.499,13 L3.499,8.5 C3.499,8.08578644 3.83478644,7.75 4.249,7.75 Z" id="Rectangle-path"></path>
+                        <path d="M3.499,16.75 L9.5,16.75" id="Shape"></path>
+                        <rect id="Rectangle-path" x="12.499" y="7.75" width="6" height="9" rx="0.75"></rect>
+                        <path d="M12.499,12.25 L18.499,12.25" id="Shape"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

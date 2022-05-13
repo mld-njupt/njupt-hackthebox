@@ -58,7 +58,7 @@ const Home = () => {
       }}
     >
       <MenuItem style={{ background: "#1a2332", color: "#9fef00" }}>
-        成为Vip
+        成为进阶用户
       </MenuItem>
       <MenuItem style={{ background: "#1a2332" }}>修改用户信息</MenuItem>
       <MenuItem onClick={logout} style={{ background: "#1a2332" }}>

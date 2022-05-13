@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 59.1 (86144) - https://sketch.com -->
+    <title>ic-respect</title>
+    <desc>Created with Sketch.</desc>
+    <g id="ic-respect" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+        <g id="Group" stroke="#A4B1CD" stroke-width="1.5">
+            <g id="smiley-smile-1_1">
+                <circle id="Oval" cx="12" cy="12" r="11.25"></circle>
+                <path d="M8.25,8.625 C8.45710678,8.625 8.625,8.79289322 8.625,9 C8.625,9.20710678 8.45710678,9.375 8.25,9.375 C8.04289322,9.375 7.875,9.20710678 7.875,9 C7.875,8.79289322 8.04289322,8.625 8.25,8.625" id="Shape"></path>
+                <path d="M15.75,8.625 C15.9571068,8.625 16.125,8.79289322 16.125,9 C16.125,9.20710678 15.9571068,9.375 15.75,9.375 C15.5428932,9.375 15.375,9.20710678 15.375,9 C15.375,8.79289322 15.5428932,8.625 15.75,8.625" id="Shape"></path>
+                <path d="M18.048,15 C16.9086172,17.2994161 14.5642244,18.7541668 11.998,18.7541668 C9.43177559,18.7541668 7.08738282,17.2994161 5.948,15" id="Shape"></path>
+            </g>
+        </g>
+    </g>
+</svg>
