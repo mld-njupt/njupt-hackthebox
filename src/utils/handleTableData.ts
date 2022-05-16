@@ -8,8 +8,9 @@ const imgUrls = [
   "https://www.hackthebox.com/storage/avatars/564e4e21837a37a1024833573960c973.png",
   "https://www.hackthebox.com/storage/avatars/45237a657d91efd7e6ee103f8bb3142a.png",
 ];
-const handleTableData = (preData: Array<object>) => {
-  return preData.map((value: any, index) => {
+const handleTableData = (preData: any) => {
+  console.log(preData)
+  return preData.fields.map((value: any, index: number) => {
     return {
       rank: {
         rank: index + 1,

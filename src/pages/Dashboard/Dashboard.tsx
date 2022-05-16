@@ -136,20 +136,55 @@ const Dashboard = () => {
               </ScollView>
             </TabPane>
             <TabPane key="2" title="推荐">
-              Content of Tab Panel 2
+              <ScollView width={bottomContentWidth} itemWidth={260}>
+                <DashboardCard
+                  src="https://www.hackthebox.com/images/icons/ic-challenge-categ/ic-pwn.svg"
+                  title="Hard web2"
+                  msg="web"
+                ></DashboardCard>
+                <DashboardCard
+                  src="https://www.hackthebox.com/images/icons/ic-challenge-categ/ic-web.svg"
+                  title="Hard web"
+                  msg="web"
+                ></DashboardCard>
+                <DashboardCard
+                  src="https://www.hackthebox.com/images/icons/ic-challenge-categ/ic-misc.svg"
+                  title="njsdsss"
+                  msg="misc"
+                ></DashboardCard>
+              </ScollView>
             </TabPane>
             <TabPane key="3" title="正在进行中">
-              <DashboardCard
-                src="https://www.hackthebox.com/images/icons/ic-challenge-categ/ic-web.svg"
-                title="easypwn"
-                msg="pwn"
-              ></DashboardCard>
+              <ScollView width={bottomContentWidth} itemWidth={260}>
+                <DashboardCard
+                  src="https://www.hackthebox.com/images/icons/ic-challenge-categ/ic-pwn.svg"
+                  title="easypwn"
+                  msg="pwn"
+                ></DashboardCard>
+                <DashboardCard
+                  src="https://www.hackthebox.com/images/icons/ic-challenge-categ/ic-web.svg"
+                  title="Hard web"
+                  msg="web"
+                ></DashboardCard>
+              </ScollView>
             </TabPane>
             <TabPane key="4" title="待办清单">
-              Content of Tab Panel 4
+              <ScollView width={bottomContentWidth} itemWidth={260}>
+                <DashboardCard
+                  src="https://www.hackthebox.com/images/icons/ic-challenge-categ/ic-misc.svg"
+                  title="问卷题"
+                  msg="misc"
+                ></DashboardCard>
+              </ScollView>
             </TabPane>
             <TabPane key="5" title="知识">
-              Content of Tab Panel 5
+            <ScollView width={bottomContentWidth} itemWidth={260}>
+                <DashboardCard
+                  src="https://s1.ax1x.com/2022/05/16/OWchlV.png"
+                  title="SUSCTF Writeup by X1cT34m"
+                  msg="admin"
+                ></DashboardCard>
+              </ScollView>
             </TabPane>
           </Tabs>
         </div>

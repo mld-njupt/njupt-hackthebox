@@ -172,9 +172,7 @@ const columns = [
 
 const UDTable = (props: any) => {
   const { data } = props;
-
   const newData = handleTableData(data.data);
-  console.log(newData);
   return (
     <div className="table-wrap">
       <Table
