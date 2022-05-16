@@ -23,6 +23,7 @@ import {
   getSolved,
   getSolvedByCid,
 } from "../../api/competition";
+import { Outlet } from "react-router-dom";
 
 export default function Env() {
   // 右侧弹出侧栏数据
@@ -517,6 +518,7 @@ export default function Env() {
           </Tabs.TabPane>
         </Tabs>
       </Drawer>
+      <Outlet></Outlet>
     </Fragment>
   );
 }

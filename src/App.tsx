@@ -13,15 +13,9 @@ import Dashboard from "./pages/Dashboard/Dashboard";
 import About from "./pages/About/About";
 import Ranking from "./pages/Ranking/Ranking";
 import UserProfile from "./pages/UserProfile/UserProfile";
+import Exercise from "./pages/Exercise/Exercise";
 function App() {
   document.body.setAttribute("arco-theme", "dark");
-
-  // const Login = lazy(() => import("./pages/Login/Login"));
-  // const Home = lazy(() => import("./pages/Home/Home"));
-  // const Env = lazy(() => import("./pages/Env/Env"));
-  // const About = lazy(() => import("./pages/About/About"));
-  // const Dashboard = lazy(() => import("./pages/Dashboard/Dashboard"));
-  // const Online = lazy(() => import("./pages/Online/Online"));
   return (
     <BrowserRouter>
       <Suspense
@@ -34,10 +28,13 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />}>
             <Route path="dashboard" element={<Dashboard />} />
-            <Route path="env" element={<Env />} />
+            <Route path="env" element={<Env />}>
+              {/* <Route path="exercise" element={<Exercise />} /> */}
+            </Route>
             <Route path="about" element={<About />} />
             <Route path="ranking" element={<Ranking />} />
-            <Route path="userprofile" element={<UserProfile />}></Route>
+            <Route path="userprofile" element={<UserProfile />} />
+            <Route index element={<Dashboard></Dashboard>}></Route>
           </Route>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />}></Route>

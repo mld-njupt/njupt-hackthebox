@@ -30,7 +30,7 @@ const Home = () => {
 
   useEffect(() => {
     getSession();
-    navigate("/dashboard");
+    // navigate("/dashboard");
   }, []);
   useEffect(() => {
     if (session && session.code === 200) {
@@ -99,7 +99,7 @@ const Home = () => {
         <Layout>
           <Sider breakpoint="xl">
             <Menu
-              defaultSelectedKeys={navigation}
+              defaultSelectedKeys={"dashboard"}
               selectedKeys={navigation}
               style={{ width: "100%" }}
               onClickMenuItem={handleCilckMenuItem}

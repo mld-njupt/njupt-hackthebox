@@ -2,10 +2,12 @@ import React from "react";
 import ProfileCard from "../../components/ProfileCard/ProfileCard";
 import RadarChart from "../../components/BasicRadarChart/BasicRadarChart";
 import ScollView from "../../components/Scollview/ScollView";
+import { useNavigate} from "react-router-dom";
 import { useWidth } from "../../utils/customHooks";
 import "./UserProfile.scss";
 function UserProfile() {
   const [wrapRef, wrapWidth] = useWidth<HTMLDivElement>();
+  const navigate=useNavigate()
   return (
     <div className="profile-wrap" ref={wrapRef}>
       <div className="profile-header">
@@ -21,7 +23,9 @@ function UserProfile() {
           <div className="right-item user-type">
             <div className="item-title">个人类型</div>
             <div className="item-state">萌新</div>
-            <div className="go">进阶</div>
+            <div className="go" onClick={()=>{
+              navigate("/fullRegister")
+            }}>进阶</div>
           </div>
         </div>
       </div>

@@ -18,6 +18,7 @@ const words = {
   // forget: "忘记密码",
   // keepalive: "保持登录",
   go: "开启进阶之旅",
+  back:"返回"
 };
 function FullRegister() {
   const [locationRef, locationFocus] = useFocus<HTMLInputElement>();
@@ -115,6 +116,7 @@ function FullRegister() {
           <div className="full-register-submit" onClick={handleSubmit}>
             {words.go}
           </div>
+        
         </div>
       </div>
       {/* <div className="login-polices">

@@ -4,7 +4,7 @@ const baseurl = "/api/v1/user";
 
 // 获取所有题目分类
 export const getCategories = () => {
-  return axios.get(`${baseurl}/categories`);
+  return axios.get(`${baseurl}/challenges/categories`);
 };
 
 // 获取所有题目信息

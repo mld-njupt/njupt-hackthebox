@@ -1,0 +1,60 @@
+@import "../../assets/styles/index.scss";
+.exercise-wrap {
+  width: 100%;
+  .exercise-header {
+    width: 99%;
+    height: 115px;
+    background-color: $MENU_COLOR;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .header-left {
+      width: 500px;
+      height: 115px;
+      display: flex;
+      align-items: center;
+      margin-left: 32px;
+      .exercise-image {
+        width: 64px;
+        height: 64px;
+        // border-radius: 50%;
+        background-image: url(../../assets/images/icons/exercise.svg);
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+      }
+      .exercise-name {
+        font-size: 26px;
+        color: white;
+        margin-left: 10px;
+      }
+    }
+    .header-right {
+      width: 210px;
+      height: 72px;
+      display: flex;
+      .right-item {
+        display: flex;
+        flex-direction: column;
+        margin-right: 48px;
+        height: 72px;
+        .points-icon {
+         width: 24px;
+         height: 24px;
+         background-image: url(../../assets/images/toggle/ic-mc-points-thin.svg); 
+         background-position: center;
+         background-repeat: no-repeat;
+         background-size: 100% 100%;
+        }
+        .points {
+          color: white;
+          font-weight: bold;
+          padding: 8px 0;
+          letter-spacing: 1.8px;
+        }
+
+      }
+    }
+  }
+}
