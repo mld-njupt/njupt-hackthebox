@@ -170,8 +170,8 @@ const columns = [
 //   },
 // ];
 
-const UDTable = (props: any) => {
-  const { data } = props;
+const UDTable = (props: { pagination: {}; data: { data: [] } }) => {
+  const { data, pagination } = props;
   const newData = handleTableData(data.data);
   return (
     <div className="table-wrap">
@@ -180,7 +180,7 @@ const UDTable = (props: any) => {
         stripe
         columns={columns}
         data={newData}
-        pagination={false}
+        pagination={pagination}
       ></Table>
     </div>
   );
