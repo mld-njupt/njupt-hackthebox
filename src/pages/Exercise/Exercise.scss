@@ -63,6 +63,10 @@
   .exercise-content {
     width: 100%;
   }
+  .arco-input-inner-wrapper-focus {
+    border-color: $SPECIAL_FONT_COLOR;
+    background-color: #121212;
+  }
   .arco-tabs-header-wrapper {
     border-bottom: 1px solid #1a2332;
     .arco-tabs-header-title {
@@ -103,5 +107,11 @@
   }
   tr {
     height: 78px;
+  }
+  .arco-spin-icon {
+    color: $SPECIAL_FONT_COLOR;
+  }
+  .arco-spin-children::after {
+    background-color: $HEADER_COLOR;
   }
 }

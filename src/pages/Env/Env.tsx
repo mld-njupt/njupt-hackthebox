@@ -24,10 +24,11 @@ import {
   getSolvedByCid,
 } from "../../api/competition";
 import timeConvert from "../../utils/timeConvert";
-import { Outlet, useLocation } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import "./Env.scss";
 export default function Env() {
   const location = useLocation();
+  const navigate = useNavigate();
   // 右侧弹出侧栏数据
   const [siderVisible, setSiderVisible] = useState<boolean>(false);
   const [questionDetail, setQuestionDetail] = useState<any>({});
@@ -106,7 +107,8 @@ export default function Env() {
               render: (text: any, record: any) => {
                 return (
                   <Button
-                    onClick={() => {
+                    onClick={(e) => {
+                      e.stopPropagation();
                       setQuestionDetail(record);
                       setSiderVisible(true);
                       getSolvedByCid(record.id).then((res) => {
@@ -125,6 +127,13 @@ export default function Env() {
           data={challenges}
           loading={challengesLoading}
           pagination={false}
+          onRow={(record, index) => {
+            return {
+              onClick: (event) => {
+                navigate(`/env/exercise?${record.id}`);
+              }, // 点击表身行
+            };
+          }}
         />
       </>
     );
