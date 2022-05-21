@@ -24,6 +24,9 @@
     font-weight: 500;
     font-size: 18px;
     color: $LIGHT_FONT_COLOR;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
   .card-msg {
     width: 100%;

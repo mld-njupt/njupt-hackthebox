@@ -1,4 +1,5 @@
 @import "../../assets/styles/index.scss";
+
 .exercise-wrap {
   width: 100%;
   .exercise-header {
@@ -19,7 +20,7 @@
         width: 64px;
         height: 64px;
         // border-radius: 50%;
-        background-image: url(../../assets/images/icons/exercise.svg);
+        background-image: url("http://103.118.40.123:9999/images/exercise.svg");
         background-position: center;
         background-repeat: no-repeat;
         background-size: 100% 100%;
@@ -31,21 +32,24 @@
       }
     }
     .header-right {
-      width: 210px;
-      height: 72px;
-      display: flex;
-      .right-item {
+      width: 40px;
+      height: 100%;
+
+      .points-wrap {
         display: flex;
         flex-direction: column;
-        margin-right: 48px;
-        height: 72px;
+        // margin-right: 48px;
+        height: 100%;
+        align-items: center;
+        justify-content: space-between;
+        padding: 25px 0;
         .points-icon {
-         width: 24px;
-         height: 24px;
-         background-image: url(../../assets/images/toggle/ic-mc-points-thin.svg); 
-         background-position: center;
-         background-repeat: no-repeat;
-         background-size: 100% 100%;
+          width: 32px;
+          height: 32px;
+          background-image: url("http://103.118.40.123:9999/images/points.svg");
+          background-position: center;
+          background-repeat: no-repeat;
+          background-size: 100% 100%;
         }
         .points {
           color: white;
@@ -53,8 +57,51 @@
           padding: 8px 0;
           letter-spacing: 1.8px;
         }
-
       }
     }
+  }
+  .exercise-content {
+    width: 100%;
+  }
+  .arco-tabs-header-wrapper {
+    border-bottom: 1px solid #1a2332;
+    .arco-tabs-header-title {
+      letter-spacing: 2px;
+      padding: 10px 0;
+      color: $COMMON_FONT_COLOR;
+    }
+    .arco-tabs-header-title-active {
+      color: $LIGHT_FONT_COLOR;
+    }
+    .arco-tabs-header-ink {
+      background-color: $SPECIAL_FONT_COLOR;
+    }
+  }
+  .arco-table-th {
+    background: #141d2b;
+  }
+  .arco-table-td {
+    background: #141d2b;
+    border-bottom: thin solid rgba(164, 177, 205, 0.05) !important;
+  }
+
+  .arco-table-border .arco-table-container .arco-table-td:first-child {
+    border-left: 1px solid #121212;
+  }
+  .arco-table-stripe .arco-table-tr:nth-child(even) .arco-table-td {
+    background: #131b29;
+  }
+  .arco-table-border .arco-table-container .arco-table-th:first-child {
+    border-left: 1px solid #121212;
+    border-bottom: thin solid rgba(164, 177, 205, 0.05) !important;
+  }
+  .arco-table thead > .arco-table-tr > .arco-table-th {
+    border-bottom: thin solid rgba(164, 177, 205, 0.05) !important;
+  }
+  .arco-table-border .arco-table-container {
+    border: none;
+  }
+  tr {
+    height: 78px;
   }
 }

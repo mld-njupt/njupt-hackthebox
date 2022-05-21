@@ -60,7 +60,6 @@ const Home = () => {
       <MenuItem style={{ background: "#1a2332", color: "#9fef00" }}>
         成为进阶用户
       </MenuItem>
-      <MenuItem style={{ background: "#1a2332" }}>修改用户信息</MenuItem>
       <MenuItem onClick={logout} style={{ background: "#1a2332" }}>
         注销登录
       </MenuItem>
@@ -68,10 +67,10 @@ const Home = () => {
   );
 
   useEffect(() => {
-    let match = (location?.pathname as any)
-      .match(/\/([^/]*)$/g)[0]
-      .match(/[a-z][^\s]*/g);
-    match ? setNavigation(match[0]) : setNavigation("");
+    let match = location?.pathname;
+    let matchArray = match.split("/");
+    console.log(matchArray);
+    match ? setNavigation(matchArray[1]) : setNavigation("");
   }, [location]);
 
   return (
