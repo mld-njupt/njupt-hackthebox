@@ -1,4 +1,5 @@
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { Carousel, Tabs } from "@arco-design/web-react";
 import { IconCaretUp } from "@arco-design/web-react/icon";
 import CardToggle from "../../components/CardToggle/CardToggle";
@@ -7,10 +8,17 @@ import ScollView from "../../components/Scollview/ScollView";
 import DashboardCard from "../../components/DashboardCard/DashboardCard";
 import { useWidth } from "../../utils/customHooks";
 import "./Dashboard.scss";
+
 const { TabPane } = Tabs;
 
 const Dashboard = () => {
   const [bottomContentRef, bottomContentWidth] = useWidth<HTMLDivElement>();
+  const navigate = useNavigate();
+  const handleClick = (url: string) => {
+    return () => {
+      navigate(url);
+    };
+  };
   const carouselImg = [
     "https://www.hackthebox.com/storage/banners/9bf31c7ff062936a96d3c8bd1f8f2ff3.jpg",
     "https://www.hackthebox.com/storage/banners/5f93f983524def3dca464469d2cf9f3e.jpg",
@@ -141,6 +149,7 @@ const Dashboard = () => {
                   src="https://www.hackthebox.com/images/icons/ic-challenge-categ/ic-pwn.svg"
                   title="Hard web2"
                   msg="web"
+                  handleClick={handleClick("/env/exercise?id=4")}
                 ></DashboardCard>
                 <DashboardCard
                   src="https://www.hackthebox.com/images/icons/ic-challenge-categ/ic-web.svg"
@@ -178,11 +187,12 @@ const Dashboard = () => {
               </ScollView>
             </TabPane>
             <TabPane key="5" title="知识">
-            <ScollView width={bottomContentWidth} itemWidth={260}>
+              <ScollView width={bottomContentWidth} itemWidth={260}>
                 <DashboardCard
                   src="https://s1.ax1x.com/2022/05/16/OWchlV.png"
                   title="SUSCTF Writeup by X1cT34m"
                   msg="admin"
+                  handleClick={handleClick("/passage?id=2")}
                 ></DashboardCard>
               </ScollView>
             </TabPane>

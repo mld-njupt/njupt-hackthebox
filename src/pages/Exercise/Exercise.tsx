@@ -10,19 +10,40 @@ import {
 } from "@arco-design/web-react";
 import ReactMarkdown from "react-markdown";
 import timeConvert from "../../utils/timeConvert";
-import { getSolvedByCid, submitFlag } from "../../api/competition";
+import { getSolvedByCid, submitFlag,getChallenge } from "../../api/competition";
+import getUrlParams from "../../utils/getUrlParams";
 import "./Exercise.scss";
 function Exercise() {
-  const [questionDetail, setQuestionDetail] = useState<any>({});
+  const [questionDetail, setQuestionDetail] = useState<any>({
+    id:1,
+name:"问卷题",
+score:1000,
+description:"问卷链接：https://forms.gle/RcKhJo2uQwQrL4Gu9 Google问卷",
+// attachment:[...]
+category:"Misc",
+tags:[
+  "xxx"
+],
+hints:[
+  "填写问卷"
+],
+solver_count:0,
+is_solved:false
+  });
   const [singleChallengeSolvedInfo, setSingleChallengeSolvedInfo] = useState<
     any[]
   >([]);
   useEffect(() => {
-    getSolvedByCid(1).then((res) => {
+    const id=getUrlParams("id")
+    getChallenge(id).then((res)=>{
+      setQuestionDetail(res?.data?.data === null ? {}: res?.data?.data)
+    })
+    getSolvedByCid(id).then((res) => {
       setSingleChallengeSolvedInfo(
         res?.data?.data === null ? [] : res?.data?.data
       );
     });
+    
   }, []);
   const [flag, setFlag] = useState<string>("");
   return (
@@ -30,12 +51,12 @@ function Exercise() {
       <div className="exercise-header">
         <div className="header-left">
           <div className="exercise-image"></div>
-          <div className="exercise-name">mldnjupt</div>
+          <div className="exercise-name">{questionDetail.name}</div>
         </div>
         <div className="header-right">
           <div className="points-wrap">
             <div className="points-icon"></div>
-            <div className="points">882</div>
+            <div className="points">{questionDetail.score}</div>
           </div>
         </div>
       </div>

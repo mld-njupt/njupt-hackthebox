@@ -1,3 +1,5 @@
+import { MouseEventHandler } from "react";
+
 interface fetchInterface {
   url: string;
   query?: Object | any;
@@ -9,6 +11,7 @@ interface dashboardCardInterface {
   title: string;
   msg: string;
   style?: any;
+  handleClick?:MouseEventHandler<HTMLDivElement>
 }
 interface scollViewInterface {
   width: number;

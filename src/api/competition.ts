@@ -16,7 +16,10 @@ export const getAllChallenges = () => {
 export const getChallengesByCategory = (category: string | undefined) => {
   return axios.get(`${baseurl}/challenges/${category}`);
 };
-
+//根据id获取题目信息
+export const getChallenge=(id:number)=>{
+  return axios.get(`${baseurl}/challenge/${id}`);
+}
 // 提交flag
 export const submitFlag = (cid: number, flag: string) => {
   return axios.post(`${baseurl}/submitflag`, { cid, flag });

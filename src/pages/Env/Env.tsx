@@ -130,7 +130,7 @@ export default function Env() {
           onRow={(record, index) => {
             return {
               onClick: (event) => {
-                navigate(`/env/exercise?${record.id}`);
+                navigate(`/env/exercise?id=${record.id}`);
               }, // 点击表身行
             };
           }}
