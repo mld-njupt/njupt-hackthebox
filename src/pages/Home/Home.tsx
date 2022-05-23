@@ -57,7 +57,12 @@ const Home = () => {
         boxShadow: "0px 0px 2px black",
       }}
     >
-      <MenuItem style={{ background: "#1a2332", color: "#9fef00" }}>
+      <MenuItem
+        onClick={() => {
+          navigate("/fullRegister");
+        }}
+        style={{ background: "#1a2332", color: "#9fef00" }}
+      >
         成为进阶用户
       </MenuItem>
       <MenuItem onClick={logout} style={{ background: "#1a2332" }}>

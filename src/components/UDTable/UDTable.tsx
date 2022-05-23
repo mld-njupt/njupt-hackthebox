@@ -180,7 +180,8 @@ const UDTable = (props: { pagination: {}; data: { data: [] } }) => {
         stripe
         columns={columns}
         data={newData}
-        pagination={pagination}
+        pagination={false}
+        // pagination={pagination}
       ></Table>
     </div>
   );
