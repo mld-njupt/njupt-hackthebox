@@ -1,11 +1,16 @@
 import React from "react";
 import "./ProfileCard.scss";
-function ProfileCard() {
+interface CardProp {
+  score: number;
+  category: string;
+}
+function ProfileCard(props: CardProp) {
+  const { score, category } = props;
   return (
     <div className="profile-card">
       <div className="card-icon"></div>
-      <div className="card-score">0</div>
-      <div className="card-name">web</div>
+      <div className="card-score">{score}</div>
+      <div className="card-name">{category}</div>
     </div>
   );
 }

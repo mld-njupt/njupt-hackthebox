@@ -10,40 +10,39 @@ import {
 } from "@arco-design/web-react";
 import ReactMarkdown from "react-markdown";
 import timeConvert from "../../utils/timeConvert";
-import { getSolvedByCid, submitFlag,getChallenge } from "../../api/competition";
+import {
+  getSolvedByCid,
+  submitFlag,
+  getChallenge,
+} from "../../api/competition";
 import getUrlParams from "../../utils/getUrlParams";
 import "./Exercise.scss";
 function Exercise() {
   const [questionDetail, setQuestionDetail] = useState<any>({
-    id:1,
-name:"问卷题",
-score:1000,
-description:"问卷链接：https://forms.gle/RcKhJo2uQwQrL4Gu9 Google问卷",
-// attachment:[...]
-category:"Misc",
-tags:[
-  "xxx"
-],
-hints:[
-  "填写问卷"
-],
-solver_count:0,
-is_solved:false
+    id: 1,
+    name: "问卷题",
+    score: 1000,
+    description: "问卷链接：https://forms.gle/RcKhJo2uQwQrL4Gu9 Google问卷",
+    // attachment:[...]
+    category: "Misc",
+    tags: ["xxx"],
+    hints: ["填写问卷"],
+    solver_count: 0,
+    is_solved: false,
   });
   const [singleChallengeSolvedInfo, setSingleChallengeSolvedInfo] = useState<
     any[]
   >([]);
   useEffect(() => {
-    const id=getUrlParams("id")
-    getChallenge(id).then((res)=>{
-      setQuestionDetail(res?.data?.data === null ? {}: res?.data?.data)
-    })
+    const id = getUrlParams("id");
+    getChallenge(id).then((res) => {
+      setQuestionDetail(res?.data?.data === null ? {} : res?.data?.data);
+    });
     getSolvedByCid(id).then((res) => {
       setSingleChallengeSolvedInfo(
         res?.data?.data === null ? [] : res?.data?.data
       );
     });
-    
   }, []);
   const [flag, setFlag] = useState<string>("");
   return (

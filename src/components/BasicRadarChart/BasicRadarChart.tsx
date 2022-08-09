@@ -86,7 +86,7 @@ const BasicRadarChart = (props: chartProp) => {
         color: "#9fef00",
         data: [
           {
-            value: [90, 80, 46, 72, 58],
+            value: props.series,
             name: "personal-score",
           },
         ],

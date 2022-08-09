@@ -34,6 +34,8 @@ const Home = () => {
   }, []);
   useEffect(() => {
     if (session && session.code === 200) {
+      console.log(session.data)
+      localStorage.setItem("user",JSON.stringify(session.data))
     } else if (session && session.code !== 200) {
       session && Notification.error({ title: "Error", content: "请先登录" });
       navigate("/login");
@@ -103,7 +105,7 @@ const Home = () => {
         <Layout>
           <Sider breakpoint="xl">
             <Menu
-              defaultSelectedKeys={"dashboard"}
+              defaultSelectedKeys={["dashboard"]}
               selectedKeys={navigation}
               style={{ width: "100%" }}
               onClickMenuItem={handleCilckMenuItem}

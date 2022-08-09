@@ -29,7 +29,7 @@ const addProxy = () => (config) => {
   config.proxy = {
     "/api": {
       //待配置
-      target: "http://159.75.82.124:18080/api",
+      target: "http://159.75.82.124:9000/api",
       changeOrigin: true,
       pathRewrite: {
         "^/api": "",

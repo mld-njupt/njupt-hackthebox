@@ -76,3 +76,19 @@ export const updateInfoApi = (
     },
   };
 };
+
+//获取用户排名
+export const getSelfApi = (): fetchInterface => {
+  return {
+    url: "/v1/user/score/self",
+    method: "get",
+  };
+};
+
+//获取用户各个方向得分
+export const getScoreApi = (): fetchInterface => {
+  return {
+    url: "/v1/user/solves/self/status",
+    method: "get",
+  };
+};
