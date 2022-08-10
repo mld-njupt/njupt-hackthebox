@@ -10,30 +10,30 @@ const imgUrls = [
 ];
 const handleTableData = (preData: any) => {
   console.log(preData)
-  return preData.fields.map((value: any, index: number) => {
-    return {
-      rank: {
-        rank: index + 1,
-        state: "keep",
-      },
-      player: {
-        name: value.username,
-        imgUrl: imgUrls[index % 8],
-        status: "GURU",
-      },
-      points: value.score,
-      users: {
-        points: 201,
-        redPoints: 9,
-      },
-      systems: {
-        points: 201,
-        redPoints: 10,
-      },
-      challenges: 218,
-      portresses: 40,
-      endgames: 14,
-    };
-  });
+  // return preData.fields.map((value: any, index: number) => {
+  //   return {
+  //     rank: {
+  //       rank: index + 1,
+  //       state: "keep",
+  //     },
+  //     player: {
+  //       name: value.username,
+  //       imgUrl: imgUrls[index % 8],
+  //       status: "GURU",
+  //     },
+  //     points: value.score,
+  //     users: {
+  //       points: 201,
+  //       redPoints: 9,
+  //     },
+  //     systems: {
+  //       points: 201,
+  //       redPoints: 10,
+  //     },
+  //     challenges: 218,
+  //     portresses: 40,
+  //     endgames: 14,
+  //   };
+  // });
 };
 export default handleTableData;

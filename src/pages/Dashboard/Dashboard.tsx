@@ -1,4 +1,3 @@
-import { useCallback, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Carousel, Tabs } from "@arco-design/web-react";
 import { IconCaretUp } from "@arco-design/web-react/icon";
@@ -7,27 +6,30 @@ import UDTimeline from "../../components/UDTimeline/UDTimeline";
 import ScollView from "../../components/Scollview/ScollView";
 import DashboardCard from "../../components/DashboardCard/DashboardCard";
 import { useWidth } from "../../utils/customHooks";
+import { getRecommend } from "../../api/competition";
 import "./Dashboard.scss";
-
+import { useEffect, useState } from "react";
+import { carouselArr, categoryIc } from "./dashboardAssets";
 const { TabPane } = Tabs;
 
 const Dashboard = () => {
   const [bottomContentRef, bottomContentWidth] = useWidth<HTMLDivElement>();
+  const [recommend, setRecommend] = useState([]);
   const navigate = useNavigate();
   const handleClick = (url: string) => {
     return () => {
       navigate(url);
     };
   };
-  const carouselImg = [
-    "https://www.hackthebox.com/storage/banners/9bf31c7ff062936a96d3c8bd1f8f2ff3.jpg",
-    "https://www.hackthebox.com/storage/banners/5f93f983524def3dca464469d2cf9f3e.jpg",
-    "https://www.hackthebox.com/storage/banners/2723d092b63885e0d7c260cc007e8b9d.jpg",
-    "https://www.hackthebox.com/storage/banners/c9e1074f5b3f9fc8ea15d152add07294.jpg",
-    "https://www.hackthebox.com/storage/banners/65b9eea6e1cc6bb9f0cd2a47751a186f.jpg",
-    "https://www.hackthebox.com/storage/banners/a3c65c2974270fd093ee8a9bf8ae7d0b.jpg",
-    "https://www.hackthebox.com/storage/banners/a97da629b098b75c294dffdc3e463904.jpg",
-  ];
+  useEffect(() => {
+    getRecommend().then((res) => {
+      console.log(res);
+      setRecommend(res.data.data);
+    });
+  }, []);
+  useEffect(() => {
+    console.log(recommend);
+  }, [recommend]);
   return (
     <div className="dashboard-wrap">
       <div className="dashboard-header">
@@ -44,10 +46,10 @@ const Dashboard = () => {
             <span className="title">更新日志</span>
             <span className="link-box">Version 3.18.0</span>
           </div>
-          <div className="player header-item">
+          {/* <div className="player header-item">
             <span className="title">在线玩家</span>
             <span className="link-box">586 Players Online</span>
-          </div>
+          </div> */}
         </div>
       </div>
       <div className="dashboard-content">
@@ -64,7 +66,7 @@ const Dashboard = () => {
                 borderRadius: "12px",
               }}
             >
-              {carouselImg.map((src, index) => (
+              {carouselArr.map((src, index) => (
                 <div key={index} style={{ width: "100%" }}>
                   <img
                     src={src}
@@ -145,7 +147,22 @@ const Dashboard = () => {
             </TabPane>
             <TabPane key="2" title="推荐">
               <ScollView width={bottomContentWidth} itemWidth={260}>
-                <DashboardCard
+                {recommend &&
+                  recommend.map((value: any,index) => {
+                    return (
+                      <DashboardCard
+                        //@ts-ignore
+                        src={categoryIc[value.category.toLowerCase()]}
+                        title={value.name}
+                        msg={value.category}
+                        handleClick={handleClick(
+                          `/env/exercise?id=${value.id}`
+                        )}
+                        key={index}
+                      ></DashboardCard>
+                    );
+                  })}
+                {/* <DashboardCard
                   src="https://www.hackthebox.com/images/icons/ic-challenge-categ/ic-pwn.svg"
                   title="Hard web2"
                   msg="web"
@@ -160,7 +177,7 @@ const Dashboard = () => {
                   src="https://www.hackthebox.com/images/icons/ic-challenge-categ/ic-misc.svg"
                   title="njsdsss"
                   msg="misc"
-                ></DashboardCard>
+                ></DashboardCard> */}
               </ScollView>
             </TabPane>
             <TabPane key="3" title="正在进行中">

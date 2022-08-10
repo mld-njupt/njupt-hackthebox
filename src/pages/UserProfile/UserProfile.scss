@@ -31,9 +31,20 @@
       }
     }
     .header-right {
-      width: 210px;
+      width: 310px;
       height: 72px;
       display: flex;
+      align-items: center;
+      // .change {
+      //   width: 90px;
+      //   height: 40px;
+      //   line-height: 40px;
+      //   text-align: center;
+      //   color: white;
+      //   font-weight: bold;
+      //   background-color: rgba(159, 239, 0, 0.7);
+      //   margin-right: 20px;
+      // }
       .right-item {
         display: flex;
         flex-direction: column;

@@ -18,7 +18,7 @@ export const getChallengesByCategory = (category: string | undefined) => {
 };
 //根据id获取题目信息
 export const getChallenge=(id:number)=>{
-  return axios.get(`${baseurl}/challenge/${id}`);
+  return axios.get(`${baseurl}/challenges/id/${id}`);
 }
 // 提交flag
 export const submitFlag = (cid: number, flag: string) => {
@@ -48,3 +48,8 @@ export const getSolvedByCurrentUser = () => {
 export const getCurrentUserScore = () => {
   return axios.get(`${baseurl}/score/self`);
 };
+
+// 获取首页推荐题目
+export const getRecommend=()=>{
+  return axios.get(`${baseurl}/challenges/recommend`)
+}

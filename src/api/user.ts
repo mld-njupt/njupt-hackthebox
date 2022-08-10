@@ -92,3 +92,49 @@ export const getScoreApi = (): fetchInterface => {
     method: "get",
   };
 };
+
+//获取用户信息
+export const getUserInfoApi = (): fetchInterface => {
+  return {
+    url: "/v1/user/info/detail",
+    method: "get",
+  };
+};
+
+//修改用户信息
+export const putUserInfoApi = (userInfo: {
+  age: number;
+  area: string;
+  country: string;
+  grade: string;
+  major: string;
+  phone: string;
+  qq: string;
+  school: string;
+  wechat: string;
+}): fetchInterface => {
+  return {
+    url: "/v1/user/info/detail",
+    method: "put",
+    body: userInfo,
+  };
+};
+
+//完整注册
+export const postUserInfoApi = (userInfo: {
+  age: number;
+  area: string;
+  country: string;
+  grade: string;
+  major: string;
+  phone: string;
+  qq: string;
+  school: string;
+  wechat: string;
+}): fetchInterface => {
+  return {
+    url: "/v1/user/info/detail",
+    method: "post",
+    body: userInfo,
+  };
+};

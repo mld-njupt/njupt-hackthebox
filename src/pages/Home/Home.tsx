@@ -4,7 +4,7 @@ import { Layout, Menu, Notification, Dropdown } from "@arco-design/web-react";
 import { IconDown } from "@arco-design/web-react/icon";
 import { useNavigate, useLocation, Outlet } from "react-router-dom";
 import { useFetch } from "../../utils/customHooks";
-import { getSessionApi, logoutApi } from "../../api/user";
+import { getSessionApi, logoutApi, getUserInfoApi } from "../../api/user";
 import IconAbout from "../../assets/images/icons/About.svg";
 import IconDashboard from "../../assets/images/icons/Dashboard.svg";
 import IconEnv from "../../assets/images/icons/Env.svg";
@@ -27,15 +27,17 @@ const Home = () => {
   };
   const [[session], getSession] = useFetch(getSessionApi());
   const [[logoutData], logout] = useFetch(logoutApi());
+  const [[userInfo], getUserInfo] = useFetch(getUserInfoApi());
 
   useEffect(() => {
     getSession();
+    getUserInfo();
     // navigate("/dashboard");
   }, []);
   useEffect(() => {
     if (session && session.code === 200) {
-      console.log(session.data)
-      localStorage.setItem("user",JSON.stringify(session.data))
+      localStorage.setItem("userType", "common");
+      localStorage.setItem("user", JSON.stringify(session.data));
     } else if (session && session.code !== 200) {
       session && Notification.error({ title: "Error", content: "请先登录" });
       navigate("/login");
@@ -50,7 +52,12 @@ const Home = () => {
       navigate("/login");
     }
   }, [logoutData]);
-
+  useEffect(() => {
+    if (userInfo && userInfo.code === 200) {
+      localStorage.setItem("userType", "full");
+      localStorage.setItem("userInfo", JSON.stringify(userInfo.data));
+    }
+  }, [userInfo]);
   const dropList = (
     <Menu
       style={{
@@ -76,7 +83,6 @@ const Home = () => {
   useEffect(() => {
     let match = location?.pathname;
     let matchArray = match.split("/");
-    console.log(matchArray);
     match ? setNavigation(matchArray[1]) : setNavigation("");
   }, [location]);
 
