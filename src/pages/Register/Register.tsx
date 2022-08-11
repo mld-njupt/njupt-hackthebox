@@ -90,11 +90,9 @@ const Register = () => {
     getCodeData();
   };
   useEffect(() => {
-    getCodeData();
-  }, []);
-  useEffect(() => {
     let pw = new ParticleWave();
     pw.run();
+    getCodeData();
   }, []);
   useEffect(() => {
     if (registerData && registerData.code === 200) {

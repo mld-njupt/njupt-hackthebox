@@ -1,7 +1,7 @@
 import { isValidKey } from "./isValidKey";
 const rules = {
   isNull: (str: string, key: string) => {
-    if (str == "") {
+    if (str.length===0) {
       return false;
     } else {
       return true;
@@ -30,10 +30,16 @@ const keyWords = {
   password: "密码",
   code: "验证码",
   email: "邮箱",
-  location: "地区",
+  area: "地区",
   school: "学校",
   age: "年龄",
   sex: "性别",
+  major:"专业",
+  grade:"年级",
+  country:"国家",
+  phone:"手机号",
+  wechat:"微信号",
+  qq:"qq号"
 };
 const checkValid = (type: "mobilePhone" | "email" | "confirm" | "isNull") => {
   return (str: string, ...args: any) => {

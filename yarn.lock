@@ -1855,6 +1855,13 @@
   "resolved" "https://registry.npmmirror.com/@types/range-parser/-/range-parser-1.2.4.tgz"
   "version" "1.2.4"
 
+"@types/react-calendar-heatmap@^1.6.3":
+  "integrity" "sha512-C6hN9Nl0NBqeJEkivwwf/bvWNoPwpwGSNABwYl0yHD20rClSJqRgYoGPKDIn8QqoYHGJsTFJdFbBAZRPlJ/+qg=="
+  "resolved" "https://registry.npmjs.org/@types/react-calendar-heatmap/-/react-calendar-heatmap-1.6.3.tgz"
+  "version" "1.6.3"
+  dependencies:
+    "@types/react" "*"
+
 "@types/react-dom@^17.0.11":
   "version" "17.0.11"
   dependencies:
@@ -6134,6 +6141,11 @@
   dependencies:
     "fs-monkey" "1.0.3"
 
+"memoize-one@^5.0.0":
+  "integrity" "sha512-zYiwtZUcYyXKo/np96AGZAckk+FWWsUdJ3cHGGmld7+AhvcWmQyGCYUh1hc4Q/pkOhb65dQR/pqCyK0cOaHz4Q=="
+  "resolved" "https://registry.npmjs.org/memoize-one/-/memoize-one-5.2.1.tgz"
+  "version" "5.2.1"
+
 "merge-descriptors@1.0.1":
   "integrity" "sha512-cCi6g3/Zr1iqQi6ySbseM1Xvooa98N0w31jzUYrXPX2xqObmFGHJ0tQ5u74H3mVh7wLouTseZyYIq39g8cNp1w=="
   "resolved" "https://registry.npmmirror.com/merge-descriptors/-/merge-descriptors-1.0.1.tgz"
@@ -7548,6 +7560,14 @@
   dependencies:
     "semver" "^5.6.0"
 
+"react-calendar-heatmap@^1.9.0":
+  "integrity" "sha512-mGed9any6QLOVckxwxC/eeP9s9wE8mTUW/FCE0V27xF9WOaCGuOftGSRH8DSDoSwgzMSVF6uuH7M1xvc+aZ8sg=="
+  "resolved" "https://registry.npmjs.org/react-calendar-heatmap/-/react-calendar-heatmap-1.9.0.tgz"
+  "version" "1.9.0"
+  dependencies:
+    "memoize-one" "^5.0.0"
+    "prop-types" "^15.6.2"
+
 "react-clientside-effect@^1.2.5":
   "integrity" "sha512-2bL8qFW1TGBHozGGbVeyvnggRpMjibeZM2536AKNENLECutp2yfs44IL8Hmpn8qjFQ2K7A9PnYf3vc7aQq/cPA=="
   "resolved" "https://registry.npmmirror.com/react-clientside-effect/-/react-clientside-effect-1.2.5.tgz"
@@ -7722,7 +7742,7 @@
     "loose-envify" "^1.4.0"
     "prop-types" "^15.6.2"
 
-"react@*", "react@^15.3.0 || ^16.0.0 || ^17.0.0", "react@^16.8.0 || ^17.0.0", "react@^16.8.0 || ^17.0.0 || ^18.0.0", "react@^17.0.2", "react@>= 16", "react@>=16", "react@>=16.6.0", "react@>=16.8", "react@17.0.2":
+"react@*", "react@^0.14.0 || ^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0", "react@^15.3.0 || ^16.0.0 || ^17.0.0", "react@^16.8.0 || ^17.0.0", "react@^16.8.0 || ^17.0.0 || ^18.0.0", "react@^17.0.2", "react@>= 16", "react@>=16", "react@>=16.6.0", "react@>=16.8", "react@17.0.2":
   "integrity" "sha512-gnhPt75i/dq/z3/6q/0asP78D0u592D5L1pd7M8P+dck6Fu/jJeL6iVVK23fptSUZj8Vjf++7wXA8UNclGQcbA=="
   "resolved" "https://registry.npmmirror.com/react/-/react-17.0.2.tgz"
   "version" "17.0.2"
@@ -8965,6 +8985,8 @@
   "version" "5.1.1"
 
 "unist-util-position@^4.0.0":
+  "integrity" "sha512-p/5EMGIa1qwbXjA+QgcBXaPWjSnZfQ2Sc3yBEEfgPwsEmJd8Qh+DSk3LGnmOM4S1bY2C0AjmMnB8RuEYxpPwXQ=="
+  "resolved" "https://registry.npmjs.org/unist-util-position/-/unist-util-position-4.0.3.tgz"
   "version" "4.0.3"
   dependencies:
     "@types/unist" "^2.0.0"

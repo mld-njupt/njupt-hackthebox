@@ -103,7 +103,7 @@ export const getUserInfoApi = (): fetchInterface => {
 
 //修改用户信息
 export const putUserInfoApi = (userInfo: {
-  age: number;
+  age:string|number|null;
   area: string;
   country: string;
   grade: string;
@@ -122,15 +122,15 @@ export const putUserInfoApi = (userInfo: {
 
 //完整注册
 export const postUserInfoApi = (userInfo: {
-  age: number;
+  age: string|number|null;
   area: string;
   country: string;
   grade: string;
   major: string;
   phone: string;
-  qq: string;
+  qq: string|null;
   school: string;
-  wechat: string;
+  wechat: string|null;
 }): fetchInterface => {
   return {
     url: "/v1/user/info/detail",

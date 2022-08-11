@@ -5,8 +5,19 @@ import ScollView from "../../components/Scollview/ScollView";
 import { useNavigate } from "react-router-dom";
 import { useWidth, useFetch } from "../../utils/customHooks";
 import { getSelfApi, getScoreApi, putUserInfoApi } from "../../api/user";
+import CalendarHeatmap from "react-calendar-heatmap";
 import "./UserProfile.scss";
+import "react-calendar-heatmap/dist/styles.css";
 import { Tabs } from "@arco-design/web-react";
+const WEEKDAYLABEL_LEFT = 5;
+//@ts-ignore
+CalendarHeatmap.prototype.getTransformForWeekdayLabels = function () {
+  if (this.props.horizontal) {
+    //@ts-ignore
+    return `translate(${WEEKDAYLABEL_LEFT}, ${this.getMonthLabelSize()})`;
+  }
+  return null;
+};
 const TabPane = Tabs.TabPane;
 interface UserProp {
   age: number;
@@ -19,12 +30,27 @@ interface UserProp {
   school: string;
   wechat: string;
 }
+const today = new Date();
+function shiftDate(date: string | number | Date, numDays: number) {
+  const newDate = new Date(date);
+  newDate.setDate(newDate.getDate() + numDays);
+  return newDate;
+}
+
+function getRange(count: number) {
+  return Array.from({ length: count }, (_, i) => i);
+}
+
+function getRandomInt(min: number, max: number) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
 function UserProfile() {
   const [wrapRef, wrapWidth] = useWidth<HTMLDivElement>();
   const [[rank], getRank] = useFetch(getSelfApi());
   const [[score], getScore] = useFetch(getScoreApi());
   // const [[putRes, putUserInfo]] = useFetch(putUserInfoApi(curUser));
   const [scoreObj, setScoreObj] = useState<any>({});
+  const navigate = useNavigate();
   useEffect(() => {
     getRank();
     getScore();
@@ -43,7 +69,12 @@ function UserProfile() {
     console.log(JSON.parse(localStorage.getItem("userInfo") as string));
     console.log(localStorage.getItem("userType"));
   }, []);
-  const navigate = useNavigate();
+  const randomValues = getRange(365).map((index) => {
+    return {
+      date: shiftDate(today, -index),
+      count: getRandomInt(1, 3),
+    };
+  });
   return (
     <div className="profile-wrap" ref={wrapRef}>
       <div className="profile-header">
@@ -73,6 +104,31 @@ function UserProfile() {
       </div>
       <Tabs defaultActiveTab="1">
         <TabPane key="1" title="个人信息">
+          <div className="profile-heatmap">
+            <CalendarHeatmap
+              startDate={new Date("2022-01-01")}
+              endDate={new Date("2022-12-31")}
+              values={randomValues}
+              classForValue={(value) => {
+                if (!value) {
+                  return "color-empty";
+                }
+                return `color-github-${value.count}`;
+              }}
+              // tooltipDataAttrs={(value: {
+              //   date: { toISOString: () => string | any[] };
+              //   count: any;
+              // }) => {
+              //   return {
+              //     "data-tip": `${value.date
+              //       .toISOString()
+              //       .slice(0, 10)} has count: ${value.count}`,
+              //   };
+              // }}
+              showWeekdayLabels={true}
+              gutterSize={2}
+            />
+          </div>
           <ScollView width={wrapWidth} itemWidth={210}>
             <div className="global-ranking">
               <div className="ranking-image"></div>
