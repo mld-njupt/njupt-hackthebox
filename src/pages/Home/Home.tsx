@@ -36,7 +36,6 @@ const Home = () => {
   }, []);
   useEffect(() => {
     if (session && session.code === 200) {
-      localStorage.setItem("userType", "common");
       localStorage.setItem("user", JSON.stringify(session.data));
     } else if (session && session.code !== 200) {
       session && Notification.error({ title: "Error", content: "请先登录" });
@@ -54,6 +53,7 @@ const Home = () => {
   }, [logoutData]);
   useEffect(() => {
     if (userInfo && userInfo.code === 200) {
+      localStorage.removeItem("userType")
       localStorage.setItem("userType", "full");
       localStorage.setItem("userInfo", JSON.stringify(userInfo.data));
     }

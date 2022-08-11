@@ -7,3 +7,11 @@ canvas {
   height: 100vh;
   display: block;
 }
+//因为pop弹窗直接挂在root下所以样式修改要单独出来
+.arco-popover-content, .arco-popconfirm-content {
+  background-color: $BACKUP_COLOR;
+  border: none;
+  .arco-btn-primary:not(.arco-btn-disabled){
+    background-color: $SPECIAL_FONT_COLOR !important;
+  }
+}
