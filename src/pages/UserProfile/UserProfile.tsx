@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
+import { useRecoilState } from "recoil";
 import ProfileCard from "../../components/ProfileCard/ProfileCard";
 import RadarChart from "../../components/BasicRadarChart/BasicRadarChart";
 import ScollView from "../../components/Scollview/ScollView";
 import { useNavigate } from "react-router-dom";
 import { useWidth, useFetch } from "../../utils/customHooks";
+import { refreshUser } from "../../store/user";
 import asyncLocalStorage from "../../utils/asyncLocalStorage";
 import {
   getSelfApi,
@@ -19,10 +21,11 @@ import {
   Tabs,
   Grid,
   Input,
-  InputNumber,
+  Notification,
   Button,
   Popconfirm,
   Message,
+  InputNumber,
 } from "@arco-design/web-react";
 
 const Row = Grid.Row;
@@ -40,6 +43,7 @@ const TabPane = Tabs.TabPane;
 interface CommonUserProp {
   username: string;
   password: string;
+  rePassword: string;
   email: string;
 }
 interface UserProp {
@@ -69,10 +73,12 @@ function getRandomInt(min: number, max: number) {
 }
 function UserProfile() {
   const [wrapRef, wrapWidth] = useWidth<HTMLDivElement>();
+  const [isRefresh, refresh] = useRecoilState(refreshUser);
   const [commonUser, setCommonUser] = useState<CommonUserProp>({
     username: "",
     password: "",
     email: "",
+    rePassword: "",
   });
   const [user, setUser] = useState<UserProp>({
     age: 0,
@@ -92,7 +98,7 @@ function UserProfile() {
   //进阶用户修改信息
   const [[putUserInfoData], putUserInfo] = useFetch(putUserInfoApi(user));
   const [scoreObj, setScoreObj] = useState<any>({});
-  const { username, email, password } = commonUser;
+  const { username, email, password, rePassword } = commonUser;
   const { phone, major, school, grade, country, area, age, wechat, qq } = user;
 
   const [userType, setUserType] = useState(localStorage.getItem("userType"));
@@ -109,6 +115,17 @@ function UserProfile() {
         });
       });
   }, [score]);
+  useEffect(() => {
+    if (
+      (updateInfoData && updateInfoData.code === 200) ||
+      (putUserInfoData && putUserInfoData.code === 200)
+    ) {
+      Notification.success({ title: "Success", content: "修改成功" });
+      refresh((prev) => {
+        return !prev;
+      });
+    }
+  }, [updateInfoData, putUserInfoData]);
   const randomValues = getRange(365).map((index) => {
     return {
       date: shiftDate(today, -index),
@@ -117,13 +134,34 @@ function UserProfile() {
   });
   useEffect(() => {
     asyncLocalStorage.getItem("user").then((res: any) => {
-      res&&setCommonUser({ ...JSON.parse(res) });
+      res && setCommonUser({ ...JSON.parse(res) });
     });
     asyncLocalStorage.getItem("userInfo").then((res: any) => {
-      res&&setUser({ ...JSON.parse(res) });
+      res && setUser({ ...JSON.parse(res) });
     });
   }, []);
-
+  const handleCommonSubmit = () => {
+    if (password !== rePassword) {
+      Notification.error({ title: "Error", content: "两次密码输入不一致" });
+    } else if (!/^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/.test(email)) {
+      Notification.error({ title: "Error", content: "邮箱格式错误" });
+    } else {
+      updateInfo();
+    }
+  };
+  const handleSubmit = () => {
+    console.log(password, rePassword);
+    if (!/^1\d{10}$/.test(phone)) {
+      Notification.error({ title: "Error", content: "手机号格式错误" });
+    } else if (password !== rePassword) {
+      Notification.error({ title: "Error", content: "两次密码输入不一致" });
+    } else if (!/^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/.test(email)) {
+      Notification.error({ title: "Error", content: "邮箱格式错误" });
+    } else {
+      updateInfo();
+      putUserInfo();
+    }
+  };
   return (
     <div className="profile-wrap" ref={wrapRef}>
       <div className="profile-header">
@@ -216,8 +254,9 @@ function UserProfile() {
         </TabPane>
         <TabPane key="2" title="修改个人信息">
           <Form
-            onValuesChange={(current, all) => {
-              console.log(all);
+            onValuesChange={(current, all: any) => {
+              console.log(all)
+              setCommonUser(all);
             }}
             layout="vertical"
           >
@@ -246,7 +285,6 @@ function UserProfile() {
                 <Form.Item
                   field={"password"}
                   label="密码"
-                  // rules={[{ required: true, message: "请输入密码" }]}
                   initialValue={password}
                 >
                   <Input.Password style={{ width: "100%" }} />
@@ -256,136 +294,136 @@ function UserProfile() {
                 <Form.Item
                   label="确认密码"
                   field={"rePassword"}
-                  // rules={[{ required: true, message: "请重复输入密码" }]}
                   initialValue={password}
                 >
                   <Input.Password style={{ width: "100%" }} />
                 </Form.Item>
               </Col>
             </Row>
-            {userType === "full" ? (
-              <>
-                <Row gutter={16}>
-                  <Col span={6}>
-                    <Form.Item
-                      label="手机号"
-                      rules={[{ required: true, message: "请输入手机号" }]}
-                      field="phone"
-                      initialValue={phone}
-                    >
-                      <Input allowClear style={{ width: "100%" }} />
-                    </Form.Item>
-                  </Col>
-                  <Col span={6}>
-                    <Form.Item
-                      label="学校"
-                      rules={[{ required: true, message: "请输入学校" }]}
-                      field="school"
-                      initialValue={school}
-                    >
-                      <Input allowClear style={{ width: "100%" }} />
-                    </Form.Item>
-                  </Col>
-                  <Col span={6}>
-                    <Form.Item
-                      label="专业"
-                      rules={[{ required: true, message: "请输入专业" }]}
-                      field="major"
-                      initialValue={major}
-                    >
-                      <Input allowClear style={{ width: "100%" }} />
-                    </Form.Item>
-                  </Col>
-                  <Col span={6}>
-                    <Form.Item
-                      label="年级"
-                      rules={[{ required: true, message: "请输入年级" }]}
-                      field="grade"
-                      initialValue={grade}
-                    >
-                      <Input allowClear style={{ width: "100%" }} />
-                    </Form.Item>
-                  </Col>
-                </Row>
-                <Row gutter={16}>
-                  <Col span={6}>
-                    <Form.Item
-                      label="国家"
-                      rules={[{ required: true, message: "请输入国家" }]}
-                      field="country"
-                      initialValue={country}
-                    >
-                      <Input allowClear style={{ width: "100%" }} />
-                    </Form.Item>
-                  </Col>
-                  <Col span={6}>
-                    <Form.Item
-                      label="地区"
-                      rules={[{ required: true, message: "请输入地区" }]}
-                      field="area"
-                      initialValue={area}
-                    >
-                      <Input allowClear style={{ width: "100%" }} />
-                    </Form.Item>
-                  </Col>
-                  <Col span={6}>
-                    <Form.Item
-                      label="年龄"
-                      rules={[{ required: true, message: "请输入年龄" }]}
-                      field="age"
-                      initialValue={age}
-                    >
-                      <Input allowClear style={{ width: "100%" }} />
-                    </Form.Item>
-                  </Col>
-                  <Col span={6}>
-                    <Form.Item
-                      label="微信号"
-                      rules={[{ required: true, message: "请输入微信号" }]}
-                      field="wechat"
-                      initialValue={wechat}
-                    >
-                      <Input allowClear style={{ width: "100%" }} />
-                    </Form.Item>
-                  </Col>
-                </Row>
-                <Row gutter={16}>
-                  <Col span={6}>
-                    <Form.Item
-                      label="qq号"
-                      rules={[{ required: true, message: "请输入qq号" }]}
-                      field="qq"
-                      initialValue={qq}
-                    >
-                      <Input allowClear style={{ width: "100%" }} />
-                    </Form.Item>
-                  </Col>
-                </Row>
-              </>
-            ) : null}
-            <Row gutter={16}>
-              <Col span={6}>
-                <Popconfirm
-                  title="确认修改?"
-                  onOk={() => {
-                    Message.info({
-                      content: "确认修改",
-                    });
-                  }}
-                  onCancel={() => {
-                    Message.error({
-                      content: "取消修改",
-                    });
-                  }}
-                >
-                  <div style={{ height: "30px" }}></div>
-                  <Button style={{ width: "100%" }} type="primary">
-                    确认修改
-                  </Button>
-                </Popconfirm>
-              </Col>
-            </Row>
           </Form>
+          {userType === "full" ? (
+            <Form
+              onValuesChange={(current, all: any) => {
+                setUser(all);
+              }}
+              layout="vertical"
+            >
+              <Row gutter={16}>
+                <Col span={6}>
+                  <Form.Item
+                    label="手机号"
+                    rules={[{ required: true, message: "请输入手机号" }]}
+                    field="phone"
+                    initialValue={phone}
+                  >
+                    <Input allowClear style={{ width: "100%" }} />
+                  </Form.Item>
+                </Col>
+                <Col span={6}>
+                  <Form.Item
+                    label="学校"
+                    rules={[{ required: true, message: "请输入学校" }]}
+                    field="school"
+                    initialValue={school}
+                  >
+                    <Input allowClear style={{ width: "100%" }} />
+                  </Form.Item>
+                </Col>
+                <Col span={6}>
+                  <Form.Item
+                    label="专业"
+                    rules={[{ required: true, message: "请输入专业" }]}
+                    field="major"
+                    initialValue={major}
+                  >
+                    <Input allowClear style={{ width: "100%" }} />
+                  </Form.Item>
+                </Col>
+                <Col span={6}>
+                  <Form.Item
+                    label="年级"
+                    rules={[{ required: true, message: "请输入年级" }]}
+                    field="grade"
+                    initialValue={grade}
+                  >
+                    <Input allowClear style={{ width: "100%" }} />
+                  </Form.Item>
+                </Col>
+              </Row>
+              <Row gutter={16}>
+                <Col span={6}>
+                  <Form.Item
+                    label="国家"
+                    rules={[{ required: true, message: "请输入国家" }]}
+                    field="country"
+                    initialValue={country}
+                  >
+                    <Input allowClear style={{ width: "100%" }} />
+                  </Form.Item>
+                </Col>
+                <Col span={6}>
+                  <Form.Item
+                    label="地区"
+                    rules={[{ required: true, message: "请输入地区" }]}
+                    field="area"
+                    initialValue={area}
+                  >
+                    <Input allowClear style={{ width: "100%" }} />
+                  </Form.Item>
+                </Col>
+                <Col span={6}>
+                  <Form.Item
+                    label="年龄"
+                    rules={[{ required: true, message: "请输入年龄" }]}
+                    field="age"
+                    initialValue={age}
+                  >
+                    <InputNumber  style={{ width: "100%" }} />
+                  </Form.Item>
+                </Col>
+                <Col span={6}>
+                  <Form.Item
+                    label="微信号"
+                    rules={[{ required: true, message: "请输入微信号" }]}
+                    field="wechat"
+                    initialValue={wechat}
+                  >
+                    <Input allowClear style={{ width: "100%" }} />
+                  </Form.Item>
+                </Col>
+              </Row>
+              <Row gutter={16}>
+                <Col span={6}>
+                  <Form.Item
+                    label="qq号"
+                    rules={[{ required: true, message: "请输入qq号" }]}
+                    field="qq"
+                    initialValue={qq}
+                  >
+                    <Input allowClear style={{ width: "100%" }} />
+                  </Form.Item>
+                </Col>
+              </Row>
+            </Form>
+          ) : null}
+          <Row gutter={16}>
+            <Col span={6}>
+              <Popconfirm
+                title="确认修改?"
+                onOk={userType === "full" ? handleSubmit : handleCommonSubmit}
+                onCancel={() => {
+                  Message.error({
+                    content: "取消修改",
+                  });
+                }}
+              >
+                <div style={{ height: "30px" }}></div>
+                <Button style={{ width: "100%" }} type="primary">
+                  确认修改
+                </Button>
+              </Popconfirm>
+            </Col>
+          </Row>
         </TabPane>
       </Tabs>
     </div>

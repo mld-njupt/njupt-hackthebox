@@ -203,11 +203,6 @@ function FullRegister() {
           </div>
         </div>
       </div>
-      {/* <div className="login-polices">
-      <div v-for="(item, idx) in menus" :key="idx" className="login-police">
-        {{ item.text }}
-      </div>
-    </div> */}
     </div>
   );
 }

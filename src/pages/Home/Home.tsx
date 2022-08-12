@@ -3,8 +3,10 @@ import { useEffect, useState } from "react";
 import { Layout, Menu, Notification, Dropdown } from "@arco-design/web-react";
 import { IconDown } from "@arco-design/web-react/icon";
 import { useNavigate, useLocation, Outlet } from "react-router-dom";
+import { useRecoilState  } from "recoil";
 import { useFetch } from "../../utils/customHooks";
 import { getSessionApi, logoutApi, getUserInfoApi } from "../../api/user";
+import { refreshUser } from "../../store/user";
 import IconAbout from "../../assets/images/icons/About.svg";
 import IconDashboard from "../../assets/images/icons/Dashboard.svg";
 import IconEnv from "../../assets/images/icons/Env.svg";
@@ -21,10 +23,7 @@ const Home = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [navigation, setNavigation] = useState("dashboard");
-  const handleCilckMenuItem = (key) => {
-    navigate(key);
-    setNavigation(key);
-  };
+  const [isRefresh,refresh]=useRecoilState(refreshUser)
   const [[session], getSession] = useFetch(getSessionApi());
   const [[logoutData], logout] = useFetch(logoutApi());
   const [[userInfo], getUserInfo] = useFetch(getUserInfoApi());
@@ -33,7 +32,7 @@ const Home = () => {
     getSession();
     getUserInfo();
     // navigate("/dashboard");
-  }, []);
+  }, [isRefresh]);
   useEffect(() => {
     if (session && session.code === 200) {
       localStorage.removeItem("user");
@@ -64,6 +63,10 @@ const Home = () => {
       localStorage.removeItem("userInfo");
     }
   }, [userInfo]);
+  const handleCilckMenuItem = (key) => {
+    navigate(key);
+    setNavigation(key);
+  };
   const dropList = (
     <Menu
       style={{

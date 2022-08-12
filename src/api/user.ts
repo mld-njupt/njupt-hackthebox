@@ -65,7 +65,11 @@ export const updateInfoApi = (user: {
   return {
     url: "/v1/user/updateInfo",
     method: "put",
-    body: user,
+    body: {
+      username: user.username,
+      password: user.password,
+      email: user.email,
+    },
   };
 };
 
@@ -108,7 +112,7 @@ export const putUserInfoApi = (userInfo: {
   return {
     url: "/v1/user/info/detail",
     method: "put",
-    body: userInfo,
+    body: {...userInfo},
   };
 };
 
