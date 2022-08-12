@@ -12,14 +12,14 @@ const words = {
   title: "进阶注册",
   area: "地区*",
   school: "学校*",
-  age: "年龄",
+  age: "年龄*",
   sex: "性别*",
   major: "专业*",
   grade: "年级*",
   phone: "手机号*",
   country: "国家*",
-  weChat: "微信号",
-  qq: "qq号",
+  weChat: "微信号*",
+  qq: "qq号*",
   // noaccount: "没有账号？",
   register: "注册",
   // forget: "忘记密码",
@@ -30,7 +30,6 @@ const words = {
 function FullRegister() {
   const [areaRef, areaFocus] = useFocus<HTMLInputElement>();
   const [schoolRef, schoolFocus] = useFocus<HTMLInputElement>();
-  const [sexRef, sexFocus] = useFocus<HTMLInputElement>();
   const [ageRef, ageFocus] = useFocus<HTMLInputElement>();
   const [weChatRef, weChatFocus] = useFocus<HTMLInputElement>();
   const [majorRef, majorFocus] = useFocus<HTMLInputElement>();
@@ -42,8 +41,7 @@ function FullRegister() {
   const [registerConfig, setRegisterConfig] = useState<{
     area: string;
     school: string;
-    age: number | string | null;
-    sex: string;
+    age: number | string;
     wechat: string | null;
     qq: string | null;
     major: string;
@@ -53,8 +51,7 @@ function FullRegister() {
   }>({
     area: "",
     school: "",
-    age: null,
-    sex: "",
+    age: "",
     wechat: null,
     qq: null,
     major: "",
@@ -67,24 +64,31 @@ function FullRegister() {
   );
   const handleInput = (configType: string) => {
     return (e: any) => {
-      setRegisterConfig({ ...registerConfig, [configType]: e.target.value });
+      if (configType === "age") {
+        setRegisterConfig({
+          ...registerConfig,
+          [configType]: parseInt(e.target.value),
+        });
+      } else {
+        setRegisterConfig({ ...registerConfig, [configType]: e.target.value });
+      }
     };
   };
   const handleSubmit = async () => {
     try {
       await checkValid("isNull")(registerConfig.area, "area");
       await checkValid("isNull")(registerConfig.school, "school");
-      await checkValid("isNull")(registerConfig.sex, "sex");
       await checkValid("isNull")(registerConfig.major, "major");
       await checkValid("isNull")(registerConfig.grade, "grade");
       await checkValid("isNull")(registerConfig.country, "country");
       await checkValid("isNull")(registerConfig.phone, "phone");
       await checkValid("mobilePhone")(registerConfig.phone);
+      await checkValid("age")(registerConfig.age?.toString());
     } catch (error: any) {
       Notification.error({ title: "Error", content: error });
       return;
     }
-    fullRegister()
+    fullRegister();
   };
   useEffect(() => {
     let pw = new ParticleWave();
@@ -138,14 +142,6 @@ function FullRegister() {
               />
             </div>
             <div className="full-register-input">
-              <span className={sexFocus ? "input-focus" : ""}>{words.sex}</span>
-              <input
-                type="school"
-                ref={sexRef}
-                onChange={debounce(handleInput("sex"), 500)}
-              />
-            </div>
-            <div className="full-register-input">
               <span className={gradeFocus ? "input-focus" : ""}>
                 {words.grade}
               </span>
@@ -182,7 +178,7 @@ function FullRegister() {
               <input
                 type="school"
                 ref={weChatRef}
-                onChange={debounce(handleInput("weChat"), 500)}
+                onChange={debounce(handleInput("wechat"), 500)}
               />
             </div>
             <div className="full-register-input">

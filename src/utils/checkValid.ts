@@ -18,12 +18,17 @@ const rules = {
   confirm: (pas: string, confirm: string) => {
     return pas == confirm;
   },
+  age:(str:string)=>{
+    const re=/^[0-9]*$/;
+    return re.test(str)
+  }
 };
 const errorWords = {
   isNull: "不能为空",
   mobilePhone: "手机号填写有误",
   email: "邮箱填写有误",
   confirm: "两次密码填写不一致",
+  age:"年龄填写有误"
 };
 const keyWords = {
   username: "用户名",
@@ -41,7 +46,7 @@ const keyWords = {
   wechat:"微信号",
   qq:"qq号"
 };
-const checkValid = (type: "mobilePhone" | "email" | "confirm" | "isNull") => {
+const checkValid = (type: "mobilePhone" | "email" | "confirm" | "isNull"|"age") => {
   return (str: string, ...args: any) => {
     return new Promise((resolve, reject) => {
       if (!rules[type](str, args)) {

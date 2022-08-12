@@ -36,8 +36,10 @@ const Home = () => {
   }, []);
   useEffect(() => {
     if (session && session.code === 200) {
+      localStorage.removeItem("user");
       localStorage.setItem("user", JSON.stringify(session.data));
     } else if (session && session.code !== 200) {
+      localStorage.removeItem("user");
       session && Notification.error({ title: "Error", content: "请先登录" });
       navigate("/login");
     }
@@ -53,9 +55,13 @@ const Home = () => {
   }, [logoutData]);
   useEffect(() => {
     if (userInfo && userInfo.code === 200) {
-      localStorage.removeItem("userType")
+      localStorage.removeItem("userType");
+      localStorage.removeItem("userInfo");
       localStorage.setItem("userType", "full");
       localStorage.setItem("userInfo", JSON.stringify(userInfo.data));
+    } else {
+      localStorage.removeItem("userType");
+      localStorage.removeItem("userInfo");
     }
   }, [userInfo]);
   const dropList = (

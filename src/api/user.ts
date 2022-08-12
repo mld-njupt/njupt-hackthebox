@@ -57,23 +57,15 @@ export const logoutApi = (): fetchInterface => {
 };
 
 // 更新用户信息
-export const updateInfoApi = (
-  username: string,
-  password: string,
-  email: string,
-  affiliation: string,
-  country: string
-): fetchInterface => {
+export const updateInfoApi = (user: {
+  username: string;
+  password: string;
+  email: string;
+}): fetchInterface => {
   return {
     url: "/v1/user/updateInfo",
-    method: "post",
-    body: {
-      username,
-      password,
-      email,
-      affiliation,
-      country,
-    },
+    method: "put",
+    body: user,
   };
 };
 
@@ -103,7 +95,7 @@ export const getUserInfoApi = (): fetchInterface => {
 
 //修改用户信息
 export const putUserInfoApi = (userInfo: {
-  age:string|number|null;
+  age: string | number | null;
   area: string;
   country: string;
   grade: string;
@@ -122,15 +114,15 @@ export const putUserInfoApi = (userInfo: {
 
 //完整注册
 export const postUserInfoApi = (userInfo: {
-  age: string|number|null;
+  age: string | number | null;
   area: string;
   country: string;
   grade: string;
   major: string;
   phone: string;
-  qq: string|null;
+  qq: string | null;
   school: string;
-  wechat: string|null;
+  wechat: string | null;
 }): fetchInterface => {
   return {
     url: "/v1/user/info/detail",
