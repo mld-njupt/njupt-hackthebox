@@ -80,13 +80,11 @@ export const useFocus = <T>(): [MutableRefObject<T>, boolean] => {
   const handleBlur = (): void => setValue(false);
   useEffect(() => {
     const node: any = ref.current;
-    if (node) {
-      node.addEventListener("focus", handleFocus);
-      node.addEventListener("blur", handleBlur);
-    }
+    node && node.addEventListener("focus", handleFocus);
+    node && node.addEventListener("blur", handleBlur);
     return () => {
-      node.removeEventListener("foucs", handleFocus);
-      node.removeEventListener("blur", handleBlur);
+      node && node.removeEventListener("foucs", handleFocus);
+      node && node.removeEventListener("blur", handleBlur);
     };
   }, [ref.current]);
   return [ref, value];
