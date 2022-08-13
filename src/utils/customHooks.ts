@@ -83,7 +83,7 @@ export const useFocus = <T>(): [MutableRefObject<T>, boolean] => {
     node && node.addEventListener("focus", handleFocus);
     node && node.addEventListener("blur", handleBlur);
     return () => {
-      node && node.removeEventListener("foucs", handleFocus);
+      node && node.removeEventListener("focus", handleFocus);
       node && node.removeEventListener("blur", handleBlur);
     };
   }, [ref.current]);
