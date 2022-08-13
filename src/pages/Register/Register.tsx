@@ -66,7 +66,9 @@ const Register = () => {
   );
   const handleInput = (configType: string) => {
     return (e: any) => {
-      setRegisterConfig({ ...registerConfig, [configType]: e.target.value });
+      setRegisterConfig((prev) => {
+        return { ...prev, [configType]: e.target.value };
+      });
     };
   };
   const handleSubmit = async () => {

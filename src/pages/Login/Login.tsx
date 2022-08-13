@@ -55,7 +55,9 @@ const Login = function () {
   };
   const handleInput = (configType: string) => {
     return (e: any) => {
-      setLoginConfig({ ...loginConfig, [configType]: e.target.value });
+      setLoginConfig((prev) => {
+        return { ...prev, [configType]: e.target.value };
+      });
     };
   };
   const handleSubmit = async () => {
@@ -66,7 +68,9 @@ const Login = function () {
       Notification.error({ title: "Error", content: error });
       return;
     }
-    login();
+    setTimeout(()=>{
+      login()
+    },100)
   };
   useEffect(() => {
     let pw = new ParticleWave();
@@ -95,6 +99,8 @@ const Login = function () {
             <input
               type="text"
               ref={usernameRef}
+              // readOnly
+              onFocus={handleInput("username")}
               onChange={debounce(handleInput("username"), 500)}
             />
           </div>
@@ -116,7 +122,7 @@ const Login = function () {
                     return { ...prev, remember: checked };
                   });
                 }}
-              ></Checkbox>{" "}
+              ></Checkbox>
               {words.keepalive}
             </div>
             <div className="login-forget">{words.forget}</div>
@@ -132,11 +138,6 @@ const Login = function () {
           </div>
         </div>
       </div>
-      {/* <div className="login-polices">
-      <div v-for="(item, idx) in menus" :key="idx" className="login-police">
-        {{ item.text }}
-      </div>
-    </div> */}
     </div>
   );
 };
