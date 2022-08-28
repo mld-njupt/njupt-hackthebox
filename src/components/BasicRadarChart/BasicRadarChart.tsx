@@ -114,7 +114,7 @@ const BasicRadarChart = (props: chartProp) => {
     };
   }, [props]);
   return (
-    <div style={{ width: "100%", height: "100%" }} id="chart-container"></div>
+    <div style={{ width: "400px", height: "400px" }} id="chart-container"></div>
   );
 };
 export default BasicRadarChart;

@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Layout, Menu, Notification, Dropdown } from "@arco-design/web-react";
 import { IconDown } from "@arco-design/web-react/icon";
 import { useNavigate, useLocation, Outlet } from "react-router-dom";
-import { useRecoilState  } from "recoil";
+import { useRecoilState } from "recoil";
 import { useFetch } from "../../utils/customHooks";
 import { getSessionApi, logoutApi, getUserInfoApi } from "../../api/user";
 import { refreshUser } from "../../store/user";
@@ -23,7 +23,7 @@ const Home = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [navigation, setNavigation] = useState("dashboard");
-  const [isRefresh,refresh]=useRecoilState(refreshUser)
+  const [isRefresh, refresh] = useRecoilState(refreshUser);
   const [[session], getSession] = useFetch(getSessionApi());
   const [[logoutData], logout] = useFetch(logoutApi());
   const [[userInfo], getUserInfo] = useFetch(getUserInfoApi());

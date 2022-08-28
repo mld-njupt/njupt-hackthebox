@@ -97,7 +97,13 @@ function UserProfile() {
   const [[updateInfoData], updateInfo] = useFetch(updateInfoApi(commonUser));
   //进阶用户修改信息
   const [[putUserInfoData], putUserInfo] = useFetch(putUserInfoApi(user));
-  const [scoreObj, setScoreObj] = useState<any>({});
+  const [scoreObj, setScoreObj] = useState<any>({
+    Web: 0,
+    Crypto: 0,
+    Ppc: 0,
+    Misc: 0,
+    Pwn: 0,
+  });
   const { username, email, password, rePassword } = commonUser;
   const { phone, major, school, grade, country, area, age, wechat, qq } = user;
 
@@ -111,7 +117,7 @@ function UserProfile() {
     score &&
       score.data.map((value: { category: any; solve_count: any }) => {
         setScoreObj((prev: any) => {
-          return { ...prev, [value.category]: value.solve_count * 10 };
+          return { ...prev, [value.category]: value.solve_count };
         });
       });
   }, [score]);
@@ -150,7 +156,6 @@ function UserProfile() {
     }
   };
   const handleSubmit = () => {
-    console.log(password, rePassword);
     if (!/^1\d{10}$/.test(phone)) {
       Notification.error({ title: "Error", content: "手机号格式错误" });
     } else if (password !== rePassword) {
@@ -215,47 +220,61 @@ function UserProfile() {
               gutterSize={2}
             />
           </div>
-          <ScollView width={wrapWidth} itemWidth={210}>
-            <div className="global-ranking">
-              <div className="ranking-image"></div>
-              <div className="ranking-msg">
-                <div className="mgs-ranking">#{rank && rank.data.rank}</div>
-                <div className="msg-title">总排名</div>
+          <div className="ranking-wrap">
+            <RadarChart
+              title=""
+              series={[
+                scoreObj["Web"],
+                parseInt(scoreObj["Pwn"]),
+                parseInt(scoreObj["Misc"]),
+                parseInt(scoreObj["Ppc"]),
+                parseInt(scoreObj["Crypto"]),
+              ]}
+            ></RadarChart>
+            <div>
+              <div className="global-ranking">
+                <div className="ranking-image"></div>
+                <div className="ranking-msg">
+                  <div className="mgs-ranking">#{rank && rank.data.rank}</div>
+                  <div className="msg-title">总排名</div>
+                </div>
               </div>
+              {score && (
+                <ScollView width={wrapWidth} itemWidth={210}>
+                  <ProfileCard
+                    key={1}
+                    score={scoreObj.Web}
+                    category={"Web"}
+                  ></ProfileCard>
+                  <ProfileCard
+                    key={2}
+                    score={scoreObj.Pwn}
+                    category={"Pwn"}
+                  ></ProfileCard>
+                  <ProfileCard
+                    key={3}
+                    score={scoreObj.Crypto}
+                    category={"Cryoto"}
+                  ></ProfileCard>
+                  <ProfileCard
+                    key={4}
+                    score={scoreObj.Misc}
+                    category={"Misc"}
+                  ></ProfileCard>
+                  <ProfileCard
+                    key={5}
+                    score={scoreObj.Ppc}
+                    category={"Ppc"}
+                  ></ProfileCard>
+                </ScollView>
+              )}
             </div>
-            <>
-              {score &&
-                score.data.map(
-                  (
-                    value: { solve_count: number; category: string },
-                    index: React.Key | null | undefined
-                  ) => {
-                    return (
-                      <ProfileCard
-                        key={index}
-                        score={value.solve_count}
-                        category={value.category}
-                      ></ProfileCard>
-                    );
-                  }
-                )}
-            </>
-          </ScollView>
-          <RadarChart
-            title=""
-            series={[
-              scoreObj["Web"],
-              parseInt(scoreObj["Pwn"]),
-              parseInt(scoreObj["Misc"]),
-              parseInt(scoreObj["Ppc"]),
-              parseInt(scoreObj["Crypto"]),
-            ]}
-          ></RadarChart>
+          </div>
         </TabPane>
         <TabPane key="2" title="修改个人信息">
           <Form
             onValuesChange={(current, all: any) => {
-              console.log(all)
+              console.log(all);
               setCommonUser(all);
             }}
             layout="vertical"
@@ -378,7 +397,7 @@ function UserProfile() {
                     field="age"
                     initialValue={age}
                   >
-                    <InputNumber  style={{ width: "100%" }} />
+                    <InputNumber style={{ width: "100%" }} />
                   </Form.Item>
                 </Col>
                 <Col span={6}>

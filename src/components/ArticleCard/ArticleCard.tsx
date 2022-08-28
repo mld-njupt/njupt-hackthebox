@@ -1,7 +1,6 @@
 
-import React,{useState,useRef, useEffect} from "react";
-import { getSingleArticle } from "../../api/passage";
-import { useFetch ,useIntersectionObserver } from "../../utils/customHooks";
+import React,{useState,useRef} from "react";
+import { useIntersectionObserver } from "../../utils/customHooks";
 import { articlrCard } from "../../utils/interfaces";
 import "./ArticleCard.scss";
 function ArticleCard(props:articlrCard) {
