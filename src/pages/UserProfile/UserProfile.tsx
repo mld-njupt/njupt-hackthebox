@@ -181,15 +181,19 @@ function UserProfile() {
           </div>
           <div className="right-item user-type">
             <div className="item-title">个人类型</div>
-            <div className="item-state">萌新</div>
-            <div
-              className="go"
-              onClick={() => {
-                navigate("/fullRegister");
-              }}
-            >
-              进阶
+            <div className="item-state">
+              {userType === "full" ? "普通用户" : "萌新"}
             </div>
+            {userType === "full" ? null : (
+              <div
+                className="go"
+                onClick={() => {
+                  navigate("/fullRegister");
+                }}
+              >
+                进阶
+              </div>
+            )}
           </div>
         </div>
       </div>

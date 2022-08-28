@@ -46,6 +46,9 @@ const Home = () => {
   useEffect(() => {
     if (logoutData && logoutData.code === 200) {
       Notification.success({ title: "Success", content: "退出成功" });
+      localStorage.removeItem("userType");
+      localStorage.removeItem("userInfo");
+      localStorage.removeItem("user");
       navigate("/login");
     } else if (logoutData && logoutData.code !== 200) {
       logoutData && Notification.error({ title: "Error", content: "退出失败" });
